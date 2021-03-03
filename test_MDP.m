@@ -10,11 +10,11 @@ test.add_state("S2");
 
 test
 
-test.add_action("a");
+test.add_action("a","imm");
 
 test
 
-test.add_action("b");
+test.add_action("b","imm");
 
 test.add_state("S3");
 
