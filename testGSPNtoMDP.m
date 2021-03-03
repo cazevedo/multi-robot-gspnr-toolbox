@@ -4,11 +4,11 @@ clear
 deterministic = GSPNR();
 
 places = ["p1", "p2", "p3", "p4", "p5", "p6"];
-tokens = [2,    0,    0,    0,    0,    0   ];
+tokens = [1,    0,    0,    0,    0,    0   ];
 
 transitions =    ["t1", "t2", "t3", "t4", "t5"];
-transition_types=["imm","imm","imm","imm","imm"];
-transition_rates=[0,    0,    0,    1,    1   ];
+transition_types=["exp","exp","exp","exp","exp"];
+transition_rates=[1,    2,    0.6,    1,    2   ];
 
 arc_places = ["p1","p1","p1","p2", "p2","p2","p3", "p4", "p5", "p6"];
 arc_trans  = ["t1","t2","t3","t1", "t4","t5","t2", "t3", "t4", "t5"];
