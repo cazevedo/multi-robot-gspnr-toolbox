@@ -244,14 +244,14 @@ classdef GSPNR < handle
                       if weight_sum ~= 0
                           %RACE CONDITION
                           transition_index = find(GSPN.transitions == transition);
-                          action_index = emb_MDP.add_action(race_name);
+                          action_index = emb_MDP.add_action(race_name, "imm");
                           transition_weight = GSPN.rate_transitions(transition_index);
                           emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = transition_weight/weight_sum; 
                       else
                           %CONTROLLABLE ACTION
                           transition_index = find(GSPN.transitions == transition);
                           transition;
-                          action_index = emb_MDP.add_action(transition);
+                          action_index = emb_MDP.add_action(transition, "imm");
                           emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = 1.0;
                           
                       end
@@ -261,9 +261,32 @@ classdef GSPNR < handle
                   
               elseif(isempty(imm_enabled)&&~isempty(exp_enabled))
                   %Markovian state
+                  nTransitions = length(exp_enabled);
+                  for exp_enabled_index = 1:nTransitions
+                     transition = exp_enabled(exp_enabled_index)
+                     GSPN.fire_transition(transition);
+                     new_marking = GSPN.current_marking;
+                     [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows')
+                     if (~explored)
+                         markings_to_explore = cat(1, markings_to_explore, new_marking);
+                         covered_marking_list = cat(1, covered_marking_list, new_marking);
+                         target_state_name = "S" + string(state_index);
+                         covered_state_list = cat(1, covered_state_list, target_state_name);
+                         target_state_index = size(covered_state_list, 1);
+                         emb_MDP.add_state(target_state_name);
+                         state_index = state_index + 1;
+                     end
+                     transition_index = find(GSPN.transitions == transition);
+                     transition_rate = GSPN.rate_transitions(transition_index);
+                     transition_name = transition+"EXP";
+                     action_index = emb_MDP.add_action(transition_name, "exp");
+                     emb_MDP.exponential_transition_matrix(original_state_index, action_index, target_state_index) = transition_rate;
+                     GSPN.set_marking(original_marking);
+                  end
                   
               else
                   %Hybrid state
+                  
               end
               markings_to_explore(1,:) = [];
            end
