@@ -186,31 +186,35 @@ classdef GSPNR < handle
            GSPN.current_marking = final_marking;
         end
         
-        function emb_MDP = ConverttoMDP(GSPN)
+        function [emb_MDP, covered_marking_list, covered_state_list] = ConverttoMDP(GSPN)
            %Transforms the GSPNR object into the equivalent MDP
            %Markings are added to the state as soon as they are discovered
-           emb_MDP = MarkovDecisionProblem()
+           emb_MDP = MarkovDecisionProblem();
            covered_marking_list = [];   %The marking represented by row i, is
            covered_state_list = [];     %is equivalent to state in row i of this vector
+           
+           %Initialization with the initial state equivalent to the initial
+           %marking of the GSPNR
            markings_to_explore = [GSPN.initial_marking];
            state_index = 1;
            state_name = "S"+string(state_index);
            state_index = state_index + 1;
-           covered_marking_list = cat(1,covered_marking_list,GSPN.initial_marking)
-           covered_state_list = cat(1, covered_state_list, state_name)
+           covered_marking_list = cat(1,covered_marking_list,GSPN.initial_marking);
+           covered_state_list = cat(1, covered_state_list, state_name);
            emb_MDP.add_state(state_name);
+           
            while ~(isempty(markings_to_explore))
-              original_marking = markings_to_explore(1,:)
+              original_marking = markings_to_explore(1,:); %Marking to be explored
               GSPN.set_marking(original_marking);
               [exists, original_state_index] = ismember(original_marking, covered_marking_list, 'rows');
               original_state = "S" + string(original_state_index);
               
-              [imm_enabled, exp_enabled] = GSPN.enabled_transitions();
+              [imm_enabled, exp_enabled] = GSPN.enabled_transitions(); %Enabled transitions in this state
               
               nTransitions = length(imm_enabled);
               if (~isempty(imm_enabled))
                 weight_sum = 0;
-                imm_enabled_race = [string.empty];
+                imm_enabled_race = [string.empty];%Transitions that are part of a race condition (any that has weight~=0)
                 for imm_enabled_index = 1:nTransitions
                     transition = imm_enabled(imm_enabled_index);
                     transition_index = find(GSPN.transitions == transition);
@@ -220,78 +224,95 @@ classdef GSPNR < handle
                     end
                     weight_sum = weight_sum + rate;
                 end
-                race_name = "RACE_" + strjoin(imm_enabled_race,"_")
+                race_name = "RACE_" + strjoin(imm_enabled_race,"_");
+              end
+              probabilistic_state = false;
+              
+              %Firing any immediate transitions if they are enabled
+              nTransitions = length(imm_enabled);
+              for imm_enabled_index = 1:nTransitions
+                  probabilistic_state = true; %If there are any immediate transitions to fire, this will execute
+                  transition = imm_enabled(imm_enabled_index);
+                  GSPN.fire_transition(transition);
+                  new_marking = GSPN.current_marking;
+                  [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows');
+                  if (~explored)
+                      markings_to_explore = cat(1, markings_to_explore, new_marking);
+                      covered_marking_list = cat(1, covered_marking_list, new_marking);
+                      target_state_name = "S" + string(state_index);
+                      covered_state_list = cat(1, covered_state_list, target_state_name);
+                      target_state_index = size(covered_state_list, 1);
+                      emb_MDP.add_state(target_state_name);
+                      state_index = state_index + 1;
+                  end
+                  if weight_sum ~= 0
+                      %RACE CONDITION
+                      transition_index = find(GSPN.transitions == transition);
+                      action_index = emb_MDP.add_action(race_name, "imm");
+                      transition_weight = GSPN.rate_transitions(transition_index);
+                      emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = transition_weight/weight_sum; 
+                  else
+                      %CONTROLLABLE ACTION
+                      transition_index = find(GSPN.transitions == transition);
+                      action_index = emb_MDP.add_action(transition, "imm");
+                      emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = 1.0;
+                      reward = GSPN.transition_rewards(transition_index);  
+                      if (reward ~= 0)
+                          emb_MDP.rewards_matrix(original_state_index, action_index) = reward;
+                      end
+
+                  end
+                  GSPN.set_marking(original_marking);
               end
               
-              if (isempty(exp_enabled))
-                  %Probabilistic state
-                  markings_to_explore;
-                  nTransitions = length(imm_enabled);
-                  for imm_enabled_index = 1:nTransitions
-                      transition = imm_enabled(imm_enabled_index);
-                      GSPN.fire_transition(transition);
-                      new_marking = GSPN.current_marking;
-                      [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows');
-                      if (~explored)
-                          markings_to_explore = cat(1, markings_to_explore, new_marking);
-                          covered_marking_list = cat(1, covered_marking_list, new_marking);
-                          target_state_name = "S" + string(state_index);
-                          covered_state_list = cat(1, covered_state_list, target_state_name);
-                          target_state_index = size(covered_state_list, 1);
-                          emb_MDP.add_state(target_state_name);
-                          state_index = state_index + 1;
-                      end
-                      if weight_sum ~= 0
-                          %RACE CONDITION
-                          transition_index = find(GSPN.transitions == transition);
-                          action_index = emb_MDP.add_action(race_name, "imm");
-                          transition_weight = GSPN.rate_transitions(transition_index);
-                          emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = transition_weight/weight_sum; 
-                      else
-                          %CONTROLLABLE ACTION
-                          transition_index = find(GSPN.transitions == transition);
-                          transition;
-                          action_index = emb_MDP.add_action(transition, "imm");
-                          emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = 1.0;
-                          
-                      end
-                      original_marking;
-                      GSPN.set_marking(original_marking);
-                  end
+              if (probabilistic_state && ~isempty(exp_enabled) )
+                  %Hybrid state, where there are immediate and exponential
+                  %enabled transitions
+                  target_state = "WAIT_S"+string(original_state_index);
+                  covered_marking_list = cat(1, covered_marking_list, original_marking);
+                  covered_state_list = cat(1, covered_state_list, target_state);
                   
-              elseif(isempty(imm_enabled)&&~isempty(exp_enabled))
-                  %Markovian state
-                  nTransitions = length(exp_enabled);
-                  for exp_enabled_index = 1:nTransitions
-                     transition = exp_enabled(exp_enabled_index)
-                     GSPN.fire_transition(transition);
-                     new_marking = GSPN.current_marking;
-                     [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows')
-                     if (~explored)
-                         markings_to_explore = cat(1, markings_to_explore, new_marking);
-                         covered_marking_list = cat(1, covered_marking_list, new_marking);
-                         target_state_name = "S" + string(state_index);
-                         covered_state_list = cat(1, covered_state_list, target_state_name);
-                         target_state_index = size(covered_state_list, 1);
-                         emb_MDP.add_state(target_state_name);
-                         state_index = state_index + 1;
-                     end
-                     transition_index = find(GSPN.transitions == transition);
-                     transition_rate = GSPN.rate_transitions(transition_index);
-                     transition_name = transition+"EXP";
-                     action_index = emb_MDP.add_action(transition_name, "exp");
-                     emb_MDP.exponential_transition_matrix(original_state_index, action_index, target_state_index) = transition_rate;
-                     GSPN.set_marking(original_marking);
-                  end
-                  
-              else
-                  %Hybrid state
+                  wait_state_index = emb_MDP.add_state(target_state);
+                  wait_action_index = emb_MDP.add_action("WAIT","imm");
+                  %Adding action from original state to copy "wait" state;
+                  emb_MDP.transition_matrix(original_state_index, wait_action_index, wait_state_index) = 1.0;
+                  %All exponential transitions that follow, in the MDP
+                  %begin in this dummy "wait" state, and not the original
+                  %one
+                  original_state = target_state;
+                  original_state_index = wait_state_index;
                   
               end
+              
+              %Fire any exponential transitions, will not run anything if
+              %list is empty
+              nTransitions = length(exp_enabled);
+              for exp_enabled_index = 1:nTransitions
+                 transition = exp_enabled(exp_enabled_index);
+                 GSPN.fire_transition(transition);
+                 new_marking = GSPN.current_marking;
+                 [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows');
+                 if (~explored)
+                     markings_to_explore = cat(1, markings_to_explore, new_marking);
+                     covered_marking_list = cat(1, covered_marking_list, new_marking);
+                     target_state_name = "S" + string(state_index);
+                     covered_state_list = cat(1, covered_state_list, target_state_name);
+                     target_state_index = size(covered_state_list, 1);
+                     emb_MDP.add_state(target_state_name);
+                     state_index = state_index + 1;
+                 end
+                 transition_index = find(GSPN.transitions == transition);
+                 transition_rate = GSPN.rate_transitions(transition_index);
+                 transition_name = transition+"EXP";
+                 action_index = emb_MDP.add_action(transition_name, "exp");
+                 emb_MDP.exponential_transition_matrix(original_state_index, action_index, target_state_index) = transition_rate;
+                 GSPN.set_marking(original_marking);
+              end
+              
               markings_to_explore(1,:) = [];
            end
-           covered_marking_list
-           covered_state_list
+           emb_MDP.consolidation_uniformization();
+           
         end
     end
     
