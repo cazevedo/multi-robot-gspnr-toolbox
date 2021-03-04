@@ -186,12 +186,13 @@ classdef GSPNR < handle
            GSPN.current_marking = final_marking;
         end
         
-        function [emb_MDP, covered_marking_list, covered_state_list] = ConverttoMDP(GSPN)
+        function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = ConverttoMDP(GSPN)
            %Transforms the GSPNR object into the equivalent MDP
            %Markings are added to the state as soon as they are discovered
            emb_MDP = MarkovDecisionProblem();
            covered_marking_list = [];   %The marking represented by row i, is
            covered_state_list = [];     %is equivalent to state in row i of this vector
+           covered_state_type = [string.empty];
            
            %Initialization with the initial state equivalent to the initial
            %marking of the GSPNR
@@ -210,6 +211,14 @@ classdef GSPNR < handle
               original_state = "S" + string(original_state_index);
               
               [imm_enabled, exp_enabled] = GSPN.enabled_transitions(); %Enabled transitions in this state
+              
+              if (~isempty(imm_enabled))
+                  covered_state_type(original_state_index) = "VAN";
+              elseif( isempty(imm_enabled) && ~isempty(exp_enabled) )
+                  covered_state_type(original_state_index) = "TAN";
+              elseif( isempty(imm_enabled) && isempty(exp_enabled) )
+                  covered_state_type(original_state_index) = "SINK";
+              end
               
               nTransitions = length(imm_enabled);
               if (~isempty(imm_enabled))
@@ -258,7 +267,7 @@ classdef GSPNR < handle
                       emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = 1.0;
                       reward = GSPN.transition_rewards(transition_index);  
                       if (reward ~= 0)
-                          emb_MDP.rewards_matrix(original_state_index, action_index) = reward;
+                          emb_MDP.reward_matrix(original_state_index, action_index) = reward;
                       end
 
                   end
@@ -274,6 +283,7 @@ classdef GSPNR < handle
                   
                   wait_state_index = emb_MDP.add_state(target_state);
                   wait_action_index = emb_MDP.add_action("WAIT","imm");
+                  covered_state_type(wait_state_index) = "TAN";
                   %Adding action from original state to copy "wait" state;
                   emb_MDP.transition_matrix(original_state_index, wait_action_index, wait_state_index) = 1.0;
                   %All exponential transitions that follow, in the MDP
@@ -312,6 +322,23 @@ classdef GSPNR < handle
               markings_to_explore(1,:) = [];
            end
            emb_MDP.consolidation_uniformization();
+           
+           for state = 1:emb_MDP.nStates
+              state_name = covered_state_list(state);
+              state_index = emb_MDP.find_state(state_name);
+              state_type = covered_state_type(state);
+              if state_index == 0
+                  error("Something went very wrong")
+              end                  
+              equivalent_marking = covered_marking_list(state,:)
+              marked_places = equivalent_marking~=0
+              GSPN.place_rewards
+              state_reward = dot(GSPN.place_rewards,marked_places)
+              exp_action_index = emb_MDP.find_action("EXP")
+              if state_type == "TAN"
+                emb_MDP.reward_matrix(state_index, exp_action_index) = state_reward;
+              end
+           end
            
         end
     end

@@ -22,7 +22,7 @@ classdef MarkovDecisionProblem < handle
                 MDP.nStates = MDP.nStates+1;
                 MDP.transition_matrix = padarray(MDP.transition_matrix, [1 0 1],0,'post');
                 MDP.transition_matrix = MDP.transition_matrix(:,:,1:MDP.nStates);
-                
+                MDP.reward_matrix = padarray(MDP.reward_matrix, [1 0],0,'post');
                 MDP.exponential_transition_matrix = padarray(MDP.exponential_transition_matrix, [1 0 1],0,'post');
                 MDP.exponential_transition_matrix = MDP.exponential_transition_matrix(:,:,1:MDP.nStates);
                 state_index = length(MDP.states);
@@ -31,12 +31,22 @@ classdef MarkovDecisionProblem < handle
                 state_index = find(MDP.states == state_name);
             end
         end
+        function state_index = find_state(MDP, state_name)
+            index = find(MDP.states == state_name);
+            if isempty(index)
+                disp("State does not exist")
+                state_index = 0;
+            else
+                state_index = index;
+            end
+        end
         function action_index = add_action(MDP, action_name, type)
             if (type == "imm")
                 if isempty(find(MDP.actions == action_name))
                     MDP.actions = cat(2, MDP.actions, action_name);
                     MDP.nActions = MDP.nActions+1;
                     MDP.transition_matrix = padarray(MDP.transition_matrix, [0 1 0],0,'post');
+                    MDP.reward_matrix = padarray(MDP.reward_matrix, [0 1],0,'post');
                     action_index = length(MDP.actions);
 
                 else
@@ -59,10 +69,20 @@ classdef MarkovDecisionProblem < handle
             end
         end
         
+        function action_index = find_action(MDP, action_name)
+            index = find(MDP.actions == action_name);
+            if isempty(index)
+                index = 0;
+                disp("Action does not exist")
+            else
+                action_index = index;
+            end
+        end
+        
         function consolidation_uniformization(MDP)
            %Calculation of eta, uniformization constant
            exp_action_matrix = zeros(MDP.nStates, MDP.nStates);
-           total_trans_freq = [];
+           total_trans_freq = zeros(MDP.nStates, MDP.nStates);
            exit_rates = [];
            for state_index = 1:MDP.nStates
               total_trans_freq(state_index,:) = sum(MDP.exponential_transition_matrix(state_index,:,:));
