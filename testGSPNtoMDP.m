@@ -34,15 +34,20 @@ arc_trans  = ["t1", "t2", "t3", "t1", "t2", "t3"];
 arc_type =   ["in", "in", "in", "out","out","out"];
 arc_weights= [1   , 1   , 1   , 1    , 1   ,1   ];
 
+reward_names = ["p1", "t1"];
+reward_types = ["place", "transition"]
+reward_values= [5, 3]
+
 small_hybrid.add_places(places,tokens);
 small_hybrid.add_transitions(transitions, transition_types, transition_rates);
 small_hybrid.add_arcs(arc_places,arc_trans,arc_type,arc_weights);
+small_hybrid.set_reward_functions(reward_names, reward_values, reward_types);
 
-%MDP = small_hybrid.ConverttoMDP();
+%[MDP, markings, states, types] = small_hybrid.ConverttoMDP()
 
 test_norm = GSPNR();
 places = ["p1", "p2", "p3", "p4", "p5"];
-tokens = [10   , 0   , 0   , 0   , 0];
+tokens = [2   , 0   , 0   , 0   , 0];
 
 transitions =    ["t1", "t2", "t3", "t4", "t5", "t6"];
 transition_types=["exp","exp","exp","exp","exp","exp"];
@@ -56,4 +61,4 @@ test_norm.add_places(places,tokens);
 test_norm.add_transitions(transitions,transition_types,transition_rates);
 test_norm.add_arcs(arc_places,arc_trans,arc_type,arc_weights);
 
-[MDP, markings, states] = test_norm.ConverttoMDP()
+[MDP, markings, states, types] = test_norm.ConverttoMDP()
