@@ -58,10 +58,37 @@ classdef MarkovDecisionProblem < handle
                 error("Action added must be either immediate or exponential")
             end
         end
-        function normalization(MDP)
+        
+        function consolidation_uniformization(MDP)
+           %Calculation of eta, uniformization constant
+           exp_action_matrix = zeros(MDP.nStates, MDP.nStates);
+           total_trans_freq = [];
+           exit_rates = [];
+           for state_index = 1:MDP.nStates
+              total_trans_freq(state_index,:) = sum(MDP.exponential_transition_matrix(state_index,:,:));
+           end
+           exit_rates = sum(total_trans_freq, 2);
+           eta = max(exit_rates) + 1;
+           %Uniformization and Normalization for Exponential Transitions
+           for source_state = 1:MDP.nStates
+               for target_state = 1:MDP.nStates
+                   if source_state == target_state
+                       %In diagonal, transition that begins and ends in
+                       %same state/marking
+                       exp_action_matrix(source_state, target_state) = 1 - (exit_rates(source_state)-total_trans_freq(source_state,target_state))*(1/eta);
+                   else
+                       %Nondiagonal, normal expression
+                       exp_action_matrix(source_state, target_state) = total_trans_freq(source_state,target_state)/eta;
+                   end
+               end
+           end
             
+           exponential_action = MDP.add_action("EXP","imm");
+           MDP.transition_matrix(:,exponential_action,:) = exp_action_matrix;
+           MDP.exponential_transition_matrix = [];
+           MDP.nEXPActions = 0;
+           MDP.exp_actions = [string.empty];
         end
-                
                 
     end
     
