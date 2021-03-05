@@ -335,7 +335,7 @@ classdef GSPNR < handle
               marked_places = equivalent_marking~=0;
               state_reward = dot(GSPN.place_rewards,marked_places);
               if state_type == "TAN"
-                emb_MDP.reward_matrix(state_index, exp_action_index) = state_reward;
+                emb_MDP.reward_matrix(state_index, exp_action_index) = state_reward/emb_MDP.eta;
               end
            end
            
