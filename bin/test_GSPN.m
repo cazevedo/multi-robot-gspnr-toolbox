@@ -33,7 +33,18 @@ test.set_reward_functions(reward_names, reward_values, reward_types)
 %test.add_transitions(transitions_2, types_2)
 %test.transitions;
 [imm_transitions, exp_transitions] = test.enabled_transitions()
+test
 
-%test.fire_transition("t2")
+test.fire_transition("t2")
+
+test
+
+[imm_transitions, exp_transitions] = test.enabled_transitions()
+
+test.fire_transition(imm_transitions)
+
+test
+
+test.fire_transition("t1")
 
 test

@@ -82,10 +82,9 @@ classdef MarkovDecisionProblem < handle
         
         function consolidation_uniformization(MDP)
            %Calculation of eta, uniformization constant
-           exp_action_matrix = zeros(MDP.nStates, MDP.nStates)
-           total_trans_freq = zeros(MDP.nStates, MDP.nStates)
+           exp_action_matrix = zeros(MDP.nStates, MDP.nStates);
+           total_trans_freq = zeros(MDP.nStates, MDP.nStates);
            exit_rates = [];
-           MDP.exponential_transition_matrix
 %            total_trans_freq = sum(exp_action_matrix, 2)
 %            total_trans_freq = reshape(total_trans_freq, MDP.nStates, MDP.nStates);
            for state_index = 1:MDP.nStates

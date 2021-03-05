@@ -1,6 +1,11 @@
 clc
 clear
 
+addpath('/home/antonio/Repos/GSPNR_Toolbox/src/models/');
+
+import GSPNR.*
+import MarkovDecisionProcess.MarkovDecisionProcess.*
+
 deterministic = GSPNR();
 
 places = ["p1", "p2", "p3", "p4", "p5", "p6"];
@@ -35,8 +40,8 @@ arc_type =   ["in", "in", "in", "out","out","out"];
 arc_weights= [1   , 1   , 1   , 1    , 1   ,1   ];
 
 reward_names = ["p1", "t1"];
-reward_types = ["place", "transition"]
-reward_values= [5, 3]
+reward_types = ["place", "transition"];
+reward_values= [5, 3];
 
 small_hybrid.add_places(places,tokens);
 small_hybrid.add_transitions(transitions, transition_types, transition_rates);
@@ -47,7 +52,7 @@ small_hybrid.set_reward_functions(reward_names, reward_values, reward_types);
 
 test_norm = GSPNR();
 places = ["p1", "p2", "p3", "p4", "p5"];
-tokens = [2   , 0   , 0   , 0   , 0];
+tokens = [1   , 0   , 0   , 0   , 0];
 
 transitions =    ["t1", "t2", "t3", "t4", "t5", "t6"];
 transition_types=["exp","exp","exp","exp","exp","exp"];
