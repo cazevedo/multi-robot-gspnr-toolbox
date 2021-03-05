@@ -323,6 +323,7 @@ classdef GSPNR < handle
            end
            emb_MDP.consolidation_uniformization();
            
+           exp_action_index = emb_MDP.find_action("EXP");
            for state = 1:emb_MDP.nStates
               state_name = covered_state_list(state);
               state_index = emb_MDP.find_state(state_name);
@@ -330,11 +331,9 @@ classdef GSPNR < handle
               if state_index == 0
                   error("Something went very wrong")
               end                  
-              equivalent_marking = covered_marking_list(state,:)
-              marked_places = equivalent_marking~=0
-              GSPN.place_rewards
-              state_reward = dot(GSPN.place_rewards,marked_places)
-              exp_action_index = emb_MDP.find_action("EXP")
+              equivalent_marking = covered_marking_list(state,:);
+              marked_places = equivalent_marking~=0;
+              state_reward = dot(GSPN.place_rewards,marked_places);
               if state_type == "TAN"
                 emb_MDP.reward_matrix(state_index, exp_action_index) = state_reward;
               end
