@@ -13,6 +13,7 @@ classdef MarkovDecisionProblem < handle
         exponential_transition_matrix = [];
         initial_state = [];
         reward_matrix = [];
+        eta = 0;
     end
     
     methods
@@ -90,9 +91,9 @@ classdef MarkovDecisionProblem < handle
            for state_index = 1:MDP.nStates
               total_trans_freq(state_index,:) = sum(MDP.exponential_transition_matrix(state_index,:,:),2);
            end
-           total_trans_freq
-           exit_rates = sum(total_trans_freq, 2)
-           eta = max(exit_rates) + 1
+           exit_rates = sum(total_trans_freq, 2);
+           eta = max(exit_rates) + 1;
+           MDP.eta = eta;
            %Uniformization and Normalization for Exponential Transitions
            for source_state = 1:MDP.nStates
                for target_state = 1:MDP.nStates
