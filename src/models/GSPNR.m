@@ -13,6 +13,7 @@ classdef GSPNR < handle
         current_marking = [];   %Array of positive integers, representing current marking
         place_rewards = [];     %Array of real numbers corresponding to the place rewards for the corresponding place.
         transition_rewards = [];%Array of real numbers corresponding to the transition rewards for the corresponding transition.
+        %Add coment
     end
     
     methods
