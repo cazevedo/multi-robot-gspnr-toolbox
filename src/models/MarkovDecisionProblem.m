@@ -9,9 +9,12 @@ classdef MarkovDecisionProblem < handle
         nActions = 0;
         exp_actions =[string.empty];
         nEXPActions = 0;
-        transition_matrix = [];
-        exponential_transition_matrix = [];
+        transition_matrix = {};
+        nTransitions = 0;
+        exponential_transition_matrix = {};
+        nEXPTransitions = 0;
         initial_state = [];
+        nRewards = 0;
         reward_matrix = [];
         eta = 0;
     end
@@ -21,11 +24,6 @@ classdef MarkovDecisionProblem < handle
             if isempty(find(MDP.states == state_name))   
                 MDP.states = cat(2, MDP.states, state_name);
                 MDP.nStates = MDP.nStates+1;
-                MDP.transition_matrix = padarray(MDP.transition_matrix, [1 0 1],0,'post');
-                MDP.transition_matrix = MDP.transition_matrix(:,:,1:MDP.nStates);
-                MDP.reward_matrix = padarray(MDP.reward_matrix, [1 0],0,'post');
-                MDP.exponential_transition_matrix = padarray(MDP.exponential_transition_matrix, [1 0 1],0,'post');
-                MDP.exponential_transition_matrix = MDP.exponential_transition_matrix(:,:,1:MDP.nStates);
                 state_index = length(MDP.states);
             else
                 disp("WARNING: Tried to add state that already exists")
@@ -46,8 +44,6 @@ classdef MarkovDecisionProblem < handle
                 if isempty(find(MDP.actions == action_name))
                     MDP.actions = cat(2, MDP.actions, action_name);
                     MDP.nActions = MDP.nActions+1;
-                    MDP.transition_matrix = padarray(MDP.transition_matrix, [0 1 0],0,'post');
-                    MDP.reward_matrix = padarray(MDP.reward_matrix, [0 1],0,'post');
                     action_index = length(MDP.actions);
 
                 else
@@ -57,8 +53,6 @@ classdef MarkovDecisionProblem < handle
             elseif (type == "exp")
                 if isempty(find(MDP.exp_actions == action_name))
                     MDP.exp_actions = cat(2, MDP.exp_actions, action_name);
-                    MDP.nEXPActions = MDP.nEXPActions+1;
-                    MDP.exponential_transition_matrix = padarray(MDP.exponential_transition_matrix, [0 1 0],0,'post');
                     action_index = length(MDP.exp_actions);
 
                 else
@@ -79,6 +73,62 @@ classdef MarkovDecisionProblem < handle
                 action_index = index;
             end
         end
+        
+        function set_transition(MDP, source_state, action, end_state, prob, type)
+            source_state_index = MDP.find_state(source_state);
+            action_index = MDP.find_action(action);
+            end_state_index = MDP.find_state(end_state);
+            
+            if ~(source_state_index && action_index && end_state_index)
+                error("Tried to add transition from nonexistent element");
+            else
+                indices = [source_state_index, action_index, end_state_index];
+                if type == "imm"
+                    %Add to deterministic transition matrix
+                    MDP.nTransitions = MDP.nTransitions+1;
+                    MDP.transition_matrix{MDP.nTransitions,1} = indices;
+                    MDP.transition_matrix{MDP.nTransitions,2} = prob;
+                elseif type == "exp"
+                    %Add to exponential transition matrix
+                    MDP.nEXPTransitions = MDP.nEXPTransitions+1;
+                    MDP.exponential_transition_matrix{MDP.nEXPTransitions,1} = indices;
+                    MDP.exponential_transition_matrix{MDP.nEXPTransitions,2} = prob;
+                else
+                    error("Type of transition must be either 'imm' or 'exp'");
+                end
+            end
+        end
+        
+        function [full_transition, full_rewards] = get_full_matrices(MDP)
+            full_transition = zeros(MDP.nStates, MDP.nActions, MDP.nStates);
+            full_rewards = zeros(MDP.nStates, MDP.nActions);
+            
+            for row_index = 1:MDP.nTransitions
+                indices = MDP.transition_matrix{row_index, 1};
+                prob = MDP.transition_matrix{row_index, 2};
+                full_transition(indices(1),indices(2),indices(3)) = prob;
+            end
+            for row_index = 1:MDP.nRewards
+                indices = MDP.reward_matrix{row_index,1};
+                reward = MDP.reward_matrix{row_index, 2};
+                full_rewards(indices(1),indices(2)) = reward;
+            end
+        end
+        
+        function set_reward(MDP, state, action, reward)
+            state_index = MDP.find_state(state);
+            action_index = MDP.find_action(action);
+            
+            if ~(state_index && action_index)
+                error("Tried to add reward to nonexistent element");
+            else
+                indices = [state_index, action_index];
+                MDP.nRewards = MDP.nRewards + 1;
+                MDP.reward_matrix{MDP.nRewards, 1} = indices;
+                MDP.reward_matrix{MDP.nRewards, 2} = reward;
+            end
+        end
+                
         
         function consolidation_uniformization(MDP)
            %Calculation of eta, uniformization constant
