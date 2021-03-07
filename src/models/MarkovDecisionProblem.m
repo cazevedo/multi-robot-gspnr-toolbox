@@ -3,16 +3,16 @@ classdef MarkovDecisionProblem < handle
     %   Detailed explanation goes here
     
     properties
-        states = [string.empty];
-        nStates = 0;
-        actions = [string.empty];
-        nActions = 0;
-        exp_actions =[string.empty];
-        nEXPActions = 0;
-        transition_matrix = {};
-        nTransitions = 0;
+        states = [string.empty]; %list of strings, each string is the name of the state
+        nStates = 0;% total number of states
+        actions = [string.empty]; %list of strings, each string is an immediate action
+        nActions = 0;%total number of immediate actions
+        exp_actions =[string.empty];%list of strings, each string is an exponential action
+        nEXPActions = 0;%total number of exponential actions
+        transition_matrix = {};%cell array where the first column holds the indices of the transition, and the second column holds the rate of transition
+        nTransitions = 0;%number of elements in transition matrix, eq. to number of nonzero elements in conventional matrix
         exponential_transition_matrix = {};
-        nEXPTransitions = 0;
+        nEXPTransitions = 0;%number of elements in exponential transition matrix
         initial_state = [];
         nRewards = 0;
         reward_matrix = [];
@@ -64,10 +64,17 @@ classdef MarkovDecisionProblem < handle
             end
         end
         
-        function action_index = find_action(MDP, action_name)
-            index = find(MDP.actions == action_name);
+        function action_index = find_action(MDP, action_name, type)
+            if type == "imm"
+                index = find(MDP.actions == action_name);
+            elseif type == "exp"
+                index = find(MDP.exp_actions == action_name);
+            else
+                error("Action type must be either 'imm' or 'exp'");
+            end
             if isempty(index)
                 index = 0;
+                action_index = index;
                 disp("Action does not exist")
             else
                 action_index = index;
@@ -76,7 +83,7 @@ classdef MarkovDecisionProblem < handle
         
         function set_transition(MDP, source_state, action, end_state, prob, type)
             source_state_index = MDP.find_state(source_state);
-            action_index = MDP.find_action(action);
+            action_index = MDP.find_action(action, type);
             end_state_index = MDP.find_state(end_state);
             
             if ~(source_state_index && action_index && end_state_index)
@@ -117,7 +124,7 @@ classdef MarkovDecisionProblem < handle
         
         function set_reward(MDP, state, action, reward)
             state_index = MDP.find_state(state);
-            action_index = MDP.find_action(action);
+            action_index = MDP.find_action(action, "imm");
             
             if ~(state_index && action_index)
                 error("Tried to add reward to nonexistent element");
@@ -135,10 +142,10 @@ classdef MarkovDecisionProblem < handle
            exp_action_matrix = zeros(MDP.nStates, MDP.nStates);
            total_trans_freq = zeros(MDP.nStates, MDP.nStates);
            exit_rates = [];
-%            total_trans_freq = sum(exp_action_matrix, 2)
-%            total_trans_freq = reshape(total_trans_freq, MDP.nStates, MDP.nStates);
-           for state_index = 1:MDP.nStates
-              total_trans_freq(state_index,:) = sum(MDP.exponential_transition_matrix(state_index,:,:),2);
+           for row_index = 1:MDP.nEXPTransitions
+               indices = MDP.exponential_transition_matrix{row_index, 1};
+               rate = MDP.exponential_transition_matrix{row_index, 2};
+               total_trans_freq(indices(1),indices(3)) = total_trans_freq(indices(1),indices(3)) + rate;
            end
            exit_rates = sum(total_trans_freq, 2);
            eta = max(exit_rates) + 1;
@@ -156,37 +163,20 @@ classdef MarkovDecisionProblem < handle
                    end
                end
            end
-            
-           exponential_action = MDP.add_action("EXP","imm");
-           MDP.transition_matrix(:,exponential_action,:) = exp_action_matrix;
+           exponential_action_index = MDP.add_action("EXP","imm");
+           
+           [source_state_index, end_state_index, val] = find(exp_action_matrix);
+           nonZeroElements = length(val);
+           for element = 1:nonZeroElements
+               source_state_name = MDP.states(source_state_index(element));
+               end_state_name = MDP.states(end_state_index(element));
+               MDP.set_transition(source_state_name, "EXP", end_state_name, val(element), "imm");
+           end
+               
            MDP.exponential_transition_matrix = [];
            MDP.nEXPActions = 0;
            MDP.exp_actions = [string.empty];
-        end
-        
-        function policy = value_iteration(MDP, max_min, gamma, epsilon)
-            
-            utility = zeros(1, MDP.nStates);
-            policy = zeros(1, MDP.nStates);
-            max_res = -Inf;
-            converged = false;
-            
-            while (~converged)
-                for state_index = 1:MDP.nStates
-                    old_value = utility(state_index);
-                    state_name = MDP.states(state_index);
-                    [new_value, new_value] = bellman_update(MDP, state_name, max_min, utility);
-                    new_res = abs(new_value - old_value);
-                    utility(state_index) = new_value;
-                    if new_res>max_res
-                        max_res = new_res;
-                    end
-                end
-                converged = max_res<epsilon;
-                max_res = -Inf;
-            end
-        end
-                
+        end         
     end
     
 end

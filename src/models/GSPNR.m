@@ -220,7 +220,8 @@ classdef GSPNR < handle
               elseif( isempty(imm_enabled) && isempty(exp_enabled) )
                   covered_state_type(original_state_index) = "SINK";
               end
-              
+              %Checking for and creating name of race conditions between
+              %immediate transitions
               nTransitions = length(imm_enabled);
               if (~isempty(imm_enabled))
                 weight_sum = 0;
@@ -260,15 +261,15 @@ classdef GSPNR < handle
                       transition_index = find(GSPN.transitions == transition);
                       action_index = emb_MDP.add_action(race_name, "imm");
                       transition_weight = GSPN.rate_transitions(transition_index);
-                      emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = transition_weight/weight_sum; 
+                      emb_MDP.set_transition(original_state, race_name, target_state_name, transition_weight/weight_sum, "imm"); 
                   else
                       %CONTROLLABLE ACTION
                       transition_index = find(GSPN.transitions == transition);
                       action_index = emb_MDP.add_action(transition, "imm");
-                      emb_MDP.transition_matrix(original_state_index, action_index, target_state_index) = 1.0;
+                      emb_MDP.set_transition(original_state, transition, target_state_name, 1.0, "imm");
                       reward = GSPN.transition_rewards(transition_index);  
                       if (reward ~= 0)
-                          emb_MDP.reward_matrix(original_state_index, action_index) = reward;
+                          emb_MDP.set_reward(original_state, transition, reward);
                       end
 
                   end
@@ -286,7 +287,7 @@ classdef GSPNR < handle
                   wait_action_index = emb_MDP.add_action("WAIT","imm");
                   covered_state_type(wait_state_index) = "TAN";
                   %Adding action from original state to copy "wait" state;
-                  emb_MDP.transition_matrix(original_state_index, wait_action_index, wait_state_index) = 1.0;
+                  emb_MDP.set_transition(original_state, "WAIT", target_state, 1.0, "imm");
                   %All exponential transitions that follow, in the MDP
                   %begin in this dummy "wait" state, and not the original
                   %one
@@ -311,12 +312,15 @@ classdef GSPNR < handle
                      target_state_index = size(covered_state_list, 1);
                      emb_MDP.add_state(target_state_name);
                      state_index = state_index + 1;
+                 else
+                     target_state_name = covered_state_list(target_state_index);
                  end
                  transition_index = find(GSPN.transitions == transition);
                  transition_rate = GSPN.rate_transitions(transition_index);
                  transition_name = transition+"EXP";
                  action_index = emb_MDP.add_action(transition_name, "exp");
-                 emb_MDP.exponential_transition_matrix(original_state_index, action_index, target_state_index) = transition_rate;
+                 %TODO Change to use names, not index
+                 emb_MDP.set_transition(original_state, transition_name, target_state_name, transition_rate, "exp");
                  GSPN.set_marking(original_marking);
               end
               
@@ -324,7 +328,7 @@ classdef GSPNR < handle
            end
            emb_MDP.consolidation_uniformization();
            
-           exp_action_index = emb_MDP.find_action("EXP");
+           exp_action_index = emb_MDP.find_action("EXP", "imm");
            for state = 1:emb_MDP.nStates
               state_name = covered_state_list(state);
               state_index = emb_MDP.find_state(state_name);
@@ -336,7 +340,8 @@ classdef GSPNR < handle
               marked_places = equivalent_marking~=0;
               state_reward = dot(GSPN.place_rewards,marked_places);
               if state_type == "TAN"
-                emb_MDP.reward_matrix(state_index, exp_action_index) = state_reward/emb_MDP.eta;
+                normalized_reward = state_reward/emb_MDP.eta;
+                emb_MDP.set_reward(state_name, "EXP", normalized_reward);
               end
            end
            
