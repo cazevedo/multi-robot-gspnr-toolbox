@@ -179,7 +179,38 @@ classdef MarkovDecisionProblem < handle
            MDP.exponential_transition_matrix = [];
            MDP.nEXPActions = 0;
            MDP.exp_actions = [string.empty];
-        end         
+        end
+        function [validity, cumulative_prob] = check_validity(MDP)
+            cumulative_prob = zeros(MDP.nStates, MDP.nActions);
+            for row = 1:MDP.nTransitions
+                indices = MDP.transition_matrix{row,1};
+                prob = MDP.transition_matrix{row,2};
+                source_state_index = indices(1);
+                action_index = indices(2);
+                cumulative_prob(source_state_index, action_index) = cumulative_prob(source_state_index,action_index)+prob;                
+            end
+            [source_index, action_index, cum_prob] = find(cumulative_prob);
+            if (any(cum_prob~=1))
+                validity = false;
+            else
+                validity = true;
+            end      
+        end
+        function [actions_enabled] = actions_enabled(MDP, state)
+            actions_enabled = [string.empty];
+            [validity, cumulative_prob] = MDP.check_validity();
+            if ~validity
+                error("MDP does not have actions with correct transition probabilities");
+            end
+            state_index = MDP.find_state(state);
+            row = cumulative_prob(state_index, :);
+            action_indices = find(row);
+            for index = 1:length(action_indices)
+                action_name = MDP.actions(action_indices(index));
+                actions_enabled = cat(1, actions_enabled, action_name);
+            end
+        end
+            
     end
     
 end
