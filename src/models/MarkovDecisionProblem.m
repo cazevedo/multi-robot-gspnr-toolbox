@@ -137,7 +137,7 @@ classdef MarkovDecisionProblem < handle
         end
                 
         
-        function consolidation_uniformization(MDP)
+        function consolidation_uniformization(MDP, state_types)
            %Calculation of eta, uniformization constant
            exp_action_matrix = zeros(MDP.nStates, MDP.nStates);
            total_trans_freq = zeros(MDP.nStates, MDP.nStates);
@@ -156,7 +156,10 @@ classdef MarkovDecisionProblem < handle
                    if source_state == target_state
                        %In diagonal, transition that begins and ends in
                        %same state/marking
-                       exp_action_matrix(source_state, target_state) = 1 - (exit_rates(source_state)-total_trans_freq(source_state,target_state))*(1/eta);
+                       state_type = state_types(source_state);
+                       if state_type == "TAN"
+                        exp_action_matrix(source_state, target_state) = 1 - (exit_rates(source_state)-total_trans_freq(source_state,target_state))*(1/eta);
+                       end
                    else
                        %Nondiagonal, normal expression
                        exp_action_matrix(source_state, target_state) = total_trans_freq(source_state,target_state)/eta;

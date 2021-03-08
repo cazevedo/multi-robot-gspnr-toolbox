@@ -187,7 +187,7 @@ classdef GSPNR < handle
            GSPN.current_marking = final_marking;
         end
         
-        function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = ConverttoMDP(GSPN)
+        function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = toMDP(GSPN)
            %Transforms the GSPNR object into the equivalent MDP
            %Markings are added to the state as soon as they are discovered
            emb_MDP = MarkovDecisionProblem();
@@ -255,6 +255,8 @@ classdef GSPNR < handle
                       target_state_index = size(covered_state_list, 1);
                       emb_MDP.add_state(target_state_name);
                       state_index = state_index + 1;
+                  else
+                      target_state_name = emb_MDP.states(target_state_index);
                   end
                   if weight_sum ~= 0
                       %RACE CONDITION
@@ -326,7 +328,8 @@ classdef GSPNR < handle
               
               markings_to_explore(1,:) = [];
            end
-           emb_MDP.consolidation_uniformization();
+           
+           emb_MDP.consolidation_uniformization(covered_state_type);
            
            exp_action_index = emb_MDP.find_action("EXP", "imm");
            for state = 1:emb_MDP.nStates
