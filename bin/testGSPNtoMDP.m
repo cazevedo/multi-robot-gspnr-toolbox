@@ -1,7 +1,7 @@
 clc
 clear
 
-addpath('/home/antonio/Repos/GSPNR_Toolbox/src/models/');
+addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/models/');
 
 import GSPNR.*
 import MarkovDecisionProcess.MarkovDecisionProcess.*

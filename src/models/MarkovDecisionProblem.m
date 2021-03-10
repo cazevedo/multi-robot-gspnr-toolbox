@@ -210,6 +210,24 @@ classdef MarkovDecisionProblem < handle
                 actions_enabled = cat(1, actions_enabled, action_name);
             end
         end
+        
+        function reward = get_reward(MDP, state_index, action_index)
+            [full_transitions, full_rewards] = MDP.get_full_matrices();
+            reward = full_rewards(state_index, action_index);
+        end
+        
+        function [end_state_indices, end_state_probs] = action_probs(MDP, state_index, action_index)
+            end_state_indices = [];
+            end_state_probs = []
+            [full_transitions, full_rewards] = MDP.get_full_matrices();
+            vector = full_transitions(state_index, action_index, :);
+            [row, col, vals] = find(vector);
+            nEndStates = length(col);
+            for index = 1:nEndStates
+               end_state_indices = cat(1, end_state_indices, col(index));
+               end_state_probs = cat(1, end_state_probs, vals(index));
+            end 
+        end
             
     end
     
