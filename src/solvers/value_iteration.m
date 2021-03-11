@@ -35,10 +35,6 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
     enabled_actions = MDP.actions_enabled(state_name);
     nEnabledActions = length(enabled_actions);
     
-    %This value will only remain 0 if no actions are enabled thus the state
-    %is a terminal state
-    new_policy = 0;
-    
     for index = 1:nEnabledActions
         action_name = enabled_actions(index);
         action_index = MDP.find_action(action_name, "imm");
@@ -64,4 +60,9 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
         end
     end
     new_value = Q_max;
+        
+    if nEnabledActions == 0
+        new_policy = 0;
+        new_value = 0;
+    end
 end
