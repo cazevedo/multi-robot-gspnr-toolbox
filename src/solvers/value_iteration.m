@@ -4,8 +4,9 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
     policy = zeros(1, MDP.nStates);
     max_res = -Inf;
     converged = false;
-
+    step = 0;
     while (~converged)
+        step = step + 1;
         for state_index = 1:MDP.nStates
             old_value = values(state_index);
             [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values);
@@ -18,7 +19,9 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
         end
         converged = max_res<epsilon;
         max_res = -Inf;
+        values
     end
+    debug = "Number of iterations done: "+string(step)
 end
 
 function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values)
@@ -60,7 +63,9 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
         end
     end
     new_value = Q_max;
-        
+    
+    debug = "Bellman Update for state"+string(state_index)+"new value is "+string(new_value);
+    
     if nEnabledActions == 0
         new_policy = 0;
         new_value = 0;
