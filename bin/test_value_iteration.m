@@ -62,7 +62,9 @@ end
 
 gridworld.set_transition("S16", "finished", "terminal1", 1.0, "imm")
 gridworld.set_transition("S13", "finished", "terminal2", 1.0, "imm")
+
 gridworld.set_reward("S16", 'finished', 10);
+gridworld.set_reward("S13", 'finished', 100);
 gridworld.set_reward("S8", 'up', -100);
 gridworld.set_reward("S11", 'right', -100);
-[values, policy] = value_iteration(gridworld, 1, 1, 0.01)
+[values, policy] = value_iteration(gridworld, 1, 0.99, 0.01)

@@ -64,7 +64,7 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
     end
     new_value = Q_max;
     
-    debug = "Bellman Update for state"+string(state_index)+"new value is "+string(new_value);
+    debug = "Bellman Update for state S"+string(state_index)+" new value is "+string(new_value)
     
     if nEnabledActions == 0
         new_policy = 0;

@@ -9,13 +9,13 @@ classdef MarkovDecisionProblem < handle
         nActions = 0;%total number of immediate actions
         exp_actions =[string.empty];%list of strings, each string is an exponential action
         nEXPActions = 0;%total number of exponential actions
-        transition_matrix = {};%cell array where the first column holds the indices of the transition, and the second column holds the rate of transition
+        transition_matrix = {[], []};%cell array where the first column holds the indices of the transition, and the second column holds the rate of transition
         nTransitions = 0;%number of elements in transition matrix, eq. to number of nonzero elements in conventional matrix
-        exponential_transition_matrix = {};
+        exponential_transition_matrix = {[], []};
         nEXPTransitions = 0;%number of elements in exponential transition matrix
         initial_state = [];
         nRewards = 0;
-        reward_matrix = [];
+        reward_matrix = {[], []};
         eta = 0;
     end
     
@@ -93,32 +93,20 @@ classdef MarkovDecisionProblem < handle
                 if type == "imm"
                     %Add to deterministic transition matrix
                     MDP.nTransitions = MDP.nTransitions+1;
-                    MDP.transition_matrix{MDP.nTransitions,1} = indices;
-                    MDP.transition_matrix{MDP.nTransitions,2} = prob;
+%                     MDP.transition_matrix{MDP.nTransitions,1} = indices;
+%                     MDP.transition_matrix{MDP.nTransitions,2} = prob;
+                    MDP.transition_matrix{1} = cat(1,MDP.transition_matrix{1}, indices);
+                    MDP.transition_matrix{2} = cat(1,MDP.transition_matrix{2}, prob);
                 elseif type == "exp"
                     %Add to exponential transition matrix
                     MDP.nEXPTransitions = MDP.nEXPTransitions+1;
-                    MDP.exponential_transition_matrix{MDP.nEXPTransitions,1} = indices;
-                    MDP.exponential_transition_matrix{MDP.nEXPTransitions,2} = prob;
+%                     MDP.exponential_transition_matrix{MDP.nEXPTransitions,1} = indices;
+%                     MDP.exponential_transition_matrix{MDP.nEXPTransitions,2} = prob;
+                    MDP.transition_matrix{1} = cat(1,MDP.transition_matrix{1}, indices);
+                    MDP.transition_matrix{2} = cat(1,MDP.transition_matrix{2}, prob);
                 else
                     error("Type of transition must be either 'imm' or 'exp'");
                 end
-            end
-        end
-        
-        function [full_transition, full_rewards] = get_full_matrices(MDP)
-            full_transition = zeros(MDP.nStates, MDP.nActions, MDP.nStates);
-            full_rewards = zeros(MDP.nStates, MDP.nActions);
-            
-            for row_index = 1:MDP.nTransitions
-                indices = MDP.transition_matrix{row_index, 1};
-                prob = MDP.transition_matrix{row_index, 2};
-                full_transition(indices(1),indices(2),indices(3)) = prob;
-            end
-            for row_index = 1:MDP.nRewards
-                indices = MDP.reward_matrix{row_index,1};
-                reward = MDP.reward_matrix{row_index, 2};
-                full_rewards(indices(1),indices(2)) = reward;
             end
         end
         
@@ -131,11 +119,30 @@ classdef MarkovDecisionProblem < handle
             else
                 indices = [state_index, action_index];
                 MDP.nRewards = MDP.nRewards + 1;
-                MDP.reward_matrix{MDP.nRewards, 1} = indices;
-                MDP.reward_matrix{MDP.nRewards, 2} = reward;
+%                 MDP.reward_matrix{MDP.nRewards, 1} = indices;
+%                 MDP.reward_matrix{MDP.nRewards, 2} = reward;
+                MDP.reward_matrix{1} = cat(1,MDP.reward_matrix{1}, indices);
+                MDP.reward_matrix{2} = cat(1,MDP.reward_matrix{2}, reward);
             end
         end
-                
+        
+        function full_transition = get_full_transition_matrix(MDP)
+            full_transition = zeros(MDP.nStates, MDP.nActions, MDP.nStates);
+            for row_index = 1:MDP.nTransitions
+                indices = MDP.transition_matrix{1}(row_index, :);
+                prob = MDP.transition_matrix{2}(row_index);
+                full_transition(indices(1),indices(2),indices(3)) = prob;
+            end
+        end
+        
+        function full_rewards = get_full_reward_matrix(MDP)
+            full_rewards = zeros(MDP.nStates, MDP.nActions);
+            for row_index = 1:MDP.nRewards
+                indices = MDP.reward_matrix{1}(row_index, :);
+                reward = MDP.reward_matrix{2}(row_index);
+                full_rewards(indices(1),indices(2)) = reward;
+            end
+        end
         
         function consolidation_uniformization(MDP, state_types)
            %Calculation of eta, uniformization constant
@@ -143,8 +150,8 @@ classdef MarkovDecisionProblem < handle
            total_trans_freq = zeros(MDP.nStates, MDP.nStates);
            exit_rates = [];
            for row_index = 1:MDP.nEXPTransitions
-               indices = MDP.exponential_transition_matrix{row_index, 1};
-               rate = MDP.exponential_transition_matrix{row_index, 2};
+               indices = MDP.exponential_transition_matrix{1}(row_index, :);
+               rate = MDP.exponential_transition_matrix{2}(row_index);
                total_trans_freq(indices(1),indices(3)) = total_trans_freq(indices(1),indices(3)) + rate;
            end
            exit_rates = sum(total_trans_freq, 2);
@@ -183,8 +190,8 @@ classdef MarkovDecisionProblem < handle
         function [validity, cumulative_prob] = check_validity(MDP)
             cumulative_prob = zeros(MDP.nStates, MDP.nActions);
             for row = 1:MDP.nTransitions
-                indices = MDP.transition_matrix{row,1};
-                prob = MDP.transition_matrix{row,2};
+                indices = MDP.transition_matrix{1}(row, :);
+                prob = MDP.transition_matrix{2}(row);
                 source_state_index = indices(1);
                 action_index = indices(2);
                 cumulative_prob(source_state_index, action_index) = cumulative_prob(source_state_index,action_index)+prob;                
@@ -212,14 +219,14 @@ classdef MarkovDecisionProblem < handle
         end
         
         function reward = get_reward(MDP, state_index, action_index)
-            [full_transitions, full_rewards] = MDP.get_full_matrices();
+            full_rewards = MDP.get_full_reward_matrix();
             reward = full_rewards(state_index, action_index);
         end
         
         function [end_state_indices, end_state_probs] = action_probs(MDP, state_index, action_index)
             end_state_indices = [];
             end_state_probs = [];
-            [full_transitions, full_rewards] = MDP.get_full_matrices();
+            full_transitions = MDP.get_full_transition_matrix();
             vector = full_transitions(state_index, action_index, :);
             [row, col, vals] = find(vector);
             nEndStates = length(col);
