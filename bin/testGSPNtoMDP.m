@@ -1,10 +1,10 @@
 clc
 clear
 
-addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/models/');
+%addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/models/');
 
-import GSPNR.*
-import MarkovDecisionProcess.MarkovDecisionProcess.*
+%import GSPNR.*
+%import MDP.MDP.*
 
 % deterministic = GSPNR();
 % 
@@ -48,11 +48,11 @@ small_hybrid.add_transitions(transitions, transition_types, transition_rates);
 small_hybrid.add_arcs(arc_places,arc_trans,arc_type,arc_weights);
 small_hybrid.set_reward_functions(reward_names, reward_values, reward_types);
 
-[MDP, markings, states, types] = small_hybrid.toMDP()
+[mdp, markings, states, types] = small_hybrid.toMDP()
 
-MDP.actions_enabled("S1")
-full_transition = MDP.get_full_transition_matrix()
-full_reward = MDP.get_full_reward_matrix()
+mdp.actions_enabled("S1")
+full_transition = mdp.get_full_transition_matrix()
+full_reward = mdp.get_full_reward_matrix()
 % test_norm = GSPNR();
 % places = ["p1", "p2", "p3", "p4", "p5"];
 % tokens = [2   , 0   , 0   , 0   , 0];

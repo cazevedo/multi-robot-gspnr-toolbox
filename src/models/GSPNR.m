@@ -190,7 +190,7 @@ classdef GSPNR < handle
         function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = toMDP(GSPN)
            %Transforms the GSPNR object into the equivalent MDP
            %Markings are added to the state as soon as they are discovered
-           emb_MDP = MarkovDecisionProblem();
+           emb_MDP = MDP();
            covered_marking_list = [];   %The marking represented by row i, is
            covered_state_list = [];     %is equivalent to state in row i of this vector
            covered_state_type = [string.empty];
