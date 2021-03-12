@@ -70,4 +70,6 @@ gridworld.set_reward("S16", 'finished', 10);
 gridworld.set_reward("S13", 'finished', 100);
 %gridworld.set_reward("S8", 'up', -100);
 %gridworld.set_reward("S11", 'right', -100);
+gridworld.check_validity();
+gridworld.set_enabled_actions();
 [values, policy] = value_iteration(gridworld, 1, 1, 0.01)

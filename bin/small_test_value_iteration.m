@@ -3,10 +3,8 @@ clear
 
 addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/models/');
 addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/solvers/');
-import MarkovDecisionProblem.MarkovDecisionProblem.*
-import value_iteration.value_iteration.*
 
-mdp = MarkovDecisionProblem();
+mdp = MDP();
 
 mdp.add_state("S1");
 mdp.add_state("S2");
@@ -24,4 +22,7 @@ mdp.set_reward("S1","a", 10);
 mdp.set_reward("S2","b", 100);
 
 max = 1;
+
+mdp.check_validity();
+mdp.set_enabled_actions();
 [values, policy] = value_iteration(mdp, max, 1, 0.01) 
