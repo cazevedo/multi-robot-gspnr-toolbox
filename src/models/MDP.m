@@ -3,20 +3,30 @@ classdef MDP < handle
     %   Detailed explanation goes here
     
     properties
-        states = [string.empty]; %list of strings, each string is the name of the state
-        nStates = 0;% total number of states
-        actions = [string.empty]; %list of strings, each string is an immediate action
-        nActions = 0;%total number of immediate actions
-        exp_actions =[string.empty];%list of strings, each string is an exponential action
-        nEXPActions = 0;%total number of exponential actions
-        transition_matrix = {[], []};%cell array where the first column holds the indices of the transition, and the second column holds the rate of transition
-        nTransitions = 0;%number of elements in transition matrix, eq. to number of nonzero elements in conventional matrix
+        states = [string.empty];                    %list of strings, each string is the name of the state
+        nStates = 0;                                % total number of states
+        actions = [string.empty];                   %list of strings, each string is an immediate action
+        nActions = 0;                               %total number of immediate actions
+        
+        transition_matrix = {[], []};               %cell array where the first column holds the indices of the transition, and the second column holds the rate of transition
+        nTransitions = 0;                           %number of elements in transition matrix, eq. to number of nonzero elements in conventional matrix
+        
+        exp_actions =[string.empty];            %list of strings, each string is an exponential action
+        nEXPActions = 0;                        %total number of exponential actions
         exponential_transition_matrix = {[], []};
-        nEXPTransitions = 0;%number of elements in exponential transition matrix
-        initial_state = [];
+        nEXPTransitions = 0;                    %number of elements in exponential transition matrix
+        eta = 0;
+        consolidated = false;
+        
         nRewards = 0;
         reward_matrix = {[], []};
-        eta = 0;
+        
+        cumulative_prob = [];
+        valid = false;
+        enabled_actions = {};
+        prepared = false;
+        
+        initial_state = [];
     end
     
     methods
@@ -186,36 +196,53 @@ classdef MDP < handle
            MDP.exponential_transition_matrix = [];
            MDP.nEXPActions = 0;
            MDP.exp_actions = [string.empty];
+           MDP.consolidated = true;
         end
-        function [validity, cumulative_prob] = check_validity(MDP)
-            cumulative_prob = zeros(MDP.nStates, MDP.nActions);
+        function check_validity(MDP)
+            %Function that simultaneously checks the validity of the
+            %transition matrix (ensures that for each state,action pair,
+            %the probability sums to either 0 or 1) and sets the cumulative
+            %probability property of the MDP.
+            MDP.cumulative_prob = sparse(MDP.nStates, MDP.nActions);
             for row = 1:MDP.nTransitions
                 indices = MDP.transition_matrix{1}(row, :);
                 prob = MDP.transition_matrix{2}(row);
                 source_state_index = indices(1);
                 action_index = indices(2);
-                cumulative_prob(source_state_index, action_index) = cumulative_prob(source_state_index,action_index)+prob;                
+                MDP.cumulative_prob(source_state_index, action_index) = MDP.cumulative_prob(source_state_index,action_index)+prob;                
             end
-            [source_index, action_index, cum_prob] = find(cumulative_prob);
+            [source_index, action_index, cum_prob] = find(MDP.cumulative_prob);
             if (any(cum_prob~=1))
-                validity = false;%TODO Raise error
-            else
-                validity = true;
-            end      
+                error("MDP does not have correct transition probabilities")
+            end
+            MDP.valid = true;
         end
-        function [actions_enabled] = actions_enabled(MDP, state)
-            actions_enabled = [string.empty];
-            [validity, cumulative_prob] = MDP.check_validity();
-            if ~validity %TODO Remove this
-                error("MDP does not have actions with correct transition probabilities");
+        function set_enabled_actions(MDP)
+            %Function that sets the enabled actions attribute, a array of
+            %cells, in which each row corresponds to a state, the cell in
+            %the first column corresponds to the name of the state, and the
+            %cell in the second column corresponds to a list of enabled
+            %actions;
+            MDP.enabled_actions = cell(MDP.nStates, 2);
+            for state_index = 1:MDP.nStates
+                state_name = MDP.states(state_index)
+                MDP.enabled_actions{state_index, 1} = state_name;
+                row = MDP.cumulative_prob(state_index, :);
+                action_indices = find(row);
+                actions_enabled = [string.empty];
+                for index = 1:length(action_indices)
+                    action_name = MDP.actions(action_indices(index));
+                    actions_enabled = cat(1, actions_enabled, action_name);
+                end
+                MDP.enabled_actions{state_index, 2} = actions_enabled;
             end
+            MDP.prepared = true;
+        end
+        function actions_enabled = actions_enabled(MDP, state)
+            %Function that for a given state, returns a list of the enabled
+            %actions;
             state_index = MDP.find_state(state);
-            row = cumulative_prob(state_index, :);
-            action_indices = find(row);
-            for index = 1:length(action_indices)
-                action_name = MDP.actions(action_indices(index));
-                actions_enabled = cat(1, actions_enabled, action_name);
-            end
+            actions_enabled = MDP.enabled_actions{state_index, 2};
         end
         
         function reward = get_reward(MDP, state_index, action_index)
