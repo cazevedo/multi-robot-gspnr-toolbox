@@ -6,13 +6,15 @@ clear
 %import GSPNR.*
 %import MDP.MDP.*
 
+
+
 % deterministic = GSPNR();
 % 
 % places = ["p1", "p2", "p3", "p4", "p5", "p6"];
 % tokens = [1,    0,    0,    0,    0,    0   ];
 % 
 % transitions =    ["t1", "t2", "t3", "t4", "t5"];
-% transition_types=["imm","i600 ++    872 --mm","imm","imm","imm"];
+% transition_types=["imm","imm","imm","imm","imm"];
 % transition_rates=[0,    0,    0,    1,    2   ];
 % 
 % arc_places = ["p1","p1","p1","p2", "p2","p2","p3", "p4", "p5", "p6"];

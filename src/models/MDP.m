@@ -198,7 +198,7 @@ classdef MDP < handle
             end
             [source_index, action_index, cum_prob] = find(cumulative_prob);
             if (any(cum_prob~=1))
-                validity = false;
+                validity = false;%TODO Raise error
             else
                 validity = true;
             end      
@@ -206,7 +206,7 @@ classdef MDP < handle
         function [actions_enabled] = actions_enabled(MDP, state)
             actions_enabled = [string.empty];
             [validity, cumulative_prob] = MDP.check_validity();
-            if ~validity
+            if ~validity %TODO Remove this
                 error("MDP does not have actions with correct transition probabilities");
             end
             state_index = MDP.find_state(state);
