@@ -28,7 +28,7 @@ import MarkovDecisionProcess.MarkovDecisionProcess.*
 
 small_hybrid = GSPNR();
 places = ["p1", "p2", "p3", "p4"];
-tokens = [2   , 0   , 0   , 0   ];
+tokens = [1   , 0   , 0   , 0   ];
 
 transitions =       ["t1", "t2", "t3"];
 transition_types =  ["imm","imm","exp"];
@@ -49,10 +49,10 @@ small_hybrid.add_arcs(arc_places,arc_trans,arc_type,arc_weights);
 small_hybrid.set_reward_functions(reward_names, reward_values, reward_types);
 
 [MDP, markings, states, types] = small_hybrid.toMDP()
-validity = MDP.check_validity()
 
 MDP.actions_enabled("S1")
-
+full_transition = MDP.get_full_transition_matrix()
+full_reward = MDP.get_full_reward_matrix()
 % test_norm = GSPNR();
 % places = ["p1", "p2", "p3", "p4", "p5"];
 % tokens = [2   , 0   , 0   , 0   , 0];
@@ -73,4 +73,3 @@ MDP.actions_enabled("S1")
 % 
 % validity = MDP.check_validity()
 
-[full_transition, full_rewards] = MDP.get_full_matrices();

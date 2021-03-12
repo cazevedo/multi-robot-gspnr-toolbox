@@ -102,8 +102,8 @@ classdef MarkovDecisionProblem < handle
                     MDP.nEXPTransitions = MDP.nEXPTransitions+1;
 %                     MDP.exponential_transition_matrix{MDP.nEXPTransitions,1} = indices;
 %                     MDP.exponential_transition_matrix{MDP.nEXPTransitions,2} = prob;
-                    MDP.transition_matrix{1} = cat(1,MDP.transition_matrix{1}, indices);
-                    MDP.transition_matrix{2} = cat(1,MDP.transition_matrix{2}, prob);
+                    MDP.exponential_transition_matrix{1} = cat(1,MDP.exponential_transition_matrix{1}, indices);
+                    MDP.exponential_transition_matrix{2} = cat(1,MDP.exponential_transition_matrix{2}, prob);
                 else
                     error("Type of transition must be either 'imm' or 'exp'");
                 end
