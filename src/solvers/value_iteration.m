@@ -1,5 +1,9 @@
 function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
-            
+
+    if ~(MDP.valid && MDP.prepared)
+        error("MDP must be valid and prepared to run value iteration")
+    end
+
     values = zeros(1, MDP.nStates);
     policy = zeros(1, MDP.nStates);
     
