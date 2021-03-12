@@ -19,7 +19,10 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
             [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values, Q_max);
             new_res = abs(new_value - old_value);
             values(state_index) = new_value;
-            policy(state_index) = new_policy;
+            if new_policy ~= -1
+                policy(state_index) = new_policy;
+            end
+            Q_max(state_index) = new_value;
             if new_res>max_res
                 max_res = new_res;
             end
@@ -39,6 +42,8 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
     else
         isbetter = @(x,y)x<y;
     end
+    
+    new_policy = -1;
 
     state_name = MDP.states(state_index);
     enabled_actions = MDP.actions_enabled(state_name);
