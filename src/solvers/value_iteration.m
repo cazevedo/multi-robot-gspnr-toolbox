@@ -2,6 +2,13 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
             
     values = zeros(1, MDP.nStates);
     policy = zeros(1, MDP.nStates);
+    
+    if max_min
+        Q_max = -Inf(1, MDP.nStates);
+    else
+        Q_max = Inf(1, MDP.nStates);
+    end
+    
     max_res = -Inf;
     converged = false;
     step = 0;
@@ -9,7 +16,7 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
         step = step + 1;
         for state_index = 1:MDP.nStates
             old_value = values(state_index);
-            [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values);
+            [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values, Q_max);
             new_res = abs(new_value - old_value);
             values(state_index) = new_value;
             policy(state_index) = new_policy;
@@ -20,26 +27,25 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
         converged = max_res<epsilon;
         max_res = -Inf;
         values
+        policy
     end
     debug = "Number of iterations done: "+string(step)
 end
 
-function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values)
+function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values, Q_max)
 
     if max_min
         isbetter = @(x,y)x>y;
-        Q_max = -Inf;
     else
         isbetter = @(x,y)x<y;
-        Q_max = Inf;
     end
 
     state_name = MDP.states(state_index);
     enabled_actions = MDP.actions_enabled(state_name);
     nEnabledActions = length(enabled_actions);
     
-    for index = 1:nEnabledActions
-        action_name = enabled_actions(index);
+    for a_index = 1:nEnabledActions
+        action_name = enabled_actions(a_index);
         action_index = MDP.find_action(action_name, "imm");
         
         reward = MDP.get_reward(state_index, action_index);
@@ -53,18 +59,18 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
         
         nEndStates = length(end_state_indices);
         
-        for index = 1:nEndStates
-            Q_val = Q_val + (gamma * end_state_probs(index) * values(end_state_indices(index)) );
+        for s_index = 1:nEndStates
+            Q_val = Q_val + (gamma * end_state_probs(s_index) * values(end_state_indices(s_index)) );
         end
         
-        if isbetter(Q_val, Q_max)
-            Q_max = Q_val;
+        if isbetter(Q_val, Q_max(state_index))
+            Q_max(state_index) = Q_val;
             new_policy = action_index;
         end
     end
-    new_value = Q_max;
-    
-    debug = "Bellman Update for state S"+string(state_index)+" new value is "+string(new_value)
+    new_value = Q_max(state_index);
+    new_policy;
+    %debug = "Bellman Update for state S"+string(state_index)+" new value is "+string(new_value)
     
     if nEnabledActions == 0
         new_policy = 0;

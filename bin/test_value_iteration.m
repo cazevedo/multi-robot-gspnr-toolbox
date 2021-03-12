@@ -3,10 +3,8 @@ clear
 
 addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/models/');
 addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/solvers/');
-import MarkovDecisionProblem.MarkovDecisionProblem.*
-import value_iteration.value_iteration.*
 
-gridworld = MarkovDecisionProblem();
+gridworld = MDP();
 
 gridworld.add_state("S1");
 gridworld.add_state("S2");
@@ -32,6 +30,7 @@ gridworld.add_action("up", "imm");
 gridworld.add_action("left", "imm");
 gridworld.add_action("right", "imm");
 gridworld.add_action("finished", "imm");
+gridworld.add_action("self-loop", "imm");
 
 nStates = 16;
 
@@ -62,9 +61,13 @@ end
 
 gridworld.set_transition("S16", "finished", "terminal1", 1.0, "imm")
 gridworld.set_transition("S13", "finished", "terminal2", 1.0, "imm")
+%gridworld.set_transition("S13", "finished", "S13", 1.0, "imm")
+
+gridworld.set_transition("terminal1", "self-loop", "terminal1", 1.0, "imm")
+gridworld.set_transition("terminal2", "self-loop", "terminal2", 1.0, "imm")
 
 gridworld.set_reward("S16", 'finished', 10);
 gridworld.set_reward("S13", 'finished', 100);
-gridworld.set_reward("S8", 'up', -100);
-gridworld.set_reward("S11", 'right', -100);
-[values, policy] = value_iteration(gridworld, 1, 0.99, 0.01)
+%gridworld.set_reward("S8", 'up', -100);
+%gridworld.set_reward("S11", 'right', -100);
+[values, policy] = value_iteration(gridworld, 1, 1, 0.01)
