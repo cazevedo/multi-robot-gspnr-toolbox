@@ -137,6 +137,9 @@ classdef MDP < handle
         end
         
         function full_transition = get_full_transition_matrix(MDP)
+            if MDP.valid ~= true
+                error("Before calculating full transition matrix, the MDP must be a valid one")
+            end
             full_transition = zeros(MDP.nStates, MDP.nActions, MDP.nStates);
             for row_index = 1:MDP.nTransitions
                 indices = MDP.transition_matrix{1}(row_index, :);
@@ -146,6 +149,9 @@ classdef MDP < handle
         end
         
         function full_rewards = get_full_reward_matrix(MDP)
+            if MDP.valid ~= true
+                error("Before calculating full transition matrix, the MDP must be a valid one")
+            end
             full_rewards = zeros(MDP.nStates, MDP.nActions);
             for row_index = 1:MDP.nRewards
                 indices = MDP.reward_matrix{1}(row_index, :);
@@ -200,7 +206,7 @@ classdef MDP < handle
         end
         function check_validity(MDP)
             %Function that simultaneously checks the validity of the
-            %transition matrix (ensures that for each state,action pair,
+            %transition matrix (ensures that for each state/action pair,
             %the probability sums to either 0 or 1) and sets the cumulative
             %probability property of the MDP.
             MDP.cumulative_prob = sparse(MDP.nStates, MDP.nActions);
@@ -212,9 +218,22 @@ classdef MDP < handle
                 MDP.cumulative_prob(source_state_index, action_index) = MDP.cumulative_prob(source_state_index,action_index)+prob;                
             end
             [source_index, action_index, cum_prob] = find(MDP.cumulative_prob);
-            if (any(cum_prob~=1))
-                error("MDP does not have correct transition probabilities")
+            nEnabledStateAction = length(cum_prob);
+            for index = 1:nEnabledStateAction
+                if cum_prob(index) ~= 1
+                    source_state = MDP.states(source_index(index));
+                    action = MDP.actions(action_index(index));
+                    error_msg = "The state action pair ("+source_state+"/"+action+") transitions do not sum to 1.0";
+                    error(error_msg);
+                end
             end
+            %Check if reward list only has unique rewards (no state/action
+            %pairs repeated)
+            unique_reward = unique(MDP.reward_matrix{1}, 'rows')
+            if size(unique_reward, 1) ~= size(MDP.reward_matrix{1},1)
+                error("There are repeated state/action pairs in the reward matrix")
+            end
+            
             MDP.valid = true;
         end
         function set_enabled_actions(MDP)

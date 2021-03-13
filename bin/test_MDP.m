@@ -21,10 +21,13 @@ test.set_transition("S1","a","S3", 0.3, "imm")
 test.set_transition("S1","b","S1",1.0, "imm")
 test.set_reward("S1", "a", 5);
  
-full_trans = test.get_full_transition_matrix()
-full_reward = test.get_full_reward_matrix()
+
 % 
 test.check_validity()
+
+full_trans = test.get_full_transition_matrix()
+full_reward = test.get_full_reward_matrix()
+
 test.set_enabled_actions()
 test.actions_enabled("S1")
 % 
