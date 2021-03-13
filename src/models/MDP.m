@@ -265,8 +265,8 @@ classdef MDP < handle
         end
         
         function reward = get_reward(MDP, state_index, action_index)
-            full_rewards = MDP.get_full_reward_matrix();
-            reward = full_rewards(state_index, action_index);
+            index = find(ismember(MDP.reward_matrix{1}, [state_index action_index], 'rows'));
+            reward = MDP.reward_matrix{2}(index);
         end
         
         function [end_state_indices, end_state_probs] = action_probs(MDP, state_index, action_index)

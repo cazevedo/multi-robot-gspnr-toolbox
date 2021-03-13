@@ -20,8 +20,6 @@ test.set_transition("S1","a","S2", 0.5, "imm")
 test.set_transition("S1","a","S3", 0.3, "imm")
 test.set_transition("S1","b","S1",1.0, "imm")
 test.set_reward("S1", "a", 5);
- 
-
 % 
 test.check_validity()
 
