@@ -272,13 +272,15 @@ classdef MDP < handle
         function [end_state_indices, end_state_probs] = action_probs(MDP, state_index, action_index)
             end_state_indices = [];
             end_state_probs = [];
-            full_transitions = MDP.get_full_transition_matrix();
-            vector = full_transitions(state_index, action_index, :);
-            [row, col, vals] = find(vector);
-            nEndStates = length(col);
-            for index = 1:nEndStates
-               end_state_indices = cat(1, end_state_indices, col(index));
-               end_state_probs = cat(1, end_state_probs, vals(index));
+            pos_in_list = find(ismember(MDP.transition_matrix{1}(:,1:2), [state_index action_index],'rows'));
+            nTransitions = size(pos_in_list,1);
+            for t_index = 1:nTransitions
+                pos = pos_in_list(t_index);
+                indices = MDP.transition_matrix{1}(pos,:);
+                prob = MDP.transition_matrix{2}(pos);
+                end_state_index = indices(3);
+                end_state_indices = cat(1, end_state_indices, end_state_index);
+                end_state_probs = cat(1, end_state_probs, prob);
             end 
         end
             

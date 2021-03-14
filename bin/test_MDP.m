@@ -29,5 +29,5 @@ full_reward = test.get_full_reward_matrix()
 test.set_enabled_actions()
 test.actions_enabled("S1")
 % 
-% [end_state_indices, end_state_prob] = test.action_probs(1,1)
+[end_state_indices, end_state_prob] = test.action_probs(1,1)
 
