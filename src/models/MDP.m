@@ -229,7 +229,7 @@ classdef MDP < handle
             end
             %Check if reward list only has unique rewards (no state/action
             %pairs repeated)
-            unique_reward = unique(MDP.reward_matrix{1}, 'rows')
+            unique_reward = unique(MDP.reward_matrix{1}, 'rows');
             if size(unique_reward, 1) ~= size(MDP.reward_matrix{1},1)
                 error("There are repeated state/action pairs in the reward matrix")
             end
