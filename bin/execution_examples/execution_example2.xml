@@ -84,7 +84,7 @@
             <graphics orientation="0" x="0" y="0"/>
         </label>
     </exponentialTransition>
-    <exponentialTransition delay="1.0" id="finished_travel_OtoL" serverType="ExclusiveServer" type="node">
+    <exponentialTransition delay="0.06666666666666667" id="finished_travel_OtoL" serverType="ExclusiveServer" type="node">
         <graphics orientation="0" x="195" y="195"/>
         <label id="Lfinished_travel_OtoL" text="finished_travel_OtoL" type="text">
             <graphics orientation="0" x="0" y="0"/>
@@ -96,7 +96,7 @@
             <graphics orientation="0" x="0" y="0"/>
         </label>
     </exponentialTransition>
-    <exponentialTransition delay="1.0" id="finished_inspect" serverType="ExclusiveServer" type="node">
+    <exponentialTransition delay="0.05" id="finished_inspect" serverType="ExclusiveServer" type="node">
         <graphics orientation="0" x="570" y="60"/>
         <label id="Lfinished_inspect" text="finished_inspect" type="text">
             <graphics orientation="0" x="0" y="0"/>
@@ -120,7 +120,7 @@
             <graphics orientation="0" x="0" y="0"/>
         </label>
     </immediateTransition>
-    <immediateTransition id="started_travel_OtoL" priority="1" type="node" weight="1">
+    <immediateTransition id="started_travel_OtoL" priority="1" type="node" weight="0.0">
         <graphics orientation="0" x="195" y="435"/>
         <label id="Lstarted_travel_OtoL" text="started_travel_OtoL" type="text">
             <graphics orientation="0" x="0" y="0"/>
