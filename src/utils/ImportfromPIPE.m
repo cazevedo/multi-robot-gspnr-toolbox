@@ -3,9 +3,9 @@ function gspn = ImportfromPIPE(xml_filepath)
 %equivalent instance of a GSPNR object.
 
 gspn = GSPNR();
-struct = xml2struct(xml_filepath)
+struct = xml2struct(xml_filepath);
 
-nPlaces = size(struct.pnml.net.place, 2)
+nPlaces = size(struct.pnml.net.place, 2);
 
 places = [string.empty];
 tokens = [];
@@ -25,7 +25,7 @@ transition_names = [string.empty];
 transition_types = [string.empty];
 transition_rates = [];
 
-nTrans = size(struct.pnml.net.transition, 2)
+nTrans = size(struct.pnml.net.transition, 2);
 
 for index = 1:nTrans
     name = struct.pnml.net.transition{1,index}.Attributes.id;
@@ -50,7 +50,7 @@ arc_trans = [string.empty];
 arc_type = [string.empty];
 arc_weight = [];
 
-nArcs = size(struct.pnml.net.arc,2)
+nArcs = size(struct.pnml.net.arc,2);
 
 for index = 1:nArcs
     source = struct.pnml.net.arc{1,index}.Attributes.source;
