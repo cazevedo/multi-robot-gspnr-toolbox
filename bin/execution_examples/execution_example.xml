@@ -12,7 +12,7 @@
                 </graphics>
             </name>
             <initialMarking>
-                <value>Default,1</value>
+                <value>Default,0</value>
                 <graphics>
                     <offset x="0.0" y="0.0"/>
                 </graphics>
@@ -48,11 +48,11 @@
             <name>
                 <value>lab</value>
                 <graphics>
-                    <offset x="0.0" y="0.0"/>
+                    <offset x="24.0" y="47.0"/>
                 </graphics>
             </name>
             <initialMarking>
-                <value>Default,1</value>
+                <value>Default,0</value>
                 <graphics>
                     <offset x="0.0" y="0.0"/>
                 </graphics>
@@ -72,7 +72,7 @@
                 </graphics>
             </name>
             <initialMarking>
-                <value>Default,5</value>
+                <value>Default,1</value>
                 <graphics>
                     <offset x="0.0" y="0.0"/>
                 </graphics>
@@ -646,7 +646,7 @@
         <arc id="finished_travel_OtoL to lab" source="finished_travel_OtoL" target="lab">
             <graphics/>
             <inscription>
-                <value>Default,2</value>
+                <value>Default,1</value>
                 <graphics/>
             </inscription>
             <tagged>
@@ -737,7 +737,7 @@
         <arc id="office to start_travel_OtoH" source="office" target="start_travel_OtoH">
             <graphics/>
             <inscription>
-                <value>Default,3</value>
+                <value>Default,1</value>
                 <graphics/>
             </inscription>
             <tagged>

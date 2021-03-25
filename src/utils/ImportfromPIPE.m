@@ -1,8 +1,6 @@
 function gspn = ImportfromPIPE(xml_filepath)
-%ImportfromPIPE Given an xml file exported from PIPE software, creates
+%ImportfromPIPE Given an xml file with PNML structure exported from PIPE software, creates
 %equivalent instance of a GSPNR object.
-%Attention! Cannot import initial marking, or arc weights, and so these
-%attributes must be set after generating the GSPNR object.
 
 gspn = GSPNR();
 struct = xml2struct(xml_filepath)
