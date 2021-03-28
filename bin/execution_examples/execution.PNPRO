@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="Thesis" version="121">
+  <gspn name="GSPN" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place marking="2" name="P0" x="8.0" y="11.0"/>
+      <transition name="t0" type="IMM" x="13.85" y="11.0"/>
+      <transition name="t1" type="IMM" weight="0" weight-x="2.5" weight-y="1.5" x="13.85" y="15.0"/>
+      <transition name="t2" type="IMM" weight="0" weight-x="0.5" weight-y="-3.0" x="13.85" y="6.0"/>
+      <place name="P1" x="21.0" y="6.0"/>
+      <place name="P2" x="21.0" y="11.0"/>
+      <place name="P3" x="21.0" y="15.0"/>
+      <transition delay="10" name="T0" nservers-x="0.5" type="EXP" x="13.55" y="21.0"/>
+      <place name="P4" x="21.0" y="21.0"/>
+    </nodes>
+    <edges>
+      <arc head="t2" kind="INPUT" mult="2" mult-k="0.8069335937500001" tail="P0">
+        <point x="11.93798828125" y="9.06201171875"/>
+      </arc>
+      <arc head="t0" kind="INPUT" tail="P0"/>
+      <arc head="t1" kind="INPUT" tail="P0"/>
+      <arc head="P1" kind="OUTPUT" tail="t2"/>
+      <arc head="P2" kind="OUTPUT" tail="t0"/>
+      <arc head="P3" kind="OUTPUT" tail="t1"/>
+      <arc head="T0" kind="INPUT" tail="P0"/>
+      <arc head="P4" kind="OUTPUT" tail="T0"/>
+    </edges>
+  </gspn>
+</project>

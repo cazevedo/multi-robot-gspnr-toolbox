@@ -28,4 +28,9 @@
       -action_name: "fibonnaci"
       -message_type: "turtlebot_actions/TurtlebotMoveGoal"
       -message_fields: {"TurnDistance":20, "ForwardDistance":20}
+  drone:
+    inspect_lab:
+      -action_name: "fibonacci"
+      -message_type: "actionlib_tutorials/FibonacciGoal"
+      -message_fields: {"Order":20}
 ...

@@ -3,17 +3,17 @@ function gspn = ImportfromPIPE(xml_filepath)
 %equivalent instance of a GSPNR object.
 
 gspn = GSPNR();
-struct = xml2struct(xml_filepath);
+struct = readstruct(xml_filepath);
 
-nPlaces = size(struct.pnml.net.place, 2);
+nPlaces = size(struct.net.place, 2);
 
 places = [string.empty];
 tokens = [];
 
 for index = 1:nPlaces
-    name = struct.pnml.net.place{1,index}.Attributes.id;
+    name = struct.net.place(index).name.value;
     places = cat(2, places, name);
-    token_string = struct.pnml.net.place{1,index}.initialMarking.value.Text;
+    token_string = struct.net.place(index).initialMarking.value;
     token_string = erase(token_string,"Default,");
     ntokens = str2double(token_string);
     tokens = cat(2, tokens, ntokens);
@@ -25,11 +25,11 @@ transition_names = [string.empty];
 transition_types = [string.empty];
 transition_rates = [];
 
-nTrans = size(struct.pnml.net.transition, 2);
+nTrans = size(struct.net.transition, 2);
 
 for index = 1:nTrans
-    name = struct.pnml.net.transition{1,index}.Attributes.id;
-    if struct.pnml.net.transition{1,index}.timed.value.Text == "true"
+    name = struct.net.transition(index).name.value;
+    if struct.net.transition(index).timed.value == "true"
         %Exponential transition
         type = "exp";
     else
@@ -37,7 +37,7 @@ for index = 1:nTrans
         type = "imm";
         
     end
-    rate = str2double(struct.pnml.net.transition{1,index}.rate.value.Text);
+    rate = struct.net.transition(index).rate.value;
     transition_names = cat(2,transition_names, name);
     transition_types = cat(2,transition_types, type);
     transition_rates = cat(2,transition_rates, rate);
@@ -50,18 +50,18 @@ arc_trans = [string.empty];
 arc_type = [string.empty];
 arc_weight = [];
 
-nArcs = size(struct.pnml.net.arc,2);
+nArcs = size(struct.net.arc,2);
 
 for index = 1:nArcs
-    source = struct.pnml.net.arc{1,index}.Attributes.source;
-    target = struct.pnml.net.arc{1,index}.Attributes.target;
+    source = struct.net.arc(index).sourceAttribute;
+    target = struct.net.arc(index).targetAttribute;
     %Checking if source node is a place:
     if isempty(find(ismember(places, source)))
         %Source is a transition and arc is an output arc
         arc_places = cat(2, arc_places, target);
         arc_trans = cat(2, arc_trans, source);
         arc_type = cat(2, arc_type, "out");
-        weight_string = struct.pnml.net.arc{1,index}.inscription.value.Text;
+        weight_string = struct.net.arc(index).inscription.value;
         weight = str2double(erase(weight_string,"Default,"));
         arc_weight = cat(2, arc_weight, weight);
     else
@@ -69,7 +69,7 @@ for index = 1:nArcs
         arc_places = cat(2, arc_places, source);
         arc_trans = cat(2, arc_trans, target);
         arc_type = cat(2, arc_type, "in");
-        weight_string = struct.pnml.net.arc{1,index}.inscription.value.Text;
+        weight_string = struct.net.arc(index).inscription.value;
         weight = str2double(erase(weight_string,"Default,"));
         arc_weight = cat(2, arc_weight, weight);
     end    
