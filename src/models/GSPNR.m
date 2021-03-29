@@ -100,6 +100,16 @@ classdef GSPNR < handle
            end
         end
         
+        function [exp_trans, exp_trans_indices] = get_exponential_transitions(GSPN)
+            %Returns list of exponential transition and their corresponding
+            %indices
+            exp_trans_indices = find(GSPN.type_transitions == "exp");
+            nEXPTrans = size(exp_trans_indices, 2);
+            for t_index = 1:nEXPTrans
+                exp_trans(t_index) = GSPN.transitions(exp_trans_indices(t_index));
+            end
+        end
+        
         function add_arcs(GSPN, places, transitions, type, weights)
             %Adds input and output arcs between existing places and transitions to the GSPNR object
            if ~(length(places) == length(transitions) && length(transitions) == length(type) && length(type)== length(weights))
