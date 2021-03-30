@@ -1,0 +1,30 @@
+turtlebot:
+  inspect_lab:
+    action_name: []
+    message_type: []
+    message_fields: []
+  travel_HtoL:
+    action_name: []
+    message_type: []
+    message_fields: []
+  travel_HtoO:
+    action_name: []
+    message_type: []
+    message_fields: []
+  travel_LtoH:
+    action_name: []
+    message_type: []
+    message_fields: []
+  travel_LtoO:
+    action_name: []
+    message_type: []
+    message_fields: []
+  travel_OtoL:
+    action_name: []
+    message_type: []
+    message_fields: []
+drone:
+  travel_OtoH:
+    action_name: []
+    message_type: []
+    message_fields: []

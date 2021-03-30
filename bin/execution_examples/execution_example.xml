@@ -72,7 +72,7 @@
                 </graphics>
             </name>
             <initialMarking>
-                <value>Default,3</value>
+                <value>Default,1</value>
                 <graphics>
                     <offset x="0.0" y="0.0"/>
                 </graphics>
@@ -575,7 +575,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="586" y="77" curvePoint="false"/>
-            <arcpath id="001" x="618" y="120" curvePoint="false"/>
+            <arcpath id="001" x="618" y="119" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="finished_travel_HtoL to lab" source="finished_travel_HtoL" target="lab">
@@ -588,7 +588,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="1106" y="222" curvePoint="false"/>
-            <arcpath id="001" x="641" y="135" curvePoint="false"/>
+            <arcpath id="001" x="641" y="134" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="finished_travel_HtoO to office" source="finished_travel_HtoO" target="office">
@@ -601,7 +601,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="546" y="462" curvePoint="false"/>
-            <arcpath id="001" x="460" y="514" curvePoint="false"/>
+            <arcpath id="001" x="459" y="514" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="finished_travel_LtoH to hallway" source="finished_travel_LtoH" target="hallway">
@@ -614,7 +614,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="971" y="462" curvePoint="false"/>
-            <arcpath id="001" x="894" y="514" curvePoint="false"/>
+            <arcpath id="001" x="894" y="513" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="finished_travel_LtoO to office" source="finished_travel_LtoO" target="office">
@@ -627,7 +627,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="371" y="451" curvePoint="false"/>
-            <arcpath id="001" x="435" y="511" curvePoint="false"/>
+            <arcpath id="001" x="436" y="511" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="finished_travel_OtoH to hallway" source="finished_travel_OtoH" target="hallway">
@@ -640,7 +640,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="781" y="597" curvePoint="false"/>
-            <arcpath id="001" x="870" y="530" curvePoint="false"/>
+            <arcpath id="001" x="870" y="531" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="finished_travel_OtoL to lab" source="finished_travel_OtoL" target="lab">
@@ -653,7 +653,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="221" y="207" curvePoint="false"/>
-            <arcpath id="001" x="612" y="135" curvePoint="false"/>
+            <arcpath id="001" x="612" y="134" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="hallway to started_travel_HtoL" source="hallway" target="started_travel_HtoL">
@@ -678,7 +678,7 @@
             <tagged>
                 <value>false</value>
             </tagged>
-            <arcpath id="000" x="869" y="515" curvePoint="false"/>
+            <arcpath id="000" x="868" y="515" curvePoint="false"/>
             <arcpath id="001" x="766" y="462" curvePoint="false"/>
             <type value="normal"/>
         </arc>
@@ -704,7 +704,7 @@
             <tagged>
                 <value>false</value>
             </tagged>
-            <arcpath id="000" x="635" y="120" curvePoint="false"/>
+            <arcpath id="000" x="635" y="119" curvePoint="false"/>
             <arcpath id="001" x="666" y="77" curvePoint="false"/>
             <type value="normal"/>
         </arc>
@@ -743,7 +743,7 @@
             <tagged>
                 <value>false</value>
             </tagged>
-            <arcpath id="000" x="459" y="530" curvePoint="false"/>
+            <arcpath id="000" x="458" y="531" curvePoint="false"/>
             <arcpath id="001" x="546" y="597" curvePoint="false"/>
             <type value="normal"/>
         </arc>
@@ -783,7 +783,7 @@
                 <value>false</value>
             </tagged>
             <arcpath id="000" x="667" y="67" curvePoint="false"/>
-            <arcpath id="001" x="640" y="50" curvePoint="false"/>
+            <arcpath id="001" x="639" y="50" curvePoint="false"/>
             <type value="normal"/>
         </arc>
         <arc id="started_travel_HtoL to travel_HtoL" source="started_travel_HtoL" target="travel_HtoL">
