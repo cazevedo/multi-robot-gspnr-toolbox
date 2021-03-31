@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="testExecutableGSPN" version="121">
+  <gspn name="navigation" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="dec_1&lt;&gt;" x="5.0" y="6.0"/>
+      <transition name="start_travel_&lt;&gt;to&lt;&gt;" type="IMM" weight="1" x="10.85" y="6.0"/>
+      <place name="travelling_&lt;&gt;to&lt;&gt;" superpos-y="3.5" superposition-tags="fibonacci/FibonacciGoal/Order:20" x="17.0" y="6.0"/>
+      <transition delay="1" name="finished_travel_&lt;&gt;to&lt;&gt;" nservers-x="0.5" type="EXP" x="22.55" y="6.0"/>
+      <place name="dec_2&lt;&gt;" x="30.0" y="6.0"/>
+    </nodes>
+    <edges>
+      <arc head="start_travel_&lt;&gt;to&lt;&gt;" kind="INPUT" tail="dec_1&lt;&gt;"/>
+      <arc head="travelling_&lt;&gt;to&lt;&gt;" kind="OUTPUT" tail="start_travel_&lt;&gt;to&lt;&gt;"/>
+      <arc head="finished_travel_&lt;&gt;to&lt;&gt;" kind="INPUT" tail="travelling_&lt;&gt;to&lt;&gt;"/>
+      <arc head="dec_2&lt;&gt;" kind="OUTPUT" tail="finished_travel_&lt;&gt;to&lt;&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="inspection" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="dec_&lt;&gt;" x="5.0" y="6.0"/>
+      <transition name="start_inspect_&lt;&gt;" type="IMM" weight="1" x="9.85" y="6.0"/>
+      <transition delay="1" label-x="4.0" label-y="-2.0" name="finished_inspect_&lt;&gt;" nservers-x="0.5" type="EXP" x="19.55" y="6.0"/>
+      <place name="inspecting_&lt;&gt;" x="14.0" y="6.0"/>
+    </nodes>
+    <edges>
+      <arc head="start_inspect_&lt;&gt;" kind="INPUT" tail="dec_&lt;&gt;"/>
+      <arc head="inspecting_&lt;&gt;" kind="OUTPUT" tail="start_inspect_&lt;&gt;"/>
+      <arc head="finished_inspect_&lt;&gt;" kind="INPUT" tail="inspecting_&lt;&gt;"/>
+      <arc head="dec_&lt;&gt;" kind="OUTPUT" tail="finished_inspect_&lt;&gt;">
+        <point x="13.0" y="13.0"/>
+      </arc>
+    </edges>
+  </gspn>
+</project>

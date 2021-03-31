@@ -13,3 +13,7 @@ action_dict = struct();
 
 action_dict.lab = ['inspect'];
 action_dict.hallway = ['inspect'];
+
+[nGSPN, gspn_struct] = ImportfromGreatSPN('testExecutableGSPN.PNPRO');
+
+%exec = ExecutableGSPNR(map, action_dict, gspn_struct);

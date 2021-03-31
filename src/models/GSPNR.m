@@ -19,6 +19,10 @@ classdef GSPNR < matlab.mixin.Copyable
     
     methods
         function GSPN = GSPNR()
+            GSPN.arcs.places = [string.empty];
+            GSPN.arcs.transitions = [string.empty];
+            GSPN.arcs.types = [string.empty];
+            GSPN.arcs.weights = [];
         end
         function add_places(GSPN, places, ntokens)
             %Adds places to the GSPNR object
@@ -29,11 +33,10 @@ classdef GSPNR < matlab.mixin.Copyable
            if length(places) ~= length(ntokens)
                error('Error, places and ntokens vectors must have the same size')
            end
-           GSPN.places = cat(1, GSPN.places, places);
-           GSPN.initial_marking = cat(1, GSPN.initial_marking, ntokens);
+           GSPN.places = cat(2, GSPN.places, places);
+           GSPN.initial_marking = cat(2, GSPN.initial_marking, ntokens);
            GSPN.current_marking = GSPN.initial_marking;
-           ransitions(GSPN, transitions, types, rates)
-            %Adds immediate and/or exponenti
+           
            nTransitions = length(GSPN.transitions);
            
            newRow = zeros(length(places), nTransitions);
@@ -54,6 +57,26 @@ classdef GSPNR < matlab.mixin.Copyable
         function remove_places(GSPN, places)
             %Removes places from the GSPNR object
            nPlaces = length(places);
+           arc_places = [string.empty];
+           arc_transitions = [string.empty];
+           arc_types = [];
+           for p_index = 1:nPlaces
+               place_name = places(p_index);
+               place_index = find(strcmp(GSPN.places, place_name));
+               target_trans_indices = find(GSPN.input_arcs(place_index, :));
+               target_trans_names = translate_to_names(GSPN.transitions, target_trans_indices);
+               nTargetTransNames = size(target_trans_indices, 2);
+               arc_places = cat(2, arc_places, repmat(place_name, [1 nTargetTransNames]));
+               arc_transitions = cat(2, arc_transitions, target_trans_names);
+               arc_types = cat(2, arc_types, repmat("in", [1 nTargetTransNames]));
+               source_trans_indices = find(GSPN.output_arcs(:, place_index));
+               source_trans_names = translate_to_names(GSPN.transitions, target_trans_indices');
+               nSourceTransNames = size(source_trans_indices, 2);
+               arc_places = cat(2, arc_places, repmat(place_name, [1 nSourceTransNames]));
+               arc_transitions = cat(2, arc_transitions, source_trans_names);
+               arc_types = cat(2, arc_types, repmat("out", [1 nSourceTransNames]));
+           end
+           GSPN.remove_arcs(arc_places, arc_transitions, arc_types);
            for place = 1:nPlaces
                place_index = find(strcmp(GSPN.places, places(place)));
                GSPN.places(place_index) = [];
@@ -89,8 +112,31 @@ classdef GSPNR < matlab.mixin.Copyable
         end
         
         function remove_transitions(GSPN, transitions)
-            %Removes transitions from input array from the GSPNR object
            nTransitions = length(transitions);
+           arc_places = [string.empty];
+           arc_transitions = [string.empty];
+           arc_types = [];
+           for t_index = 1:nTransitions
+               transition_name = transitions(t_index);
+               transition_index = find(strcmp(GSPN.transitions, transition_name));
+               %Saving input arcs that need to be deleted
+               input_place_indices = find(GSPN.input_arcs(:,transition_index));
+               input_place_names = translate_to_names(GSPN.places, input_place_indices);
+               nInputPlaceIndices = size(1, input_place_names)
+               arc_places = cat(2, arc_places, input_place_names');
+               arc_transitions = cat(2, arc_transitions, repmat(transition_name, [1 nInputPlaceIndices]));
+               arc_types = cat(2, arc_types, repmat("in", [1 nInputPlaceIndices]));
+               %Doing the same thing but for output arcs
+               output_place_indices = find(GSPN.output_arcs(transition_index,:));
+               output_place_names = translate_to_names(GSPN.places, output_place_indices);
+               nOutputPlaceIndices = size(1, output_place_names)
+               arc_places = cat(2, arc_places, output_place_names);
+               arc_transitions = cat(2, arc_transitions, repmat(transition_name, [1 nOutPlaceIndices]));
+               arc_types = cat(2, arc_types, repmat("out", [1 nOutputPlaceIndices]));
+           end
+           GSPN.remove_arcs(arc_places, arc_transitions, arc_types);
+               
+           %Removes transitions from input array from the GSPNR object
            for transition = 1:nTransitions
                transition_index = find(strcmp(GSPN.transitions, transitions(transition)));
                GSPN.transitions(transition_index) = [];
@@ -132,7 +178,7 @@ classdef GSPNR < matlab.mixin.Copyable
            end
            GSPN.arcs.places = cat(2, GSPN.arcs.places, places);
            GSPN.arcs.transitions = cat(2, GSPN.arcs.transitions, transitions);
-           GSPN.arcs.types = cat(2, GSPN.arcs.types, types);
+           GSPN.arcs.types = cat(2, GSPN.arcs.types, type);
            GSPN.arcs.weights = cat(2, GSPN.arcs.weights, weights);
         end
         function remove_arcs(GSPN, places, transitions, type)

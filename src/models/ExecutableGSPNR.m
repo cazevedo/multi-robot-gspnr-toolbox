@@ -7,7 +7,7 @@ classdef ExecutableGSPNR < GSPNR
     end
     
     methods
-        function obj = ExecutableGSPNR(top_map,action_list, PNPRO_models)
+        function obj = ExecutableGSPNR(top_map, action_dict, models)
             %UNTITLED Construct an instance of this class
             %   Detailed explanation goes here
             obj.Property1 = inputArg1 + inputArg2;
