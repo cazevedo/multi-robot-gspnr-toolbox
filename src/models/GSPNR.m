@@ -1,4 +1,4 @@
-classdef GSPNR < handle
+classdef GSPNR < matlab.mixin.Copyable
     %GSPNR Model for Global Stochastic Petri Net with Rewards
     %   Class that implements GSPNR model
     
@@ -9,6 +9,7 @@ classdef GSPNR < handle
         rate_transitions = [];%Array of real numbers, element i corresponds to the weight/rate of transition i
         input_arcs = [];        %Matrix, where the entry (i,j) corresponds to the input arc weight between place i and transition j. If 0, no arc exists
         output_arcs = [];       %Matrix, where the entry (i,j) corresponds to the output arc weight between transition i and place j. If 0, no arc exists
+        arcs = struct();        %Struct that holds arcs auxiliary variables
         initial_marking = [];   %Array of positive integers, where each element corresponds to the number of tokens present in the corresponding place in the initial marking.
         current_marking = [];   %Array of positive integers, representing current marking
         place_rewards = [];     %Array of real numbers corresponding to the place rewards for the corresponding place.
@@ -31,7 +32,8 @@ classdef GSPNR < handle
            GSPN.places = cat(1, GSPN.places, places);
            GSPN.initial_marking = cat(1, GSPN.initial_marking, ntokens);
            GSPN.current_marking = GSPN.initial_marking;
-           
+           ransitions(GSPN, transitions, types, rates)
+            %Adds immediate and/or exponenti
            nTransitions = length(GSPN.transitions);
            
            newRow = zeros(length(places), nTransitions);
@@ -126,8 +128,12 @@ classdef GSPNR < handle
               else
                   error('Name of place or transition cannot be found')
               end
-              
+             
            end
+           GSPN.arcs.places = cat(2, GSPN.arcs.places, places);
+           GSPN.arcs.transitions = cat(2, GSPN.arcs.transitions, transitions);
+           GSPN.arcs.types = cat(2, GSPN.arcs.types, types);
+           GSPN.arcs.weights = cat(2, GSPN.arcs.weights, weights);
         end
         function remove_arcs(GSPN, places, transitions, type)
             %Removes input and/or output arcs from the GSPNR object
@@ -146,6 +152,15 @@ classdef GSPNR < handle
                else
                    error('Name of place or transition cannot be found')
                end
+               p_index = find(GSPN.arcs.places == places(arc));
+               t_index = find(GSPN.arcs.transitions == transitions(arc));
+               ty_index = find(GSPN.arcs.types == type(arc));
+               index = intersect(p_index, t_index);
+               index = intersect(index, ty_index);
+               GSPN.arcs.places(index) = [];
+               GSPN.arcs.transitions(index) = [];
+               GSPN.arcs.types(index) = [];
+               GSPN.arcs.weights(index) = [];
            end
         end
         function set_reward_functions(GSPN, name, reward, type)

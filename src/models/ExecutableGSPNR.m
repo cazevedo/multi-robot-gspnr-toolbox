@@ -3,7 +3,7 @@ classdef ExecutableGSPNR < GSPNR
     %   Detailed explanation goes here
     
     properties
-        Property1
+        place_actions = struct();
     end
     
     methods
