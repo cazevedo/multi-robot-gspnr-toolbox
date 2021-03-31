@@ -3,7 +3,7 @@ clear
 
 addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/models/');
 addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/src/utils/');
-addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/bin/execution_examples/')
+addpath('/home/antonio/Repos/multi-robot-gspnr-toolbox/bin/execution_examples/config/')
 
 PNPRO_path = 'execution.PNPRO';
 pnml_file = 'execution_example.xml';

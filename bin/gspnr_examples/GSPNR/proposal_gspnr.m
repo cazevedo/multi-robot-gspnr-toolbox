@@ -1,3 +1,5 @@
+%Instantiation of GSPNR found in the proposal for the Mathworks grant
+
 clear
 clc
 
