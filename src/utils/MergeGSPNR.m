@@ -1,4 +1,4 @@
-function MergeGSPNR(gspn1,gspn2)
+function merged = MergeGSPNR(gspn1,gspn2)
 %MERGEGSPNR Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -12,6 +12,9 @@ function MergeGSPNR(gspn1,gspn2)
     
     [common_places, p_indices1, p_indices2] = intersect(places1, places2);
     [common_trans,  t_indices1, t_indices2] = intersect(trans1, trans2);
+    
+    common_trans_types = [string.empty];
+    common_trans_rates = [];
     
     %Perform sanity checks on transitions - Check if transitions common to
     %both GSPNRs have same type and same weight/rate;
@@ -28,6 +31,9 @@ function MergeGSPNR(gspn1,gspn2)
         elseif gspn1.rate_transitions(t_index1) ~= gspn2.rate_transitions(t_index2)
             error("Common transitions between the two GSPNs must have the same rate/weigth");
         end
+        
+        common_trans_types(index) = gspn1.type_transitions(t_index1);
+        common_trans_rates(index) = gspn1.rate_transitions(t_index1);
     end
     
     %Struct to hold information about the arcs that are connected to common
@@ -94,7 +100,75 @@ function MergeGSPNR(gspn1,gspn2)
     merged.add_arcs(gspn1_copy.arcs.places, gspn1_copy.arcs.transitions, gspn1_copy.arcs.types, gspn1_copy.arcs.weights);
     merged.add_arcs(gspn2_copy.arcs.places, gspn2_copy.arcs.transitions, gspn2_copy.arcs.types, gspn2_copy.arcs.weights);
 
-
+    %Start adding the common elements, with the corresponding input and
+    %output arcs
+    arc_places = [string.empty];
+    arc_trans = [string.empty];
+    arc_types = [string.empty];
+    arc_weights = [];
+    
+    merged.add_places(common_places, zeros(1, nCommonPlace));
+    merged.add_transitions(common_trans, common_trans_types, common_trans_rates)
+    
+    for p_index = 1:nCommonPlace
+        common_place = common_place_arcs(p_index);
+        place_name = common_place.place_name;
+        nInputArcs  = size(common_place.target_transition1, 2) + size(common_place.target_transition2, 2);
+        nOutputArcs = size(common_place.source_transition1, 2) + size(common_place.source_transition2, 2);
+        
+        inter_trans_list = [];
+        %Add all input arcs to the input lists
+        arc_places = cat(2, arc_places, repmat(place_name, [1 nInputArcs]));
+        inter_trans_list = cat(2, inter_trans_list, common_place.target_transition1);
+        inter_trans_list = cat(2, inter_trans_list, common_place.target_transition2);
+        arc_trans = cat(2, arc_trans, inter_trans_list);
+        arc_types = cat(2, arc_types, repmat("in", [1 nInputArcs]));
+        arc_weights = cat(2, arc_weights, ones(1, nInputArcs));
+        %Add all output arcs to the input lists
+        arc_places = cat(2, arc_places, repmat(place_name, [1 nOutputArcs]));
+        inter_trans_list = [];
+        inter_trans_list = cat(2, inter_trans_list, common_place.source_transition1);
+        inter_trans_list = cat(2, inter_trans_list, common_place.source_transition2);
+        arc_trans = cat(2, arc_trans, inter_trans_list);
+        arc_types = cat(2, arc_types, repmat("out", [1 nOutputArcs]));
+        arc_weights = cat(2, arc_weights, ones(1, nOutputArcs));
+        
+    end
+    
+    merged.add_arcs(arc_places, arc_trans, arc_types, arc_weights);
+    
+    %Reset input lists
+    arc_places = [string.empty];
+    arc_trans = [string.empty];
+    arc_types = [string.empty];
+    arc_weights = [];
+    
+    for t_index = 1:nCommonTrans
+        common_trans = common_trans_arcs(t_index);
+        trans_name = common_trans.transition_name;
+        nInputArcs = size(common_trans.source_place1, 2) + size(common_trans.source_place2, 2);
+        nOutputArcs = size(common_trans.target_place1, 2) + size(common_trans.target_place2, 2);
+        
+        inter_place_list = [];
+        %Add all input arcs to the input lists
+        inter_place_list = cat(2, inter_place_list, common_trans.source_place1);
+        inter_place_list = cat(2, inter_place_list, common_trans.source_place2);
+        arc_places = cat(2, arc_places, inter_place_list);
+        arc_trans = cat(2, arc_trans, repmat(trans_name, [1 nInputArcs]));
+        arc_types = cat(2, arc_types, repmat("in", [1 nInputArcs]));
+        arc_weights = cat(2, arc_weights, ones(1, nInputArcs));
+        inter_place_list = [];
+        %Add all output arcs to the input lists
+        inter_place_list = cat(2, inter_place_list, common_trans.target_place1);
+        inter_place_list = cat(2, inter_place_list, common_trans.target_place2);
+        arc_places = cat(2, arc_places, inter_place_list);
+        arc_trans = cat(2, arc_trans, repmat(trans_name, [1 nOutputArcs]));
+        arc_types = cat(2, arc_types, repmat("out", [1 nOutputArcs]));
+        arc_weights = cat(2, arc_weights, ones(1, nOutputArcs));
+    end
+    
+    merged.add_arcs(arc_places, arc_trans, arc_types, arc_weights);
+       
 end
 
     

@@ -70,8 +70,8 @@ classdef GSPNR < matlab.mixin.Copyable
                arc_transitions = cat(2, arc_transitions, target_trans_names);
                arc_types = cat(2, arc_types, repmat("in", [1 nTargetTransNames]));
                source_trans_indices = find(GSPN.output_arcs(:, place_index));
-               source_trans_names = translate_to_names(GSPN.transitions, target_trans_indices');
-               nSourceTransNames = size(source_trans_indices, 2);
+               source_trans_names = translate_to_names(GSPN.transitions, source_trans_indices');
+               nSourceTransNames = size(source_trans_names, 2);
                arc_places = cat(2, arc_places, repmat(place_name, [1 nSourceTransNames]));
                arc_transitions = cat(2, arc_transitions, source_trans_names);
                arc_types = cat(2, arc_types, repmat("out", [1 nSourceTransNames]));
@@ -121,17 +121,17 @@ classdef GSPNR < matlab.mixin.Copyable
                transition_index = find(strcmp(GSPN.transitions, transition_name));
                %Saving input arcs that need to be deleted
                input_place_indices = find(GSPN.input_arcs(:,transition_index));
-               input_place_names = translate_to_names(GSPN.places, input_place_indices);
-               nInputPlaceIndices = size(1, input_place_names)
-               arc_places = cat(2, arc_places, input_place_names');
+               input_place_names = translate_to_names(GSPN.places, input_place_indices');
+               nInputPlaceIndices = size(input_place_names, 2);
+               arc_places = cat(2, arc_places, input_place_names);
                arc_transitions = cat(2, arc_transitions, repmat(transition_name, [1 nInputPlaceIndices]));
                arc_types = cat(2, arc_types, repmat("in", [1 nInputPlaceIndices]));
                %Doing the same thing but for output arcs
                output_place_indices = find(GSPN.output_arcs(transition_index,:));
                output_place_names = translate_to_names(GSPN.places, output_place_indices);
-               nOutputPlaceIndices = size(1, output_place_names)
+               nOutputPlaceIndices = size(output_place_names, 2);
                arc_places = cat(2, arc_places, output_place_names);
-               arc_transitions = cat(2, arc_transitions, repmat(transition_name, [1 nOutPlaceIndices]));
+               arc_transitions = cat(2, arc_transitions, repmat(transition_name, [1 nOutputPlaceIndices]));
                arc_types = cat(2, arc_types, repmat("out", [1 nOutputPlaceIndices]));
            end
            GSPN.remove_arcs(arc_places, arc_transitions, arc_types);
