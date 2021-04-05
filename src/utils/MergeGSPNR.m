@@ -3,12 +3,17 @@ function merged = MergeGSPNR(gspn1,gspn2)
 %   Detailed explanation goes here
 
     merged = GSPNR();
-
-    places1 = gspn1.places;
-    places2 = gspn2.places;
     
-    trans1 = gspn1.transitions;
-    trans2 = gspn2.transitions;
+    places1 = [string.empty];
+    places2 = [string.empty];
+    trans1 = [string.empty];
+    trans2 = [string.empty];
+    
+    places1 = cat(2, places1, gspn1.places);
+    places2 = cat(2, places2, gspn2.places);
+    
+    trans1 = cat(2, trans1, gspn1.transitions);
+    trans2 = cat(2, trans2, gspn2.transitions);
     
     [common_places, p_indices1, p_indices2] = intersect(places1, places2);
     [common_trans,  t_indices1, t_indices2] = intersect(trans1, trans2);
@@ -16,11 +21,24 @@ function merged = MergeGSPNR(gspn1,gspn2)
     common_trans_types = [string.empty];
     common_trans_rates = [];
     
+    
+    %Save information of common places/trans so that we do not try to add
+    %empty arrays after
+    nCommonPlace = length(common_places);
+    if nCommonPlace == 0
+        has_common_places = false;
+    else
+        has_common_places = true;
+    end
+    nCommonTrans = length(common_trans);
+    if nCommonTrans == 0
+        has_common_trans = false;
+    else
+        has_common_trans = true;
+    end
+    
     %Perform sanity checks on transitions - Check if transitions common to
     %both GSPNRs have same type and same weight/rate;
-    nCommonPlace = size(common_places, 2);
-    nCommonTrans = size(common_trans, 2);
-    
     for index = 1:nCommonTrans
         trans_name = common_trans(index);
         t_index1 = t_indices1(index);
@@ -36,7 +54,7 @@ function merged = MergeGSPNR(gspn1,gspn2)
         common_trans_rates(index) = gspn1.rate_transitions(t_index1);
     end
     
-    %Struct to hold information about the arcs that are connected to common
+    %Struct to hold information about the arcs that are connected to each common
     %places in both GSPNs
     common_place_arcs = struct();
     
@@ -58,7 +76,7 @@ function merged = MergeGSPNR(gspn1,gspn2)
         common_place_arcs(p_index).source_transition2 = translate_to_names(gspn2.transitions, source_trans2);
     end
     
-    %Struct to hold information about arcs that are connected to common
+    %Struct to hold information about arcs that are connected to each common
     %transition in both GSPNs
     common_trans_arcs = struct();
     
@@ -85,10 +103,14 @@ function merged = MergeGSPNR(gspn1,gspn2)
     
     %Eliminate common places and transitions from these copy GSPNs
     
-    gspn1_copy.remove_places(common_places);
-    gspn1_copy.remove_transitions(common_trans);
-    gspn2_copy.remove_places(common_places);
-    gspn2_copy.remove_transitions(common_trans);
+    if has_common_places
+        gspn1_copy.remove_places(common_places);
+        gspn2_copy.remove_places(common_places);
+    end
+    if has_common_trans
+        gspn1_copy.remove_transitions(common_trans);
+        gspn2_copy.remove_transitions(common_trans);
+    end
     
     %Add all places/transitions/arcs that have no conflict between the 2
     %GSPNS
@@ -107,9 +129,14 @@ function merged = MergeGSPNR(gspn1,gspn2)
     arc_types = [string.empty];
     arc_weights = [];
     
-    merged.add_places(common_places, zeros(1, nCommonPlace));
-    merged.add_transitions(common_trans, common_trans_types, common_trans_rates)
+    if has_common_places
+        merged.add_places(common_places, zeros(1, nCommonPlace));
+    end
+    if has_common_trans
+        merged.add_transitions(common_trans, common_trans_types, common_trans_rates)
+    end
     
+    %This for loop won't execute if there are no common places
     for p_index = 1:nCommonPlace
         common_place = common_place_arcs(p_index);
         place_name = common_place.place_name;
@@ -142,7 +169,7 @@ function merged = MergeGSPNR(gspn1,gspn2)
     arc_trans = [string.empty];
     arc_types = [string.empty];
     arc_weights = [];
-    
+    %This for loop won't execute if there are no common transitions
     for t_index = 1:nCommonTrans
         common_trans = common_trans_arcs(t_index);
         trans_name = common_trans.transition_name;

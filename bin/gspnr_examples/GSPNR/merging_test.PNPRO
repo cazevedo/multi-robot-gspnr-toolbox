@@ -5,10 +5,12 @@
       <place name="P1" x="10.0" y="15.0"/>
       <transition label-x="2.0" label-y="0.0" name="t1" rotation="1.5707963267948966" type="IMM" x="10.85" y="11.0"/>
       <place label-x="1.5" name="P2" x="10.0" y="7.0"/>
+      <transition name="t0" rotation="1.5707963267948966" type="IMM" x="5.85" y="11.0"/>
     </nodes>
     <edges>
       <arc head="t1" kind="INPUT" tail="P1"/>
       <arc head="P2" kind="OUTPUT" tail="t1"/>
+      <arc head="t0" kind="INPUT" tail="P1"/>
     </edges>
   </gspn>
   <gspn name="GSPN2" show-color-cmd="false" show-fluid-cmd="false">
@@ -19,7 +21,7 @@
       <place name="P4" x="12.0" y="2.0"/>
       <place name="P3" x="24.0" y="7.0"/>
       <place name="P5" x="24.0" y="14.0"/>
-      <place name="P2" x="12.0" y="13.0"/>
+      <transition name="t0" type="IMM" x="17.85" y="12.0"/>
     </nodes>
     <edges>
       <arc head="P1" kind="OUTPUT" tail="t3"/>
@@ -27,6 +29,35 @@
       <arc head="t1" kind="INPUT" tail="P4"/>
       <arc head="P3" kind="OUTPUT" tail="t1"/>
       <arc head="P5" kind="OUTPUT" tail="t1"/>
+      <arc head="t0" kind="INPUT" tail="P1"/>
+    </edges>
+  </gspn>
+  <gspn name="GSPN3" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="P1" x="10.0" y="15.0"/>
+      <transition label-x="2.0" label-y="0.0" name="t1" rotation="1.5707963267948966" type="IMM" x="10.85" y="11.0"/>
+      <place label-x="1.5" name="P2" x="10.0" y="7.0"/>
+    </nodes>
+    <edges>
+      <arc head="t1" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="t1"/>
+    </edges>
+  </gspn>
+  <gspn name="GSPN4" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="P6" x="12.0" y="7.0"/>
+      <transition name="t3" type="IMM" x="7.85" y="7.0"/>
+      <transition name="t4" type="IMM" x="17.85" y="7.0"/>
+      <place name="P4" x="12.0" y="2.0"/>
+      <place name="P3" x="24.0" y="7.0"/>
+      <place name="P5" x="24.0" y="14.0"/>
+    </nodes>
+    <edges>
+      <arc head="P6" kind="OUTPUT" tail="t3"/>
+      <arc head="t4" kind="INPUT" tail="P6"/>
+      <arc head="t4" kind="INPUT" tail="P4"/>
+      <arc head="P3" kind="OUTPUT" tail="t4"/>
+      <arc head="P5" kind="OUTPUT" tail="t4"/>
     </edges>
   </gspn>
 </project>
