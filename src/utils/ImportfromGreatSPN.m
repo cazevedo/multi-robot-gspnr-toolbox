@@ -11,16 +11,33 @@ function [nGSPN, gspn_struct_array] = ImportfromGreatSPN(PNPRO_path)
         gspn = GSPNR();
         gspn_struct = struct.gspn(g_index);
         
-        nPlaces = size(gspn_struct.nodes.place,2);
+        if strcmp(gspn_struct.nodes, "")
+            nPlaces = 0;
+            nTrans = 0;
+        else
+            if isfield(gspn_struct.nodes, "place")
+                nPlaces = size(gspn_struct.nodes.place,2);
+            else
+                nPlaces = 0;
+            end
+            if isfield(gspn_struct.nodes, "transition")
+                nTrans = size(gspn_struct.nodes.transition,2);
+            else
+                nTrans = 0;
+            end
+        end
+        
         places = [string.empty];
         tokens = [];
-
-        nTrans = size(gspn_struct.nodes.transition,2);
         trans_names = [string.empty];
         trans_types = [string.empty];
         trans_rates = [];
         
-        nArcs = size(gspn_struct.edges.arc,2);
+        if strcmp(gspn_struct.edges, "")
+            nArcs = 0;
+        else
+            nArcs = size(gspn_struct.edges.arc,2);
+        end
         arc_places = [string.empty];
         arc_trans = [string.empty];
         arc_type = [string.empty];
