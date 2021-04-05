@@ -420,6 +420,16 @@ classdef GSPNR < matlab.mixin.Copyable
            end
            
         end
+        function format(GSPN,argument_list)
+            nArguments = size(argument_list, 2);
+            for blank_index = 1:nArguments
+                old_tag = "<"+string(blank_index)+">";
+                GSPN.places = strrep(GSPN.places, old_tag, argument_list(blank_index));
+                GSPN.transitions = strrep(GSPN.transitions, old_tag, argument_list(blank_index));
+                GSPN.arcs.places = strrep(GSPN.arcs.places, old_tag, argument_list(blank_index));
+                GSPN.arcs.transitions = strrep(GSPN.arcs.transitions, old_tag, argument_list(blank_index));
+            end
+        end
     end
     
 end
