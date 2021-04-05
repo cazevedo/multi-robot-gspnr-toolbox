@@ -7,10 +7,20 @@ classdef ExecutableGSPNR < GSPNR
     end
     
     methods
-        function obj = ExecutableGSPNR(top_map, action_dict, models)
-            %UNTITLED Construct an instance of this class
-            %   Detailed explanation goes here
-            obj.Property1 = inputArg1 + inputArg2;
+        function obj = ExecutableGSPNR(GSPNR, action_map)
+            %obj = ExecutableGSPNR(top_map, action_dict, models)
+            %exec = GSPNR()
+            %foreach NODE in top_map
+            %   action_list = action_dict.(NODE)
+            %   decision_place = 'dec_'+str(NODE)
+            %   foreach ACTION in action_list
+            %       gspn_instance = copy(models.(ACTION))
+            %       gspn_instance.format(decision_place)
+            %       exec = MergeGSPNR(exec, gspn_instance)
+            %foreach EDGE in top_map.NODE
+            %   gspn_instance = copy(models.navigation)
+            %   gspn_instance.format(decision_place, top_map.edge(2))
+            %   exec = MergeGSPNR(exec, gspn_instance)
         end
         
         function outputArg = method1(obj,inputArg)
