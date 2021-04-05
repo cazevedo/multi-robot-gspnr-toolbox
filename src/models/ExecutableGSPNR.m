@@ -2,32 +2,51 @@ classdef ExecutableGSPNR < GSPNR
     %UNTITLED Summary of this class goes here
     %   Detailed explanation goes here
     
-    properties
+    properties (SetAccess = private)
         place_actions = struct();
+        policy;
     end
     
     methods
-        function obj = ExecutableGSPNR(GSPNR, action_map)
-            %obj = ExecutableGSPNR(top_map, action_dict, models)
-            %exec = GSPNR()
-            %foreach NODE in top_map
-            %   action_list = action_dict.(NODE)
-            %   decision_place = 'dec_'+str(NODE)
-            %   foreach ACTION in action_list
-            %       gspn_instance = copy(models.(ACTION))
-            %       gspn_instance.format(decision_place)
-            %       exec = MergeGSPNR(exec, gspn_instance)
-            %foreach EDGE in top_map.NODE
-            %   gspn_instance = copy(models.navigation)
-            %   gspn_instance.format(decision_place, top_map.edge(2))
-            %   exec = MergeGSPNR(exec, gspn_instance)
+        function execGSPNR = ExecutableGSPNR()
+            execGSPNR = execGSPNR@GSPNR();
         end
         
-        function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            outputArg = obj.Property1 + inputArg;
+        function import_nonExecutable(execGSPNR, GSPNR, action_map)
+            %Copy properties of non-executable instance;
+            copy_gspn = copy(GSPNR);
+            execGSPNR.places = copy_gspn.places;
+            execGSPNR.transitions = copy_gspn.transitions;
+            execGSPNR.type_transitions = copy_gspn.type_transitions;
+            execGSPNR.rate_transitions = copy_gspn.rate_transitions;
+            execGSPNR.input_arcs = copy_gspn.input_arcs;
+            execGSPNR.output_arcs = copy_gspn.output_arcs;
+            execGSPNR.arcs = copy_gspn.arcs;
+            execGSPNR.initial_marking = copy_gspn.initial_marking;
+            execGSPNR.current_marking = copy_gspn.current_marking;
+            execGSPNR.place_rewards = copy_gspn.place_rewards;
+            execGSPNR.transition_rewards = copy_gspn.transition_rewards;
+            %Fill out the action properties;
+            robot_types = string(fieldnames(action_map));
+            nTypes = size(robot_types, 1);
+            for t_index = 1:nTypes
+                type = robot_types(t_index);
+                action_places = string(fieldnames(action_map.(type)));
+                nActionPlaces = size(action_places, 1);
+                for a_index = 1:nActionPlaces
+                    place_name = action_places(a_index);
+                    place_index = GSPNR.find_place_index(place_name);
+                    execGSPNR.place_actions(place_index).place_name = place_name;
+                    execGSPNR.place_actions(place_index).action_name = action_map.(type).(place_name).action_name;
+                    execGSPNR.place_actions(place_index).message = action_map.(type).(place_name).message;
+                end
+            end     
         end
+        
+        function set_policy(execGSPNR, markings, transition)
+            
+        end
+        
     end
 end
 

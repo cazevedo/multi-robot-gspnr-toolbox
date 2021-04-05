@@ -50,6 +50,7 @@ function exec = GSPNRCreationfromTopMap(top_map,action_dict, models)
             exec = MergeGSPNR(exec, action_gspn);
         end
     end
+    %Iterating through edges and adding the navigation action
     edges = string(top_map.Edges.EndNodes);
     nEdges = size(edges, 1);
     for e_index = 1:nEdges

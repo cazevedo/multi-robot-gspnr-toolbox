@@ -2,7 +2,7 @@ classdef GSPNR < matlab.mixin.Copyable
     %GSPNR Model for Global Stochastic Petri Net with Rewards
     %   Class that implements GSPNR model
     
-    properties (SetAccess = private)
+    properties (SetAccess = public)
         places = [];            %Array of strings, where each element is a place in the GSPN
         transitions = [];       %Array of strings, where each element is a transition in the GSPN
         type_transitions = [];  %Array of strings, where each element is either the string "imm" or "exp", denoting the type of the corresponding transition in the "transitions" property
@@ -45,6 +45,13 @@ classdef GSPNR < matlab.mixin.Copyable
            newColumn = zeros(nTransitions, length(places));
            GSPN.output_arcs = cat(2, GSPN.output_arcs, newColumn);
            GSPN.place_rewards = cat(2, GSPN.place_rewards, zeros(1, length(places)));
+        end
+        function index = find_place_index(GSPN, place_name)
+            index = find(GSPN.places == place_name);
+            if isempty(index)
+                warning("Could not find place, returned 0");
+                index = 0;
+            end
         end
         function set_marking(GSPN, new_marking)
             %Sets a new marking to the GSPN object
