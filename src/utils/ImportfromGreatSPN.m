@@ -1,6 +1,6 @@
 function [nGSPN, gspn_struct_array] = ImportfromGreatSPN(PNPRO_path)
-%IMPORTFROMGREATSPN Summary of this function goes here
-%   Detailed explanation goes here
+%Imports GSPNR object from PNPRO file exported from GreatSPN software
+
     
     struct = readstruct(PNPRO_path, 'Filetype', 'xml');
     

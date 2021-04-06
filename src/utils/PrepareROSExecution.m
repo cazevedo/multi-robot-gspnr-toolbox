@@ -1,11 +1,5 @@
-function [action_place_struct] = PrepareROSExecution(gspn, yaml_filepath)
-%PrepareROSExecution Imports custom messages generated with actionlib so that they
-%can be used within MATLAB;
-%   INPUTS
-%   gspn                (GSPNR obj) The GSPNR that will be executed
-%   yaml_filepath       (string)    Path to the yaml file that specifies
-%                                   the execution environment
-%                                   E.g."multi-robot-gspnr-toolbox/bin/execution_examples/example.yaml"
+function [action_place_struct] = PrepareROSExecution(yaml_filepath)
+%Reads from YAML file and creates struct that holds the ROS message to be sent to action server when place is marked 
 %   OUTPUTS
 %   map_pl_act_msg      (struct)    (robot_type).(place_name).action_name
 %                                   (robot_type).(place_name).message

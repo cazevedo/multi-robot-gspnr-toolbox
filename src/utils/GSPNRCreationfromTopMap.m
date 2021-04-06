@@ -1,5 +1,5 @@
 function exec = GSPNRCreationfromTopMap(top_map,action_dict, models)
-%GSPNRCREATIONFROMTOPMAP Summary of this function goes here
+%Builds an overall GSPNR by composing different models and topological map
 %   %obj = ExecutableGSPNR(top_map, action_dict, models)
             %exec = GSPNR()
             %foreach NODE in top_map

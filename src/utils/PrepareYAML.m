@@ -1,6 +1,5 @@
 function PrepareYAML(gspn, yaml_filepath)
-%PREPAREYAML Summary of this function goes here
-%   Detailed explanation goes here
+%Given a GSPNR object, and with user's input, creates YAML file to fill out with the necessary information about the action servers and message types
     robot_type_struct = struct();
 
     [exp_trans, exp_trans_indices] = gspn.get_exponential_transitions();

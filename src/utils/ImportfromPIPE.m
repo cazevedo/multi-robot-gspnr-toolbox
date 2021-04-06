@@ -1,6 +1,5 @@
 function gspn = ImportfromPIPE(xml_filepath)
-%ImportfromPIPE Given an xml file with PNML structure exported from PIPE software, creates
-%equivalent instance of a GSPNR object.
+%Imports GSPNR object from xml file with PNML specification exported from PIPE software
 
 gspn = GSPNR();
 struct = readstruct(xml_filepath);

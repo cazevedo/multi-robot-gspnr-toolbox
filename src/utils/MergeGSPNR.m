@@ -1,6 +1,8 @@
 function merged = MergeGSPNR(gspn1,gspn2)
-%MERGEGSPNR Summary of this function goes here
-%   Detailed explanation goes here
+%MERGEGSPNR Merges to two GSPNR objects
+%Merges two GSPNRs by joining duplicate places and transitions.
+%Ignores arc weights, sets all arc weights to 1, as to not have to solve
+%conflicts between arc weights of the same arc in both GSPNRs
 
     merged = GSPNR();
     
