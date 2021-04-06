@@ -19,11 +19,3 @@ action_dict.office  = ["vacuuming"];
 
 exec = GSPNRCreationfromTopMap(map, action_dict, models);
 
-% map.navigate = digraph()
-% map.
-% 
-% 
-% action_dict.hallway = ["vacuum"]
-% action_dict.kitchen = ["wash_dishes", "put_away_groceries", "vacuum"]
-% 
-% models.inspect

@@ -215,7 +215,7 @@
                 <value>0</value>
             </orientation>
             <rate>
-                <value>20.0</value>
+                <value>1.0</value>
             </rate>
             <timed>
                 <value>true</value>
@@ -371,7 +371,7 @@
                 <value>90</value>
             </orientation>
             <rate>
-                <value>15.0</value>
+                <value>1.0</value>
             </rate>
             <timed>
                 <value>true</value>
@@ -397,7 +397,7 @@
                 <value>0</value>
             </orientation>
             <rate>
-                <value>1.0</value>
+                <value>0.0</value>
             </rate>
             <timed>
                 <value>false</value>
@@ -423,7 +423,7 @@
                 <value>0</value>
             </orientation>
             <rate>
-                <value>1.0</value>
+                <value>0.0</value>
             </rate>
             <timed>
                 <value>false</value>
@@ -449,7 +449,7 @@
                 <value>90</value>
             </orientation>
             <rate>
-                <value>1.0</value>
+                <value>0.0</value>
             </rate>
             <timed>
                 <value>false</value>
@@ -475,7 +475,7 @@
                 <value>0</value>
             </orientation>
             <rate>
-                <value>1.0</value>
+                <value>0.0</value>
             </rate>
             <timed>
                 <value>false</value>
@@ -501,7 +501,7 @@
                 <value>90</value>
             </orientation>
             <rate>
-                <value>1.0</value>
+                <value>0.0</value>
             </rate>
             <timed>
                 <value>false</value>
@@ -527,7 +527,7 @@
                 <value>90</value>
             </orientation>
             <rate>
-                <value>1.0</value>
+                <value>0.0</value>
             </rate>
             <timed>
                 <value>false</value>
@@ -750,7 +750,7 @@
         <arc id="office to started_travel_OtoL" source="office" target="started_travel_OtoL">
             <graphics/>
             <inscription>
-                <value>Default,5</value>
+                <value>Default,1</value>
                 <graphics/>
             </inscription>
             <tagged>
