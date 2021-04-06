@@ -2,7 +2,7 @@ classdef GSPNR < matlab.mixin.Copyable
     %GSPNR Model for Global Stochastic Petri Net with Rewards
     %   Class that implements GSPNR model
     
-    properties (SetAccess = public)
+    properties (SetAccess = protected)
         places = [];            %Array of strings, where each element is a place in the GSPN
         transitions = [];       %Array of strings, where each element is a transition in the GSPN
         type_transitions = [];  %Array of strings, where each element is either the string "imm" or "exp", denoting the type of the corresponding transition in the "transitions" property
@@ -61,6 +61,35 @@ classdef GSPNR < matlab.mixin.Copyable
             end
             GSPN.current_marking = new_marking;
         end
+        function type = check_marking_type(GSPN)
+            %Returns either "TAN", "DET" or "RAN" if the current marking is
+            %either tangible, deterministic (expecting policy action), or
+            %expecting a random switch, respectively.
+            [imm, exp] = GSPN.enabled_transitions();
+            nTransitions = length(imm);
+            if (~isempty(imm))
+                weight_sum = 0;
+                type = "RAN";
+                for imm_enabled_index = 1:nTransitions
+                    transition = imm(imm_enabled_index);
+                    transition_index = find(GSPN.transitions == transition);
+                    rate = GSPN.rate_transitions(transition_index);
+                    if rate == 0
+                        type = "DET";
+                        break
+                    end
+                    weight_sum = weight_sum + rate;
+                end
+                  
+            elseif( isempty(imm) && ~isempty(exp) )
+                  type = "TAN";
+            elseif( isempty(imm) && isempty(exp) )
+                  type = "SINK";
+            end
+            
+            
+            
+        end
         function remove_places(GSPN, places)
             %Removes places from the GSPNR object
            nPlaces = length(places);
@@ -115,7 +144,13 @@ classdef GSPNR < matlab.mixin.Copyable
             GSPN.output_arcs = cat(1, GSPN.output_arcs, newRow);
             
             GSPN.transition_rewards = cat(2, GSPN.transition_rewards, zeros(1, length(transitions)));
-            
+        end
+        function index = find_transition_index(GSPN, trans_name)
+            index = find(GSPN.transitions == trans_name);
+            if isempty(index)
+                warning("Could not find place, returned 0");
+                index = 0;
+            end
         end
         
         function remove_transitions(GSPN, transitions)
