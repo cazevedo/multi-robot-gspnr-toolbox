@@ -289,6 +289,13 @@ classdef GSPNR < matlab.mixin.Copyable
            end
         end
         
+        function target_trans = find_target_trans(GSPN, place)
+            place_index = GSPN.find_place_index(place);
+            arc_row_vector = GSPN.input_arcs(place_index, :);
+            trans_indices = find(arc_row_vector)
+            target_trans = translate_to_names(GSPN.transitions, trans_indices);
+        end
+        
         function fire_transition(GSPN, transition)
             %Fires the transition in the input and updates the current marking property
            transition_index = find(strcmp(GSPN.transitions, transition));
@@ -320,9 +327,11 @@ classdef GSPNR < matlab.mixin.Copyable
            
            while ~(isempty(markings_to_explore))
               original_marking = markings_to_explore(1,:); %Marking to be explored
+%               log = "Exploring marking - "
+%               original_marking
               GSPN.set_marking(original_marking);
               [exists, original_state_index] = ismember(original_marking, covered_marking_list, 'rows');
-              original_state = "S" + string(original_state_index);
+              original_state = covered_state_list(original_state_index);
               
               [imm_enabled, exp_enabled] = GSPN.enabled_transitions(); %Enabled transitions in this state
               
@@ -394,7 +403,7 @@ classdef GSPNR < matlab.mixin.Copyable
               if (probabilistic_state && ~isempty(exp_enabled) )
                   %Hybrid state, where there are immediate and exponential
                   %enabled transitions
-                  target_state = "WAIT_S"+string(original_state_index);
+                  target_state = "WAIT_"+string(covered_state_list(original_state_index));
                   covered_marking_list = cat(1, covered_marking_list, original_marking);
                   covered_state_list = cat(1, covered_state_list, target_state);
                   
