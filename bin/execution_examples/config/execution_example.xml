@@ -72,7 +72,7 @@
                 </graphics>
             </name>
             <initialMarking>
-                <value>Default,1</value>
+                <value>Default,2</value>
                 <graphics>
                     <offset x="0.0" y="0.0"/>
                 </graphics>
@@ -143,7 +143,7 @@
         </place>
         <place id="travel_LtoO">
             <graphics>
-                <position x="195.0" y="300.0"/>
+                <position x="360.0" y="300.0"/>
             </graphics>
             <name>
                 <value>travel_LtoO</value>
@@ -183,7 +183,7 @@
         </place>
         <place id="travel_OtoL">
             <graphics>
-                <position x="360.0" y="300.0"/>
+                <position x="195.0" y="300.0"/>
             </graphics>
             <name>
                 <value>travel_OtoL</value>
@@ -416,7 +416,7 @@
             <name>
                 <value>started_inspect</value>
                 <graphics>
-                    <offset x="114.0" y="18.0"/>
+                    <offset x="106.0" y="-2.0"/>
                 </graphics>
             </name>
             <orientation>
@@ -825,7 +825,7 @@
             <arcpath id="001" x="986" y="312" curvePoint="false"/>
             <type value="normal"/>
         </arc>
-        <arc id="started_travel_LtoO to travel_OtoL" source="started_travel_LtoO" target="travel_OtoL">
+        <arc id="started_travel_LtoO to travel_OtoL" source="started_travel_LtoO" target="travel_LtoO">
             <graphics/>
             <inscription>
                 <value>Default,1</value>
@@ -838,7 +838,7 @@
             <arcpath id="001" x="371" y="297" curvePoint="false"/>
             <type value="normal"/>
         </arc>
-        <arc id="started_travel_OtoL to travel_LtoO" source="started_travel_OtoL" target="travel_LtoO">
+        <arc id="started_travel_OtoL to travel_LtoO" source="started_travel_OtoL" target="travel_OtoL">
             <graphics/>
             <inscription>
                 <value>Default,1</value>
@@ -890,7 +890,7 @@
             <arcpath id="001" x="986" y="456" curvePoint="false"/>
             <type value="normal"/>
         </arc>
-        <arc id="travel_LtoO to finished_travel_OtoL" source="travel_LtoO" target="finished_travel_OtoL">
+        <arc id="travel_LtoO to finished_travel_OtoL" source="travel_OtoL" target="finished_travel_OtoL">
             <graphics/>
             <inscription>
                 <value>Default,1</value>
@@ -916,7 +916,7 @@
             <arcpath id="001" x="771" y="597" curvePoint="false"/>
             <type value="normal"/>
         </arc>
-        <arc id="travel_OtoL to finished_travel_LtoO" source="travel_OtoL" target="finished_travel_LtoO">
+        <arc id="travel_OtoL to finished_travel_LtoO" source="travel_LtoO" target="finished_travel_LtoO">
             <graphics/>
             <inscription>
                 <value>Default,1</value>

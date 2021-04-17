@@ -1,31 +1,37 @@
 ---
-  turtlebot:
     inspect_lab:
-      -action_name: "/fibonacci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20}
+      -action_server_name: "inspect"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbInspectAction"
+      -message_fields: {"inspection_time":10}
     travel_HtoL:
-      -action_name: "/fibonnaci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20, }
+      -action_server_name: "travel"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbTravelAction"
+      -message_fields: {"destination":1}
     travel_HtoO:
-      -action_name: "/fibonnaci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20}
+      -action_server_name: "travel"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbTravelAction"
+      -message_fields: {"destination":2}
     travel_LtoH:
-      -action_name: "/fibonnaci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20}
+      -action_server_name: "travel"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbTravelAction"
+      -message_fields: {"destination":3}
     travel_LtoO:
-      -action_name: "/fibonnaci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20}
+      -action_server_name: "travel"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbTravelAction"
+      -message_fields: {"destination":2}
     travel_OtoH:
-      -action_name: "/fibonnaci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20}
+      -action_server_name: "travel"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbTravelAction"
+      -message_fields: {"destination":3}
     travel_OtoL:
-      -action_name: "/fibonnaci"
-      -message_type: "actionlib_tutorials/FibonacciGoal"
-      -message_fields: {"Order":20}
+      -action_server_name: "travel"
+      -package_name: "matlab_execution_tests"
+      -action_name: "tbTravelAction"
+      -message_fields: {"destination":1}
 ...
