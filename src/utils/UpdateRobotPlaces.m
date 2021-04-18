@@ -26,7 +26,7 @@ function new_robot_places = UpdateRobotPlaces(exec, transition, old_robot_places
         old_place_index = old_robot_places(r_index);
         if ~isempty(find(input_place_indices == old_place_index))
             for o_index = 1:nOutputPlaces
-                output_place_name = exec.places(output_place_indices(o_index))
+                output_place_name = exec.places(output_place_indices(o_index));
                 if ~isempty(find(exec.robot_places == output_place_name))
                     new_robot_places(r_index) = output_place_indices(o_index);
                     break

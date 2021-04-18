@@ -93,6 +93,7 @@ function ROSExecutionManager(exec,DistRobots)
         end
         
         while (finished_actions_count ~= 0)
+          fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
           %Processing all actions that returned in the meantime;
           fin_action = finished_actions_buffer(1);
           ExecutionFlags(fin_action.robot_index) = "FIN";
@@ -105,8 +106,8 @@ function ROSExecutionManager(exec,DistRobots)
           exec.places
           exec.current_marking
           RobotPlaces
+          robots_involved = CheckRobotsInvolved(exec, transitions(1), RobotPlaces)
           exec.fire_transition(transitions(1));
-          robots_involved = CheckRobotsInvolved(exec, transitions(1), RobotPlaces);
           RobotPlaces = UpdateRobotPlaces(exec, transitions(1), RobotPlaces, robots_involved);
           done_cleaning_buffer = 0;
           exec.places
@@ -126,6 +127,7 @@ function ROSExecutionManager(exec,DistRobots)
         marking_type = exec.check_marking_type();
         
         if ( marking_type == "TAN" )
+            fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
             for r_index = 1:exec.nRobots
                 %Check that it is a new action
                 flag = ExecutionFlags(r_index);
@@ -135,27 +137,34 @@ function ROSExecutionManager(exec,DistRobots)
                     interface_action_clients(r_index).goalmsg.Order = int32(place_index);
                     ExecutionFlags(r_index) = "EXE";
                     sendGoal(interface_action_clients(r_index).client, interface_action_clients(r_index).goalmsg);
-                    disp = "Sent goal of place index - "+string(interface_action_clients(r_index).goalmsg.Order)
+                    disp = "Sent goal of place index - "+string(interface_action_clients(r_index).goalmsg.Order)+" to robot "+robot_name
                 end
             end
+            fprintf("\nFINISHING SENDING GOALS-------------------------------\n");
         else
         %Marking either "RAN" or "DET"
             transition = exec.get_policy(exec.current_marking);
+            fprintf("\n\n-------------------DEALING WITH VANISHING MARKING");
+            exec.current_marking
+            RobotPlaces
             if transition == ""
                 %No policy action for current marking
                 [imm, exp] = exec.enabled_transitions();
                 nTransitions = size(imm, 2);
                 rn_trans = randi(nTransitions);
                 fprintf("\nWill fire transition (policy) - %s", imm(rn_trans));
+                robots_involved = CheckRobotsInvolved(exec, imm(rn_trans), RobotPlaces)
                 exec.fire_transition(imm(rn_trans));
-                robots_involved = CheckRobotsInvolved(exec, imm(rn_trans), RobotPlaces);
                 RobotPlaces     = UpdateRobotPlaces(exec, imm(rn_trans), RobotPlaces, robots_involved);
             else
                 fprintf("\nWill fire transition (random) - %s", transition);
+                robots_involved = CheckRobotsInvolved(exec, transition, RobotPlaces)
                 exec.fire_transition(transition);
-                robots_involved = CheckRobotsInvolved(exec, transition, RobotPlaces);
                 RobotPlaces     = UpdateRobotPlaces(exec, transition, RobotPlaces, robots_involved);
             end
+            exec.current_marking
+            RobotPlaces
+            fprintf("\n\n---------------------FINISHED WITH VANISHING MARKING");
         end
         pause(1);
     end
