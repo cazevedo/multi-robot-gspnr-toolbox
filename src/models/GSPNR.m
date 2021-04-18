@@ -292,7 +292,7 @@ classdef GSPNR < matlab.mixin.Copyable
         function target_trans = find_target_trans(GSPN, place)
             place_index = GSPN.find_place_index(place);
             arc_row_vector = GSPN.input_arcs(place_index, :);
-            trans_indices = find(arc_row_vector)
+            trans_indices = find(arc_row_vector);
             target_trans = translate_to_names(GSPN.transitions, trans_indices);
         end
         
