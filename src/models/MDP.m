@@ -220,7 +220,7 @@ classdef MDP < handle
             [source_index, action_index, cum_prob] = find(MDP.cumulative_prob);
             nEnabledStateAction = length(cum_prob);
             for index = 1:nEnabledStateAction
-                if cum_prob(index) ~= 1
+                if (cum_prob(index)-1)>0.00001
                     source_state = MDP.states(source_index(index));
                     action = MDP.actions(action_index(index));
                     error_msg = "The state action pair ("+source_state+"/"+action+") transitions do not sum to 1.0";
