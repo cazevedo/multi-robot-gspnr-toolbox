@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="matlab_execution_tests" type="NavigateAction" name="tb1_Navigate" />
+  <node pkg="matlab_execution_tests" type="TravelAction" name="tb2_Navigate" />
+  <node pkg="matlab_execution_tests" type="InspectAction" name="tb1_Mop" />
+  <node pkg="matlab_execution_tests" type="InspectAction" name="tb2_Mop" />
+  <node pkg="matlab_execution_tests" type="InspectAction" name="tb1_Vacuum" />
+  <node pkg="matlab_execution_tests" type="InspectAction" name="tb2_Vacuum" />
+
+</launch>

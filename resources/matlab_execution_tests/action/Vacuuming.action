@@ -1,0 +1,8 @@
+#Goal
+int32 duration
+---
+#Result
+int32 success
+---
+#feedback
+int32 seconds_left
