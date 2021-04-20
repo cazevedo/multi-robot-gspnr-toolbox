@@ -60,10 +60,10 @@ function ROSExecutionManager(exec,DistRobots)
 
     fprintf('----------------------\nAll robot action servers needed are correctly launched\n----------------------\n');
     %----------------------
-    %Checking that there is no ambiguity in GSPNR regarding tokens/robots
-    if exec.ambiguity == true
-        error("Before executing GSPNR, ambiguity must be resolved.")
-    end
+%     %Checking that there is no ambiguity in GSPNR regarding tokens/robots
+%     if exec.ambiguity == true
+%         error("Before executing GSPNR, ambiguity must be resolved.")
+%     end
     %Checking initial robot distribution and initializing variables
     nRobots = exec.nRobots;
     RobotPlaces = DistRobots;
@@ -91,7 +91,7 @@ function ROSExecutionManager(exec,DistRobots)
           fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
           %Processing all actions that returned in the meantime;
           fin_action = finished_actions_buffer(1);
-          if fin_action == true
+          if fin_action.action == true
               %Processing exponential transition that represents the end of
               %an action
               ExecutionFlags(fin_action.robot_index) = "FIN";
@@ -117,7 +117,11 @@ function ROSExecutionManager(exec,DistRobots)
               transition_index = fin_action.robot_index;
               transition_name = exec.transitions(transition_index);
               exec.fire_transition(transition_name);
+              in_vector_index = find(simple_transitions == transition_name);
+              ExponentialFlags(in_vector_index) = "FIN";
+              
           end
+          done_cleaning_buffer = 0;
           while ~done_cleaning_buffer
               if lock == 0
                   lock = 1;
@@ -149,12 +153,13 @@ function ROSExecutionManager(exec,DistRobots)
             fprintf("\nChecking if any simple exponential transitions can fire\n");
             for st_index = 1:nSimpleTransitions
                 flag = ExponentialFlags(st_index);
-                transition_name = exec.simple_transitions(st_index);
+                transition_name = exec.simple_exp_transitions(st_index);
                 [imm, exp] = exec.enabled_transitions();
                 if ~isempty(find(exp == transition_name))
                     exec_trans_index = exec.find_transition_index(transition_name);
                     transition_rate = exec.rate_transitions(exec_trans_index);
                     if flag == "FIN"
+                       ExponentialFlags(st_index) = "EXE";
                        delay = round(exprnd(transition_rate), 2);
                        exp_timer = timer('StartDelay', delay);
                        exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
@@ -176,12 +181,14 @@ function ROSExecutionManager(exec,DistRobots)
                 [imm, exp] = exec.enabled_transitions();
                 nTransitions = size(imm, 2);
                 rn_trans = randi(nTransitions);
-                fprintf("\nWill fire transition (policy) - %s", imm(rn_trans));
+                fprintf("\nWill fire transition (random) - %s", imm(rn_trans));
                 robots_involved = CheckRobotsInvolved(exec, imm(rn_trans), RobotPlaces)
                 exec.fire_transition(imm(rn_trans));
                 RobotPlaces     = UpdateRobotPlaces(exec, imm(rn_trans), RobotPlaces, robots_involved);
+            elseif transition == "WAIT"
+                continue;
             else
-                fprintf("\nWill fire transition (random) - %s", transition);
+                fprintf("\nWill fire transition (policy) - %s", transition);
                 robots_involved = CheckRobotsInvolved(exec, transition, RobotPlaces)
                 exec.fire_transition(transition);
                 RobotPlaces     = UpdateRobotPlaces(exec, transition, RobotPlaces, robots_involved);
