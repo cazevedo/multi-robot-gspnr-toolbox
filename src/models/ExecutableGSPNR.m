@@ -11,8 +11,10 @@ classdef ExecutableGSPNR < GSPNR
         robot_conservation = true;
         robot_list = [string.empty];
         nRobots = 0;
-        robot_places = [string.empty];office
-        interface_action_servers = [string.empty]
+        robot_places = [string.empty];
+        interface_action_servers = [string.empty];
+        simple_exp_transitions = [];
+        simple_exp_transition_flags = [];
     end
     
     methods
@@ -51,6 +53,10 @@ classdef ExecutableGSPNR < GSPNR
                 obj.place_actions(place_index).message = action_map.(place_name).message;
             end
                  
+        end
+        
+        function add_robot_place(obj, place)
+            obj.robot_places = cat(2, obj.robot_places, place)
         end
         
         function set_all_places_as_robot_places(obj)
@@ -116,9 +122,15 @@ classdef ExecutableGSPNR < GSPNR
             end
         end
         
-        function set_policy(obj, markings, transitions)
+        function set_policy(obj, markings, states, mdp, mdp_policy)
             obj.policy.markings = markings;
-            obj.policy.transitions = transitions;
+            nMarkings = size(markings, 1);
+            for m_index = 1:nMarkings
+                state_name = states(m_index);
+                state_index = mdp.find_state(state_name);
+                action_index = mdp_policy(state_index);
+                obj.policy.transitions(m_index) = mdp.actions(action_index);
+            end
         end
         
         function transition = get_policy(obj, marking)
@@ -216,11 +228,29 @@ classdef ExecutableGSPNR < GSPNR
                 status = system(make_executable);
                 obj.interface_action_servers(s_index) = erase(script_name, ".py");
                 obj.interface_action_servers(s_index) = "/"+obj.interface_action_servers(s_index);
-                
             end
-            
         end
-       
+        function simple_exp_trans = find_simple_exp_transitions(obj)
+            nTransitions = size(obj.transitions, 2);
+            for t_index = 1:nTransitions
+                [input_place_indices, col, val] = find(obj.input_arcs(:, t_index));
+                nInputPlaces = size(input_place_indices, 1);
+                is_simple = true;
+                for ip_index = 1:nInputPlaces
+                    place_index = input_place_indices(ip_index);
+                    place_name = obj.places(place_index);
+                    if ~isempty(find(obj.robot_places == place_name))
+                        is_simple = false;
+                        break;
+                    end
+                end
+                if is_simple == true
+                    obj.simple_exp_transitions = cat(2, obj.simple_exp_transitions, obj.transitions(t_index));
+                end
+            end
+            simple_exp_trans = obj.simple_exp_transitions;
+        end
+            
     end
 end
 
