@@ -10,7 +10,7 @@ src_matlab_interface = "catkin_ws/src/actionlib_experiments";
 gspn = ImportfromPIPE(pnml_file);
 %PrepareYAML(gspn, yaml_filepath);
 %[nGSPN, gspn_list] = ImportfromGreatSPN(PNPRO_path);
-action_place_struct = PrepareROSExecution(yaml_file);
+action_place_struct = ReadfromYAML(yaml_file);
 
 exec = ExecutableGSPNR();
 exec.import_nonExecutable(gspn, action_place_struct);
@@ -34,21 +34,25 @@ exec.add_robots(["turtlebot1", "turtlebot2"]);
 exec.create_python_interface_scripts(src_matlab_interface);
 
 marked_place_index = find(exec.initial_marking);
-% exec.initial_marking
-% 
+exec.initial_marking
+
 % [imm, exp] = exec.enabled_transitions()
-% 
+
 % exec.fire_transition(imm(1))
-% RobotPlaces = [marked_place_index, marked_place_index, marked_place_index, marked_place_index]
+% RobotPlaces = [marked_place_index, marked_place_index]
 % robots_involved = CheckRobotsInvolved(exec, imm(1), RobotPlaces)
 % RobotPlaces = UpdateRobotPlaces(exec, imm(1), RobotPlaces, robots_involved)
 % exec.current_marking
 % [imm, exp] = exec.enabled_transitions()
-% exec.fire_transition(exp(1))
-% robots_involved = CheckRobotsInvolved(exec, exp(1), RobotPlaces)
-% RobotPlaces = UpdateRobotPlaces(exec, exp(1), RobotPlaces, robots_involved)
+% exec.fire_transition(imm(1))
+% robots_involved = CheckRobotsInvolved(exec, imm(1), RobotPlaces)
+% RobotPlaces = UpdateRobotPlaces(exec, imm(1), RobotPlaces, robots_involved)
 % exec.current_marking
-% %exec.get_policy(exec.initial_marking)
+% [imm, exp] = exec.enabled_transitions()
+% robots_involved = CheckRobotsInvolved(exec, exp(1), RobotPlaces)
+% exec.fire_transition(exp(1))
+% RobotPlaces = UpdateRobotPlaces(exec, exp(1), RobotPlaces, robots_involved)
+%exec.get_policy(exec.initial_marking)
 
 ROSExecutionManager(exec, [marked_place_index, marked_place_index]);
 
