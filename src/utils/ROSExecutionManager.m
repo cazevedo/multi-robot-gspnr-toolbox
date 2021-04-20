@@ -150,13 +150,18 @@ function ROSExecutionManager(exec,DistRobots)
             for st_index = 1:nSimpleTransitions
                 flag = ExponentialFlags(st_index);
                 transition_name = exec.simple_transitions(st_index);
-                exec_trans_index = exec.find_transition_index(transition_name);
-                transition_rate = exec.rate_transitions(exec_trans_index);
-                if flag == "FIN"
-                   delay = round(exprnd(transition_rate), 2);
-                   exp_timer = timer('StartDelay', delay);
-                   exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
-                   start(exp_timer);
+                [imm, exp] = exec.enabled_transitions();
+                if ~isempty(find(exp == transition_name))
+                    exec_trans_index = exec.find_transition_index(transition_name);
+                    transition_rate = exec.rate_transitions(exec_trans_index);
+                    if flag == "FIN"
+                       delay = round(exprnd(transition_rate), 2);
+                       exp_timer = timer('StartDelay', delay);
+                       exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
+                       start(exp_timer);
+                    end
+                else
+                    continue
                 end
             end
             
