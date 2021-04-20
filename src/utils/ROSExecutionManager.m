@@ -69,16 +69,11 @@ function ROSExecutionManager(exec,DistRobots)
     RobotPlaces = DistRobots;
     %Initializing flag vector for all robots
     ExecutionFlags = repmat("FIN", [1 nRobots]);
-
-%     %Testing block for UpdateRobotPlaces
-%     [imm, exp] = exec.enabled_transitions()
-%     
-%     RobotPlaces = UpdateRobotPlaces(exec, imm(1), RobotsPlace, [1])
-%     exec.fire_transition(imm(1));
-%     
-%     [imm, exp] = exec.enabled_transitions()
-%     
-%     RobotsPlaces = UpdateRobotPlaces(exec, exp(1), RobotsPlace, [1])
+    
+    simple_transitions = exec.find_simple_exp_transitions();
+    nSimpleTransitions = size(simple_transitions, 1);
+    ExponentialFlags = repmat("FIN", [1 nSimpleTransitions]);
+    
 
     %Main firing loop
     done = false;
@@ -96,23 +91,33 @@ function ROSExecutionManager(exec,DistRobots)
           fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
           %Processing all actions that returned in the meantime;
           fin_action = finished_actions_buffer(1);
-          ExecutionFlags(fin_action.robot_index) = "FIN";
-          place_done = exec.places(fin_action.place_index);
-          transitions = exec.find_target_trans(exec.places(fin_action.place_index));
-          if size(transitions, 2) ~= 1
-              error("Action places are only allowed to be connected by a single input arc to a single transition");
+          if fin_action == true
+              %Processing exponential transition that represents the end of
+              %an action
+              ExecutionFlags(fin_action.robot_index) = "FIN";
+              place_done = exec.places(fin_action.place_index);
+              transitions = exec.find_target_trans(exec.places(fin_action.place_index));
+              if size(transitions, 2) ~= 1
+                  error("Action places are only allowed to be connected by a single input arc to a single transition");
+              end
+              fprintf("\nWill fire transition - %s", transitions(1));
+              exec.places
+              exec.current_marking
+              RobotPlaces
+              robots_involved = CheckRobotsInvolved(exec, transitions(1), RobotPlaces)
+              exec.fire_transition(transitions(1));
+              RobotPlaces = UpdateRobotPlaces(exec, transitions(1), RobotPlaces, robots_involved);
+              done_cleaning_buffer = 0;
+              exec.places
+              exec.current_marking
+              RobotPlaces
+          else
+              %Processing exponential transition that is not involved with
+              %any robot places, can independently fire
+              transition_index = fin_action.robot_index;
+              transition_name = exec.transitions(transition_index);
+              exec.fire_transition(transition_name);
           end
-          fprintf("\nWill fire transition - %s", transitions(1));
-          exec.places
-          exec.current_marking
-          RobotPlaces
-          robots_involved = CheckRobotsInvolved(exec, transitions(1), RobotPlaces)
-          exec.fire_transition(transitions(1));
-          RobotPlaces = UpdateRobotPlaces(exec, transitions(1), RobotPlaces, robots_involved);
-          done_cleaning_buffer = 0;
-          exec.places
-          exec.current_marking
-          RobotPlaces
           while ~done_cleaning_buffer
               if lock == 0
                   lock = 1;
@@ -141,6 +146,20 @@ function ROSExecutionManager(exec,DistRobots)
                 end
             end
             fprintf("\nFINISHING SENDING GOALS-------------------------------\n");
+            fprintf("\nChecking if any simple exponential transitions can fire\n");
+            for st_index = 1:nSimpleTransitions
+                flag = ExponentialFlags(st_index);
+                transition_name = exec.simple_transitions(st_index);
+                exec_trans_index = exec.find_transition_index(transition_name);
+                transition_rate = exec.rate_transitions(exec_trans_index);
+                if flag == "FIN"
+                   delay = round(exprnd(transition_rate), 2);
+                   exp_timer = timer('StartDelay', delay);
+                   exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
+                   start(exp_timer);
+                end
+            end
+            
         else
         %Marking either "RAN" or "DET"
             transition = exec.get_policy(exec.current_marking);
@@ -176,11 +195,36 @@ function FinishedAction(~, msg, s, ~)
     global finished_actions_count
     global lock
     fin_action = struct();
+    fin_action.action = true;
     fin_action.robot_index = msg.Message.Sequence(2);
     fin_action.place_index = msg.Message.Sequence(1);
     done = 0;
     while ~done
-        finished_actions_count;
+        if lock == 0
+            lock = 1;
+            if finished_actions_count == 0
+                finished_actions_buffer = fin_action;
+                finished_actions_count = finished_actions_count + 1;
+            else
+                finished_actions_buffer = cat(2, finished_actions_buffer, fin_action);
+                finished_actions_count = finished_actions_count + 1;
+            end
+            lock = 0;
+            done = 1;
+        end
+    end
+end
+
+function FinishedExponentialTransition(obj,~,transition_index)
+    global finished_actions_buffer
+    global finished_actions_count
+    global lock
+    fin_action = struct();
+    fin_action.action = false;
+    fin_action.robot_index = transition_index;
+    fin_action.place_index = 0;
+    done = 0;
+    while ~done
         if lock == 0
             lock = 1;
             if finished_actions_count == 0
