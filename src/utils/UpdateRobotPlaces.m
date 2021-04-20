@@ -7,7 +7,7 @@ function new_robot_places = UpdateRobotPlaces(exec, transition, old_robot_places
     nInputRobots = 0;
     for pi_index = 1:nInputPlaces
         input_place_name = exec.places(input_place_indices(pi_index));
-        if ~isempty(exec.robot_places == input_place_name)
+        if ~isempty(find(exec.robot_places == input_place_name))
             %Is a robot place, will remove a robot token
             nInputRobots = nInputRobots + input_val(pi_index);
         end

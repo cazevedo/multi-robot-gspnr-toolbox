@@ -60,6 +60,7 @@ classdef GSPNR < matlab.mixin.Copyable
                 error("New marking must be consistent with the number of places that exist")
             end
             GSPN.initial_marking = new_marking;
+            GSPN.current_marking = GSPN.initial_marking;
         end
         function set_marking(GSPN, new_marking)
             %Sets a new marking to the GSPN object
