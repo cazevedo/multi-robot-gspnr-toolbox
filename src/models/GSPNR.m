@@ -53,6 +53,14 @@ classdef GSPNR < matlab.mixin.Copyable
                 index = 0;
             end
         end
+        function set_initial_marking(GSPN, new_marking)
+            %Sets a new marking to the GSPN object
+            nPlaces = length(GSPN.places);
+            if nPlaces ~= length(new_marking)
+                error("New marking must be consistent with the number of places that exist")
+            end
+            GSPN.initial_marking = new_marking;
+        end
         function set_marking(GSPN, new_marking)
             %Sets a new marking to the GSPN object
             nPlaces = length(GSPN.places);
