@@ -49,7 +49,7 @@ function ROSExecutionManager(exec,DistRobots)
         if ~isempty(exec.place_actions(ap_index).place_name)
             for r_index = 1:exec.nRobots
                 robot_name = exec.robot_list(r_index);
-                action_server_name = "/"+robot_name + "_" + exec.place_actions(ap_index).server_name;
+                action_server_name = "/"+robot_name + "/" + exec.place_actions(ap_index).server_name;
                 if isempty(find(actionlist == action_server_name))
                     error_string = "Action server for action '"+action_server_name+"' is not running";
                     error(error_string);
