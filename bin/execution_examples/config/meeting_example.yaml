@@ -1,51 +1,51 @@
 ---
     Mopping_L1:
-      -action_server_name: "Mop"
+      -action_server_name: "MopActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "MoppingAction"
       -message_fields: {"duration":10}
     Mopping_L2:
-      -action_server_name: "Mop"
+      -action_server_name: "MopActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "MoppingAction"
       -message_fields: {"duration":5}
     Mopping_L3:
-      -action_server_name: "Mop"
+      -action_server_name: "MopActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "MoppingAction"
       -message_fields: {"duration":10}
     Vacuuming_L1:
-      -action_server_name: "Vacuum"
+      -action_server_name: "VacuumActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "VacuumingAction"
       -message_fields: {"duration":10}
     Vacuuming_L2:
-      -action_server_name: "Vacuum"
+      -action_server_name: "VacuumActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "VacuumingAction"
       -message_fields: {"duration":5}  
     Vacuuming_L3:
-      -action_server_name: "Vacuum"
+      -action_server_name: "VacuumActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "VacuumingAction"
       -message_fields: {"duration":10}
     Navigating_L1_L2:
-      -action_server_name: "Navigate"
+      -action_server_name: "NavigateActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "NavigationAction"
       -message_fields: {"destination":2}
     Navigating_L2_L1:
-      -action_server_name: "Navigate"
+      -action_server_name: "NavigateActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "NavigationAction"
       -message_fields: {"destination":1}
     Navigating_L2_L3:
-      -action_server_name: "Navigate"
+      -action_server_name: "NavigateActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "NavigationAction"
       -message_fields: {"destination":3}
     Navigating_L3_L2:
-      -action_server_name: "Navigate"
+      -action_server_name: "NavigateActionServer"
       -package_name: "matlab_execution_tests"
       -action_name: "NavigationAction"
       -message_fields: {"destination":2}
