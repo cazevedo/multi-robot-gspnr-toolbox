@@ -25,20 +25,11 @@ actions_available.L1 = ["mopping", "vacuuming"];
 actions_available.L2 = ["mopping", "vacuuming"];
 actions_available.L3 = ["mopping", "vacuuming"];
 
-GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models);
+robot_marking.L1 = 1;
+robot_marking.L3 = 1;
 
-%Place a robot in location L1 and L3
+GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models, robot_marking);
 
-L1_index = GSPNRModel.find_place_index("L1");
-L3_index = GSPNRModel.find_place_index("L3");
-
-new_marking = GSPNRModel.current_marking;
-
-new_marking(L1_index) = 1;
-new_marking(L3_index) = 1;
-
-GSPNRModel.set_initial_marking(new_marking);
- 
 %% Adding transition rewards, and converting GSPNR model to equivalent MDP
 % 
 % reward_elements = ["Mop_L1", "Mop_L2", "Mop_L3", "Vacuum_L1", "Vacuum_L2", "Vacuum_L3"];
@@ -85,6 +76,7 @@ executableModel.remove_robot_place("NotRequiredVacuumL1");
 
 executableModel.check_robot_ambiguity()
 executableModel.check_robot_conservation()
+
 %Set policy
 policy_workspace_filepath = 'meeting_example_policy_workspace.mat';
 load(policy_workspace_filepath, 'markings', 'states', 'mdp', 'policy');
@@ -93,11 +85,12 @@ executableModel.set_policy(markings, states, mdp, policy);
 
 
 %% Preparing executable GSPNR - adding robots, creating interface action servers;
-catkin_package_path = "catkin_ws/src/actionlib_experiments";
 
-executableModel.add_robots(["tb1", "tb2"]);
+executableModel.add_robots(["robot_0", "robot_1"]);
+L1_index = executableModel.find_place_index("L1");
+L3_index = executableModel.find_place_index("L3");
 RobotDistribution = [L1_index, L3_index];
-executableModel.create_python_interface_scripts(catkin_package_path)
+executableModel.create_ros_interface_package()
 disp("Please start up the Python Interface Scripts. After starting them up, press any key to continue...");
 pause()
 
