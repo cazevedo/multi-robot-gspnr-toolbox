@@ -142,9 +142,22 @@ classdef ExecutableGSPNR < GSPNR
             end
         end
         
-        function create_python_interface_scripts(obj, package_path)
+        function create_ros_interface_package(obj)
+            [status, toolbox_dir] = system("pwd");
+            bash_cmd = "source " + strtrim(toolbox_dir) + "/resources/create_ros_pkg.sh temp_matlab_gspnr_python_interface";
+            system(bash_cmd);
+            [status, catkin_ws] = system("echo $ROS_WORKSPACE");
+            package_dir = strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
+            obj.create_python_interface_scripts(package_dir);
+            bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
+            system(bash_cmd);
+%             bash_cmd = "rm -rf " + strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
+%             system(bash_cmd);
+        end
+
+        function create_python_interface_scripts(obj, package_dir)
             nScripts = obj.nRobots;
-            script_paths = package_path + "/src/";
+            script_paths = package_dir + "/src/";
             for s_index = 1:nScripts
                 robot_name = obj.robot_list(s_index);
                 script_name = "matlab_interface_server_"+robot_name+".py";
@@ -163,7 +176,7 @@ classdef ExecutableGSPNR < GSPNR
                 nPlaces = size(obj.place_actions,2);
                 for p_index = 1:nPlaces
                     if ~isempty(obj.place_actions(p_index).place_name)
-                        server_name = robot_name + "_" + obj.place_actions(p_index).server_name;
+                        server_name = robot_name + "/" + obj.place_actions(p_index).server_name;
                         fprintf(fileID, '\n\t%i : ''%s'',', p_index, server_name);
                     end
                 end
