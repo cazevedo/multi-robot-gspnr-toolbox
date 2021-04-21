@@ -1,4 +1,4 @@
-function exec = GSPNRCreationfromTopMap(top_map,action_dict, models)
+function exec = GSPNRCreationfromTopMap(top_map,action_dict, models, robot_marking)
 %Builds an overall GSPNR by composing different models and topological map
 %   %obj = ExecutableGSPNR(top_map, action_dict, models)
             %exec = GSPNR()
@@ -60,5 +60,15 @@ function exec = GSPNRCreationfromTopMap(top_map,action_dict, models)
         navigation_gspn.format([source, target]);
         exec = MergeGSPNR(exec, navigation_gspn);
     end
-end
 
+    %Place robots in the assigned locations
+    places_with_robots = string(fieldnames(robot_marking));
+    n_places_with_robots = size(places_with_robots, 1);
+    new_marking = exec.initial_marking;
+    for p_index = 1:n_places_with_robots
+        global_place_index = exec.find_place_index(places_with_robots(p_index));
+        new_marking(global_place_index) = robot_marking.(places_with_robots(p_index));
+    end
+    exec.set_initial_marking(new_marking);
+
+end
