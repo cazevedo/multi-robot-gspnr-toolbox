@@ -19,12 +19,9 @@ CMAKELISTS_CONTENT="cmake_minimum_required(VERSION 3.0.2)\nproject(${PKG_NAME})\
 PACKAGE_XML_CONTENT="<?xml version=\"1.0\"?>\n<package>\n  <name>${PKG_NAME}</name>\n  <version>1.0.0</version>\n  <description>\n    TODO!\n  </description>\n\n <maintainer email=\"antonio@todo.todo\">antonio</maintainer>\n\n <license>GPLv3</license>\n\n  \n  <buildtool_depend>catkin</buildtool_depend>\n\n  <build_depend>actionlib</build_depend>\n<build_depend>actionlib_msgs</build_depend>\n<build_depend>actionlib_tutorials</build_depend>\n<build_depend>rospy</build_depend>\n<build_depend>std_msgs</build_depend>\n\n<run_depend>actionlib</run_depend>\n<run_depend>actionlib_msgs</run_depend>\n<run_depend>actionlib_tutorials</run_depend>\n<run_depend>rospy</run_depend>\n<run_depend>std_msgs</run_depend>\n\n</package>"
 SETUP_PY_CONTENT="#!/usr/bin/env python\n\nfrom distutils.core import setup\nfrom catkin_pkg.python_setup import generate_distutils_setup\n\n# for your packages to be recognized by python\nd = generate_distutils_setup(\n  packages=['${PKG_NAME}'],\n  package_dir={'': 'src'}\n)\n\nsetup(**d)"
 
+TEMP="$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")"
+CATKIN_WS=${TEMP: : -6}
 
-source ~/.bashrc
-
-CATKIN_WS="$(cut -d':' -f1 <<<"$ROS_PACKAGE_PATH")"
-# create folder structure
-# roscd
 mkdir $CATKIN_WS/${PKG_NAME}
 # cd ${PKG_NAME}
 mkdir $CATKIN_WS/${PKG_NAME}/src
