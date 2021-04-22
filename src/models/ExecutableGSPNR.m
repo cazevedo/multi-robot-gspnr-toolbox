@@ -142,12 +142,19 @@ classdef ExecutableGSPNR < GSPNR
             end
         end
         
+        function set_empty_policy(obj)
+            obj.empty_policy = true;
+        end
+        
         function create_ros_interface_package(obj)
             [status, toolbox_dir] = system("pwd");
-            bash_cmd = "source " + strtrim(toolbox_dir) + "/resources/create_ros_pkg.sh temp_matlab_gspnr_python_interface";
+            bash_cmd = "source " + strtrim(toolbox_dir) + "/res/create_ros_pkg.sh temp_matlab_gspnr_python_interface"
             system(bash_cmd);
             [status, catkin_ws] = system("echo $ROS_WORKSPACE");
-            package_dir = strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
+            %package_dir = strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface"
+            %Carlos version uncomment out above
+            package_dir = "/home/antonio/catkin_ws/src/temp_matlab_gspnr_python_interface";
+            %Carlos version comment out above
             obj.create_python_interface_scripts(package_dir);
             bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
             system(bash_cmd);
@@ -160,7 +167,7 @@ classdef ExecutableGSPNR < GSPNR
             script_paths = package_dir + "/src/";
             for s_index = 1:nScripts
                 robot_name = obj.robot_list(s_index);
-                script_name = "matlab_interface_server_"+robot_name+".py";
+                script_name = "matlab_interface_server_"+robot_name;
                 script_location = script_paths + script_name;
                 fileID = fopen(script_location, 'w');
                 fprintf(fileID, '#! /usr/bin/env python\nimport rospy\nimport actionlib\nimport actionlib_tutorials.msg\n');
@@ -242,6 +249,17 @@ classdef ExecutableGSPNR < GSPNR
                 obj.interface_action_servers(s_index) = erase(script_name, ".py");
                 obj.interface_action_servers(s_index) = "/"+obj.interface_action_servers(s_index);
             end
+            launch_path = package_dir + "/launch/";
+            launch_name = "matlab_interface_servers.launch";
+            launch_file_location = launch_path + launch_name;
+            fileID = fopen(launch_file_location, 'w');
+            fprintf(fileID, "<?xml version=""1.0""?>\n<launch>");
+            for r_index = 1:obj.nRobots
+                content = "\n\t <node pkg = ""temp_matlab_gspnr_python_interface"" type= """ +erase(obj.interface_action_servers(r_index),"/")+""" name="""+obj.interface_action_servers(r_index)+"""/>";
+                fprintf(fileID, content);
+            end
+            fprintf(fileID, "\n</launch>");
+            fclose(fileID);
         end
         function simple_exp_trans = find_simple_exp_transitions(obj)
             nTransitions = size(obj.transitions, 2);
