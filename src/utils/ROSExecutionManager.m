@@ -32,10 +32,6 @@ function ROSExecutionManager(exec,DistRobots)
     interface_action_clients = struct();
     for r_index = 1:exec.nRobots
         interface_action_server_name = exec.interface_action_servers(r_index);
-%         if isempty(find(actionlist == interface_action_server_name))
-%             error_string = "Interface action server for robot '"+exec.robot_list(r_index)+"' is not running";
-%             error(error_string);
-%         end
         [client, msg] = rosactionclient(interface_action_server_name);
         client.ResultFcn = @FinishedAction;
         interface_action_clients(r_index).client = client;
@@ -71,7 +67,7 @@ function ROSExecutionManager(exec,DistRobots)
     ExecutionFlags = repmat("FIN", [1 nRobots]);
     
     simple_transitions = exec.find_simple_exp_transitions();
-    nSimpleTransitions = size(simple_transitions, 1);
+    nSimpleTransitions = size(simple_transitions, 2);
     ExponentialFlags = repmat("FIN", [1 nSimpleTransitions]);
     
 
@@ -88,7 +84,7 @@ function ROSExecutionManager(exec,DistRobots)
         end
         
         while (finished_actions_count ~= 0)
-          fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
+          %fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
           %Processing all actions that returned in the meantime;
           fin_action = finished_actions_buffer(1);
           if fin_action.action == true
@@ -100,23 +96,24 @@ function ROSExecutionManager(exec,DistRobots)
               if size(transitions, 2) ~= 1
                   error("Action places are only allowed to be connected by a single input arc to a single transition");
               end
-              fprintf("\nWill fire transition - %s", transitions(1));
-              exec.places
-              exec.current_marking
-              RobotPlaces
-              robots_involved = CheckRobotsInvolved(exec, transitions(1), RobotPlaces)
+              %fprintf("\nWill fire transition - %s", transitions(1));
+              %exec.places
+              %exec.current_marking
+              %RobotPlaces
+              robots_involved = CheckRobotsInvolved(exec, transitions(1), RobotPlaces);
               exec.fire_transition(transitions(1));
               RobotPlaces = UpdateRobotPlaces(exec, transitions(1), RobotPlaces, robots_involved);
               done_cleaning_buffer = 0;
-              exec.places
-              exec.current_marking
-              RobotPlaces
+              %exec.places
+              %exec.current_marking
+              %RobotPlaces
           else
               %Processing exponential transition that is not involved with
               %any robot places, can independently fire
               transition_index = fin_action.robot_index;
               transition_name = exec.transitions(transition_index);
               exec.fire_transition(transition_name);
+              disp = "Fired simple exp "+transition_name
               in_vector_index = find(simple_transitions == transition_name);
               ExponentialFlags(in_vector_index) = "FIN";
               
@@ -136,7 +133,7 @@ function ROSExecutionManager(exec,DistRobots)
         marking_type = exec.check_marking_type();
         
         if ( marking_type == "TAN" )
-            fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
+            %fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
             for r_index = 1:exec.nRobots
                 %Check that it is a new action
                 flag = ExecutionFlags(r_index);
@@ -149,8 +146,8 @@ function ROSExecutionManager(exec,DistRobots)
                     disp = "Sent goal of place index - "+string(interface_action_clients(r_index).goalmsg.Order)+" to robot "+robot_name
                 end
             end
-            fprintf("\nFINISHING SENDING GOALS-------------------------------\n");
-            fprintf("\nChecking if any simple exponential transitions can fire\n");
+            %fprintf("\nFINISHING SENDING GOALS-------------------------------\n");
+            %fprintf("\nChecking if any simple exponential transitions can fire\n");
             for st_index = 1:nSimpleTransitions
                 flag = ExponentialFlags(st_index);
                 transition_name = exec.simple_exp_transitions(st_index);
@@ -161,6 +158,7 @@ function ROSExecutionManager(exec,DistRobots)
                     if flag == "FIN"
                        ExponentialFlags(st_index) = "EXE";
                        delay = round(exprnd(transition_rate), 2);
+                       print = "Will start delay of transition "+transition_name+" with delay "+string(delay)+"s"
                        exp_timer = timer('StartDelay', delay);
                        exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
                        start(exp_timer);
@@ -173,29 +171,29 @@ function ROSExecutionManager(exec,DistRobots)
         else
         %Marking either "RAN" or "DET"
             transition = exec.get_policy(exec.current_marking);
-            fprintf("\n\n-------------------DEALING WITH VANISHING MARKING");
-            exec.current_marking
-            RobotPlaces
+            %fprintf("\n\n-------------------DEALING WITH VANISHING MARKING");
+            %exec.current_marking
+            %RobotPlaces
             if transition == ""
                 %No policy action for current marking
                 [imm, exp] = exec.enabled_transitions();
                 nTransitions = size(imm, 2);
                 rn_trans = randi(nTransitions);
-                fprintf("\nWill fire transition (random) - %s", imm(rn_trans));
-                robots_involved = CheckRobotsInvolved(exec, imm(rn_trans), RobotPlaces)
+                %fprintf("\nWill fire transition (random) - %s", imm(rn_trans));
+                robots_involved = CheckRobotsInvolved(exec, imm(rn_trans), RobotPlaces);
                 exec.fire_transition(imm(rn_trans));
                 RobotPlaces     = UpdateRobotPlaces(exec, imm(rn_trans), RobotPlaces, robots_involved);
             elseif transition == "WAIT"
-                continue;
+                
             else
-                fprintf("\nWill fire transition (policy) - %s", transition);
-                robots_involved = CheckRobotsInvolved(exec, transition, RobotPlaces)
+                %fprintf("\nWill fire transition (policy) - %s", transition);
+                robots_involved = CheckRobotsInvolved(exec, transition, RobotPlaces);
                 exec.fire_transition(transition);
                 RobotPlaces     = UpdateRobotPlaces(exec, transition, RobotPlaces, robots_involved);
             end
-            exec.current_marking
-            RobotPlaces
-            fprintf("\n\n---------------------FINISHED WITH VANISHING MARKING");
+            %exec.current_marking
+            %RobotPlaces
+            %fprintf("\n\n---------------------FINISHED WITH VANISHING MARKING");
         end
         pause(1);
     end
