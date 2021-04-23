@@ -27,8 +27,10 @@ actions_available.L3 = ["mopping", "vacuuming"];
 
 robot_marking.L1 = 1;
 robot_marking.L3 = 1;
-
 GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models, robot_marking);
+
+disp("Press any key to continue...");
+pause()
 
 %% Adding transition rewards, and converting GSPNR model to equivalent MDP
 % 
@@ -78,10 +80,11 @@ executableModel.check_robot_ambiguity()
 executableModel.check_robot_conservation()
 
 %Set policy
-policy_workspace_filepath = 'meeting_example_policy_workspace.mat';
-load(policy_workspace_filepath, 'markings', 'states', 'mdp', 'policy');
-
-executableModel.set_policy(markings, states, mdp, policy);
+% policy_workspace_filepath = 'meeting_example_policy_workspace.mat';
+% load(policy_workspace_filepath, 'markings', 'states', 'mdp', 'policy');
+%
+%executableModel.set_policy(markings, states, mdp, policy);
+executableModel.set_empty_policy();
 
 
 %% Preparing executable GSPNR - adding robots, creating interface action servers;
