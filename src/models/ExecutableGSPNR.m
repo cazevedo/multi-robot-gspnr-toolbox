@@ -15,6 +15,7 @@ classdef ExecutableGSPNR < GSPNR
         interface_action_servers = [string.empty];
         simple_exp_transitions = [];
         simple_exp_transition_flags = [];
+        empty_policy = true;
     end
     
     methods
@@ -134,9 +135,13 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function transition = get_policy(obj, marking)
-            [exists, marking_index] = ismember(marking, obj.policy.markings, 'rows');
-            if exists
-                transition = obj.policy.transitions(marking_index);
+            if obj.empty_policy == false
+                [exists, marking_index] = ismember(marking, obj.policy.markings, 'rows');
+                if exists
+                    transition = obj.policy.transitions(marking_index);
+                else
+                    transition = "";
+                end
             else
                 transition = "";
             end
@@ -150,19 +155,25 @@ classdef ExecutableGSPNR < GSPNR
             [status, toolbox_dir] = system("pwd");
             bash_cmd = "source " + strtrim(toolbox_dir) + "/res/create_ros_pkg.sh temp_matlab_gspnr_python_interface"
             system(bash_cmd);
-            [status, catkin_ws] = system("echo $ROS_WORKSPACE");
-            %package_dir = strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface"
+            [status, catkin_ws] = system("echo $CMAKE_PREFIX_PATH");
+            catkin_ws = strtrim(catkin_ws);
+            catkin_ws = strsplit(catkin_ws, ":");
+            catkin_ws = strrep(catkin_ws(1), "/devel","/src");
+            package_dir = catkin_ws + "/temp_matlab_gspnr_python_interface"
             %Carlos version uncomment out above
-            package_dir = "/home/antonio/catkin_ws/src/temp_matlab_gspnr_python_interface";
+%             package_dir = "/home/antonio/catkin_ws/src/temp_matlab_gspnr_python_interface";
             %Carlos version comment out above
-            obj.create_python_interface_scripts(package_dir);
+            launch_temp_interface = obj.create_python_interface_scripts(package_dir);
             bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
             system(bash_cmd);
-%             bash_cmd = "rm -rf " + strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
+            disp("Run on a new terminal : roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface);
+%             bash_cmd = "roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface+" &";
+%             system(bash_cmd);
+%             bash_cmd = "rm -r " + strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
 %             system(bash_cmd);
         end
 
-        function create_python_interface_scripts(obj, package_dir)
+        function launch_name = create_python_interface_scripts(obj, package_dir)
             nScripts = obj.nRobots;
             script_paths = package_dir + "/src/";
             for s_index = 1:nScripts
@@ -255,7 +266,7 @@ classdef ExecutableGSPNR < GSPNR
             fileID = fopen(launch_file_location, 'w');
             fprintf(fileID, "<?xml version=""1.0""?>\n<launch>");
             for r_index = 1:obj.nRobots
-                content = "\n\t <node pkg = ""temp_matlab_gspnr_python_interface"" type= """ +erase(obj.interface_action_servers(r_index),"/")+""" name="""+obj.interface_action_servers(r_index)+"""/>";
+                content = "\n\t <node pkg = ""temp_matlab_gspnr_python_interface"" type= """ +erase(obj.interface_action_servers(r_index),"/")+""" name="""+erase(obj.interface_action_servers(r_index),"/")+"""/>";
                 fprintf(fileID, content);
             end
             fprintf(fileID, "\n</launch>");
