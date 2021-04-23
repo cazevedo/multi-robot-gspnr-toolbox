@@ -21,6 +21,7 @@ SETUP_PY_CONTENT="#!/usr/bin/env python\n\nfrom distutils.core import setup\nfro
 
 TEMP="$(cut -d':' -f1 <<<"$CMAKE_PREFIX_PATH")"
 CATKIN_WS=${TEMP: : -6}
+CATKIN_WS=$CATKIN_WS/src
 
 mkdir $CATKIN_WS/${PKG_NAME}
 # cd ${PKG_NAME}
