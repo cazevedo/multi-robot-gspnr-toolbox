@@ -166,10 +166,10 @@ classdef ExecutableGSPNR < GSPNR
             launch_temp_interface = obj.create_python_interface_scripts(package_dir);
             bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
             system(bash_cmd);
-            disp("Run on a new terminal : roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface);
-%             bash_cmd = "roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface+" &";
-%             system(bash_cmd);
-%             bash_cmd = "rm -r " + strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
+            %disp("Run on a new terminal : roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface);
+            bash_cmd = "roslaunch temp_matlab_gspnr_python_interface temp_matlab_gspnr_python_interface &"
+            system(bash_cmd);
+%             bash_cmd = "rm -rf " + strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
 %             system(bash_cmd);
         end
 
