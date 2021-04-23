@@ -158,6 +158,8 @@ classdef ExecutableGSPNR < GSPNR
             obj.create_python_interface_scripts(package_dir);
             bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
             system(bash_cmd);
+            bash_cmd = "roslaunch temp_matlab_gspnr_python_interface temp_matlab_gspnr_python_interface &"
+            system(bash_cmd);
 %             bash_cmd = "rm -rf " + strtrim(catkin_ws) + "/temp_matlab_gspnr_python_interface";
 %             system(bash_cmd);
         end
