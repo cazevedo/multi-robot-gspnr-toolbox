@@ -10,6 +10,7 @@ classdef ExecutableGSPNR < GSPNR
         ambiguity = false;
         robot_conservation = true;
         robot_list = [string.empty];
+        robot_initial_locations = [];
         nRobots = 0;
         robot_places = [string.empty];
         interface_action_servers = [string.empty];
@@ -57,7 +58,7 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function add_robot_place(obj, place)
-            obj.robot_places = cat(2, obj.robot_places, place)
+            obj.robot_places = cat(2, obj.robot_places, place);
         end
         
         function set_all_places_as_robot_places(obj)
@@ -69,7 +70,20 @@ classdef ExecutableGSPNR < GSPNR
             obj.robot_places(index) = [];
         end
         
-        function add_robots(obj, robot_list)
+        function add_robots(obj, robot_list, initial_locations)
+            if size(robot_list, 2) ~= size(initial_locations, 2)
+                error("Each robot must have its initial location defined");
+            end
+            nInputs = size(robot_list, 2);
+            for r_index = 1:nInputs
+                init_location = initial_locations(r_index);
+                init_place_index = obj.find_place_index(init_location);
+                if init_place_index == 0
+                    error_string = init_location+ "is not a valid place in the GSPNR";
+                    error(error_string);
+                end
+                obj.robot_initial_locations = cat(2, obj.robot_initial_locations, init_place_index);
+            end
             obj.robot_list = cat(2, obj.robot_list, robot_list);
             obj.nRobots = size(obj.robot_list, 2);
         end

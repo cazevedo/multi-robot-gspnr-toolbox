@@ -86,13 +86,10 @@ executableModel.check_robot_conservation()
 %executableModel.set_policy(markings, states, mdp, policy);
 executableModel.set_empty_policy();
 
-
 %% Preparing executable GSPNR - adding robots, creating interface action servers;
 
-executableModel.add_robots(["robot_0", "robot_1"]);
-L1_index = executableModel.find_place_index("L1");
-L3_index = executableModel.find_place_index("L3");
-RobotDistribution = [L1_index, L3_index];
+executableModel.add_robots(["robot_0", "robot_1"], ["L1", "L3"]);
+RobotDistribution = executableModel.robot_initial_locations;
 executableModel.create_ros_interface_package()
 disp("Please start up the Python Interface Scripts. After starting them up, press any key to continue...");
 pause()
