@@ -5,18 +5,26 @@ classdef ExecutableGSPNR < GSPNR
     properties (SetAccess = private)
         unique_ROS_package_dependencies = [string.empty];
         nROSDependencies = 0;
+        
         place_actions = struct();
+
         policy = struct();
+        empty_policy = true;
+
         ambiguity = false;
         robot_conservation = true;
+        
         robot_list = [string.empty];
         robot_initial_locations = [];
         nRobots = 0;
+        
         robot_places = [string.empty];
+        
         interface_action_servers = [string.empty];
+        
         simple_exp_transitions = [];
         simple_exp_transition_flags = [];
-        empty_policy = true;
+
     end
     
     methods
@@ -315,7 +323,17 @@ classdef ExecutableGSPNR < GSPNR
             end
             simple_exp_trans = obj.simple_exp_transitions;
         end
-            
+        
+        function delete(obj)
+            [status, cmdout] = system("echo $CMAKE_PREFIX_PATH");
+            path = strtrim(cmdout);
+            path = strsplit(path, ":");
+            path = path{1};
+            path = strrep(path, "devel", "src");
+            path = path + "/temp_matlab_gspnr_python_interface";
+            bash_cmd = "rm -rf "+path;
+            system(bash_cmd);
+        end
     end
 end
 
