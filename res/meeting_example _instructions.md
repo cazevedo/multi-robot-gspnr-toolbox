@@ -1,35 +1,22 @@
 # Instructions to run "meeting_example.m"
 
-1. Add “multi-robot-gspnr-toolbox” and subfolders to Matlab Path;
-2. Place the provided catkin package “matlab_execution_tests” in your catkin workspace and build using the command:
+1. Clone the repo:
     ~~~
-    catkin_make
+    git clone https://github.com/cazevedo/multi-robot-gspnr-toolbox.git
     ~~~
-3. Start up the dummy action servers for the Navigate/Mop/Vacuum actions either by:
-     Executing each one individually by running the following commands (each one in its own terminal window:
+2. Clone the ROS Package that implements the action servers used in the example into your catkin workspace:
     ~~~
-    rosrun matlab_execution_tests navigating_server_tb1.py
-    rosrun matlab_execution_tests mopping_server_tb1.py
-    rosrun matlab_execution_tests vacuuming_server_tb1.py
-    rosrun matlab_execution_tests navigating_server_tb2.py
-    rosrun matlab_execution_tests mopping_server_tb2.py
-    rosrun matlab_execution_tests vacuuming_server_tb2.py
+    roscd
+    git clone https://github.com/cazevedo/multi_robot_home_clean.git
+    catkin build --this
     ~~~
-
-    Using the launch file (NOT TESTED) by running the following command:
+3. In a different terminal, start up your roscore:
     ~~~
-    roslaunch matlab_execution_tests launch_action_servers.launch
+    roscore
     ~~~
-
-4. Change variable “catkin_package_path” to a path of a valid catkin package – this is where the toolbox’s interface action servers will be saved and executed out of;
-5. Start a roscore;
-6. Run “meeting_example.m”;
-7. When prompted, run the python interface scripts. The name of each of these scripts is:
+3. Start up the dummy action servers for the Navigate/Mop/Vacuum actions by:
     ~~~
-    matlab_interface_server_<robot_name>.py
+    roslaunch multi_robot_home_clean launch_action_servers.launch 
     ~~~
-    By default, as the robots names’ are “tb1” and “tb2”, and you must run the commands:
-    ~~~
-    rosrun <catkin_package_name> matlab_interface_server_tb1.py
-    rosrun <catkin_package_name> matlab_interface_server_tb2.py
-    ~~~
+4. In MATLAB, add to path the toolbox, and enter into the main directory of the toolbox;
+5. Run "meeting_example.m"
