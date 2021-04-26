@@ -39,14 +39,10 @@ GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models,
 % reward_values = ones(1, 6);
 % 
 % GSPNRModel.set_reward_functions(reward_elements, reward_values, reward_types);
+
+%% Evaluating optimal policy
 % 
-% [mdp, markings, states, types] = GSPNRModel.toMDP();
-% mdp.check_validity();
-% mdp.set_enabled_actions();
-% 
-% %% Evaluating optimal policy
-% 
-% [values, policy] = value_iteration(mdp, 1, 0.99, 0.01);
+% [markings, states, mdp, policy] = GSPNRModel.policy_synthesis();
 
 %% Converting GSPNRModel to an executable version - reading from YAML file execution parameters
 

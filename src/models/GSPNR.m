@@ -490,6 +490,14 @@ classdef GSPNR < matlab.mixin.Copyable
                 GSPN.arcs.transitions = strrep(GSPN.arcs.transitions, old_tag, argument_list(blank_index));
             end
         end
+        
+        function [markings, states, mdp, policy] = policy_synthesis(GSPN)
+            [mdp, markings, states, types] = GSPN.toMDP();
+            mdp.check_validity();
+            mdp.set_enabled_actions();
+            % Evaluating optimal policy
+            [values, policy] = value_iteration(mdp, 1, 0.99, 0.01);
+        end
     end
     
 end
