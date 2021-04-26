@@ -38,7 +38,6 @@ classdef ExecutableGSPNR < GSPNR
             obj.place_rewards = copy_gspn.place_rewards;
             obj.transition_rewards = copy_gspn.transition_rewards;
             %Fill out the action properties;
-            
             action_places = string(fieldnames(action_map));
             nActionPlaces = size(action_places, 1);
             for a_index = 1:nActionPlaces
@@ -53,6 +52,16 @@ classdef ExecutableGSPNR < GSPNR
                 end
                 obj.place_actions(place_index).action_name = action_map.(place_name).action_name;
                 obj.place_actions(place_index).message = action_map.(place_name).message;
+            end
+            %Check all places for initial tag of "r." to differentiate
+            %between robot and non-robot places
+            nPlaces = size(obj.places, 2);
+            for p_index = 1:nPlaces
+                place_name = obj.places(p_index);
+                is_nonrobot_place = startsWith(place_name, "r.");
+                if ~is_nonrobot_place
+                    obj.add_robot_place(place_name);
+                end
             end
                  
         end

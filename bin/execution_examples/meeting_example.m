@@ -29,8 +29,8 @@ robot_marking.L1 = 1;
 robot_marking.L3 = 1;
 GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models, robot_marking);
 
-disp("Press any key to continue...");
-pause()
+% disp("Press any key to continue...");
+% pause()
 
 %% Adding transition rewards, and converting GSPNR model to equivalent MDP
 % 
@@ -58,23 +58,7 @@ action_place_struct = ReadfromYAML(yaml_filepath);
 
 executableModel.import_nonExecutable(GSPNRModel, action_place_struct);
 
-%% Preparing ExecutableGSPNR to execute - remove nonrobot places from robot places list, load policy from .mat file
-
-executableModel.set_all_places_as_robot_places();
-
-%Remove nonrobot places from robot places
-executableModel.remove_robot_place("NotRequiredMopL1");
-executableModel.remove_robot_place("NotRequiredMopL2");
-executableModel.remove_robot_place("NotRequiredMopL3");
-executableModel.remove_robot_place("RequiredMopL3");
-executableModel.remove_robot_place("RequiredMopL2");
-executableModel.remove_robot_place("RequiredMopL1");
-executableModel.remove_robot_place("RequiresVacuumL1");
-executableModel.remove_robot_place("RequiresVacuumL2");
-executableModel.remove_robot_place("RequiresVacuumL3");
-executableModel.remove_robot_place("NotRequiredVacuumL3");
-executableModel.remove_robot_place("NotRequiredVacuumL2");
-executableModel.remove_robot_place("NotRequiredVacuumL1");
+%% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
 
 executableModel.check_robot_ambiguity()
 executableModel.check_robot_conservation()
