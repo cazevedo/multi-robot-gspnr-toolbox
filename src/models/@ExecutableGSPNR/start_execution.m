@@ -28,7 +28,7 @@ function start_execution(obj)
     %Connect to ROS Network
     fprintf('----------------------\nConnecting to ROS Network\n');
     rosinit
-    cleanupObj = onCleanup(@CleaningAfterInterrupt)
+    cleanupObj = onCleanup(@CleaningAfterInterrupt);
     %rosinit
     %Check available actions
     actionlist = string(rosaction("list"));
@@ -90,7 +90,7 @@ function start_execution(obj)
         end
         
         while (finished_actions_count ~= 0)
-          %fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
+          fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
           %Processing all actions that returned in the meantime;
           fin_action = finished_actions_buffer(1);
           if fin_action.action == true
@@ -109,7 +109,7 @@ function start_execution(obj)
               robots_involved = obj.check_robots_involved(transitions(1), RobotPlaces);
               obj.fire_transition(transitions(1));
               RobotPlaces = obj.update_robot_places(transitions(1), RobotPlaces, robots_involved);
-              done_cleaning_buffer = 0;
+              obj.current_marking
               %exec.places
               %exec.current_marking
               %RobotPlaces
@@ -134,9 +134,18 @@ function start_execution(obj)
                   done_cleaning_buffer = 1;
               end
           end
+           for r_index = 1:obj.nRobots
+                robot_name = obj.robot_list(r_index);
+                robot_flag = ExecutionFlags(r_index);
+                robot_place = obj.places(RobotPlaces(r_index));
+                fprintf("\nRobot %s has flag %s and is in place %s", robot_name, robot_flag, robot_place);
+           end
+           fprintf("\n\nFINISHED BUFFER MESSAGES---------------");
+           
+          
         end
         
-        marking_type = obj.check_marking_type();
+        marking_type = obj.check_marking_type()
         
         if ( marking_type == "TAN" )
             %fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
@@ -146,10 +155,12 @@ function start_execution(obj)
                 if flag == "FIN"
                     robot_name = obj.robot_list(r_index);
                     place_index = RobotPlaces(r_index);
-                    interface_action_clients(r_index).goalmsg.Order = int32(place_index);
-                    ExecutionFlags(r_index) = "EXE";
-                    sendGoal(interface_action_clients(r_index).client, interface_action_clients(r_index).goalmsg);
-                    disp = "Sent goal of place index - "+string(interface_action_clients(r_index).goalmsg.Order)+" to robot "+robot_name
+                    if ~isempty(obj.place_actions(place_index).place_name)
+                        interface_action_clients(r_index).goalmsg.Order = int32(place_index);
+                        ExecutionFlags(r_index) = "EXE";
+                        sendGoal(interface_action_clients(r_index).client, interface_action_clients(r_index).goalmsg);
+                        disp = "Sent goal of place index - "+string(interface_action_clients(r_index).goalmsg.Order)+" to robot "+robot_name
+                    end
                 end
             end
             %fprintf("\nFINISHING SENDING GOALS-------------------------------\n");
