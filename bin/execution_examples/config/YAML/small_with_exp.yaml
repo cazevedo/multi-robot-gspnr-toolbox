@@ -1,0 +1,7 @@
+---
+    vacuuming:
+      -action_server_name: "VacuumActionServer"
+      -package_name: "multi_robot_home_clean"
+      -action_name: "VacuumingAction"
+      -message_fields: {"duration":5}
+...
