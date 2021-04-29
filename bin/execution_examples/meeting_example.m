@@ -56,9 +56,6 @@ executableModel.import_nonExecutable(GSPNRModel, action_place_struct);
 
 %% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
 
-executableModel.check_robot_ambiguity()
-executableModel.check_robot_conservation()
-
 %Set policy
 % policy_workspace_filepath = 'meeting_example_policy_workspace.mat';
 % load(policy_workspace_filepath, 'markings', 'states', 'mdp', 'policy');

@@ -21,6 +21,10 @@ function start_execution(obj)
     global lock;
     finished_actions_buffer = struct();
     lock = 0;
+    %Checking GSPN properties
+    fprintf('----------------------\nChecking GSPNR properties\n');
+    obj.check_robot_ambiguity();
+    obj.check_robot_conservation();
     %Connect to ROS Network
     fprintf('----------------------\nConnecting to ROS Network\n');
     rosinit
