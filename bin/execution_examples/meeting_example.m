@@ -52,7 +52,7 @@ yaml_filepath = 'meeting_example.yaml';
 
 action_place_struct = ReadfromYAML(yaml_filepath);
 
-executableModel.import_nonExecutable(GSPNRModel, action_place_struct);
+executableModel.initialize(GSPNRModel, action_place_struct);
 
 %% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
 

@@ -1,6 +1,8 @@
 clc
 clear
 
+%TODO Update this script with all the changes done since
+
 PNPRO_path = 'execution.PNPRO';
 pnml_file = 'execution_example.xml';
 yaml_file = 'example.yaml';
@@ -13,7 +15,7 @@ gspn = ImportfromPIPE(pnml_file);
 action_place_struct = ReadfromYAML(yaml_file);
 
 exec = ExecutableGSPNR();
-exec.import_nonExecutable(gspn, action_place_struct);
+exec.initialize(gspn, action_place_struct);
 nPlaces = size(exec.places, 2);
 exec.set_all_places_as_robot_places();
 %[mdp, markings, states, types] = exec.toMDP();

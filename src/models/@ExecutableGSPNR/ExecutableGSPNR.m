@@ -31,7 +31,7 @@ classdef ExecutableGSPNR < GSPNR
         function execGSPNR = ExecutableGSPNR()
             execGSPNR = execGSPNR@GSPNR();
         end
-        function import_nonExecutable(obj, GSPNR, action_map)
+        function initialize(obj, GSPNR, action_map)
             %Copy properties of non-executable instance;
             copy_gspn = copy(GSPNR);
             obj.places = copy_gspn.places;
