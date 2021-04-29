@@ -157,7 +157,7 @@ function start_execution(obj)
                     transition_rate = obj.rate_transitions(exec_trans_index);
                     if flag == "FIN"
                        ExponentialFlags(st_index) = "EXE";
-                       delay = round(exprnd(transition_rate), 2);
+                       delay = round(exprnd(1/transition_rate), 2);
                        print = "Will start delay of transition "+transition_name+" with delay "+string(delay)+"s"
                        exp_timer = timer('StartDelay', delay);
                        exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
