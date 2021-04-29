@@ -118,10 +118,13 @@ function start_execution(obj)
               %any robot places, can independently fire
               transition_index = fin_action.robot_index;
               transition_name = obj.transitions(transition_index);
-              obj.fire_transition(transition_name);
-              disp = "Fired simple exp "+transition_name
-              in_vector_index = find(simple_transitions == transition_name);
-              ExponentialFlags(in_vector_index) = "FIN";
+              [imm, exp] = obj.enabled_transitions();
+              if ~isempty(find(exp == transition_name))
+                  obj.fire_transition(transition_name);
+                  disp = "Fired simple exp "+transition_name
+                  in_vector_index = find(simple_transitions == transition_name);
+                  ExponentialFlags(in_vector_index) = "FIN";
+              end
               
           end
           done_cleaning_buffer = 0;
