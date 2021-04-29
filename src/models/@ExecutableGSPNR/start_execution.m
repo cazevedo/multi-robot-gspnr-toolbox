@@ -23,6 +23,7 @@ function start_execution(obj)
     lock = 0;
     %Connect to ROS Network
     fprintf('----------------------\nConnecting to ROS Network\n');
+    rosinit
     %rosinit
     %Check available actions
     actionlist = string(rosaction("list"));
@@ -196,7 +197,7 @@ function start_execution(obj)
             %fprintf("\n\n---------------------FINISHED WITH VANISHING MARKING");
         end
         pause(1);
-    end
+    endT0
 
 end
 
