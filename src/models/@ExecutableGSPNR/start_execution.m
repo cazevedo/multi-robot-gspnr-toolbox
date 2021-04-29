@@ -24,6 +24,7 @@ function start_execution(obj)
     %Connect to ROS Network
     fprintf('----------------------\nConnecting to ROS Network\n');
     rosinit
+    cleanupObj = onCleanup(@CleaningAfterInterrupt)
     %rosinit
     %Check available actions
     actionlist = string(rosaction("list"));
@@ -197,7 +198,7 @@ function start_execution(obj)
             %fprintf("\n\n---------------------FINISHED WITH VANISHING MARKING");
         end
         pause(1);
-    endT0
+    end
 
 end
 
@@ -249,4 +250,8 @@ function FinishedExponentialTransition(obj,~,transition_index)
             done = 1;
         end
     end
+end
+
+function CleaningAfterInterrupt()
+    rosshutdown;
 end
