@@ -75,5 +75,5 @@ disp("Please start up the Python Interface Scripts. After starting them up, pres
 pause()
 
 %% Executing the GSPNR
-executableModel.start_execution_manager();
+executableModel.start_execution();
 

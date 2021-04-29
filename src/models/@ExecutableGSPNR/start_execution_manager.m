@@ -1,4 +1,4 @@
-function start_execution_manager(obj)
+function start_execution(obj)
 %ROSEXECUTIONMANAGER Summary of this function goes here
 %
 %   gspn            (ExecutableGSPNR object)    GSPNR to be executed;
