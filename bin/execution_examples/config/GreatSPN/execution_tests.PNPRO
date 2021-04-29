@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="execution_tests" version="121">
+  <gspn name="small_with_exp" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place marking="1" name="decision" x="8.0" y="7.0"/>
+      <transition label-y="3.0" name="start_vacuum" type="IMM" x="12.85" y="7.0"/>
+      <place name="vacuuming" x="16.0" y="7.0"/>
+      <transition delay="0.2" label-y="3.0" name="finished_vacuuming" nservers-x="0.5" type="EXP" x="20.55" y="7.0"/>
+      <place label-x="-2.5" label-y="2.0" marking="1" name="r.Requires" x="8.0" y="2.0"/>
+      <place label-x="3.0" label-y="2.0" name="r.NotRequires" x="16.0" y="2.0"/>
+      <transition delay="0.05" name="timeout" nservers-x="0.5" type="EXP" x="12.55" y="2.0"/>
+    </nodes>
+    <edges>
+      <arc head="start_vacuum" kind="INPUT" tail="decision"/>
+      <arc head="vacuuming" kind="OUTPUT" tail="start_vacuum"/>
+      <arc head="finished_vacuuming" kind="INPUT" tail="vacuuming"/>
+      <arc head="decision" kind="OUTPUT" tail="finished_vacuuming">
+        <point x="26.5" y="8.0"/>
+        <point x="26.5" y="14.0"/>
+        <point x="5.0" y="14.0"/>
+        <point x="5.0" y="8.0"/>
+      </arc>
+      <arc head="start_vacuum" kind="INPUT" tail="r.Requires"/>
+      <arc head="r.NotRequires" kind="OUTPUT" tail="start_vacuum"/>
+      <arc head="timeout" kind="INPUT" tail="r.NotRequires"/>
+      <arc head="r.Requires" kind="OUTPUT" tail="timeout"/>
+    </edges>
+  </gspn>
+</project>

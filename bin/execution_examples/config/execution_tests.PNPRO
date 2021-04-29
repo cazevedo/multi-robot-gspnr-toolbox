@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="execution_tests" version="121">
-  <gspn name="small_with_exp" show-color-cmd="false" show-fluid-cmd="false">
-    <nodes/>
-    <edges/>
-  </gspn>
-</project>
