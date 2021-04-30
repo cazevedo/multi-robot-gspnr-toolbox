@@ -154,14 +154,14 @@ classdef ExecutableGSPNR < GSPNR
             end
         end
         
-        function set_policy(obj, markings, states, mdp, mdp_policy)
-            obj.policy.markings = markings;
+        function set_policy(obj, policy_struct)
+            obj.policy.markings = policy_struct.markings;
             nMarkings = size(markings, 1);
             for m_index = 1:nMarkings
-                state_name = states(m_index);
-                state_index = mdp.find_state(state_name);
-                action_index = mdp_policy(state_index);
-                obj.policy.transitions(m_index) = mdp.actions(action_index);
+                state_name = policy_struct.states(m_index);
+                state_index = policy_struct.mdp.find_state(state_name);
+                action_index = policy_struct.mdp_policy(state_index);
+                obj.policy.transitions(m_index) = policy_struct.mdp.actions(action_index);
             end
         end
         
@@ -204,7 +204,7 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function delete(obj)
-            disp("Deleting object")
+            disp("Deleting temporary files")
             [status, cmdout] = system("echo $CMAKE_PREFIX_PATH");
             path = strtrim(cmdout);
             path = strsplit(path, ":");

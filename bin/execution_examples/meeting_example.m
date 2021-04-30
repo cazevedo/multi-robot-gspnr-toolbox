@@ -42,7 +42,7 @@ GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models,
 
 %% Evaluating optimal policy
 % 
-% [markings, states, mdp, policy] = GSPNRModel.policy_synthesis();
+% complete_policy = GSPNRModel.policy_synthesis();
 
 %% Converting GSPNRModel to an executable version - reading from YAML file execution parameters
 
@@ -58,9 +58,9 @@ executableModel.initialize(GSPNRModel, action_place_struct);
 
 %Set policy
 % policy_workspace_filepath = 'meeting_example_policy_workspace.mat';
-% load(policy_workspace_filepath, 'markings', 'states', 'mdp', 'policy');
+% load(policy_workspace_filepath, 'complete_policy');
 %
-%executableModel.set_policy(markings, states, mdp, policy);
+%executableModel.set_policy(complete_policy);
 executableModel.set_empty_policy();
 
 %% Preparing executable GSPNR - adding robots, creating interface action servers;
