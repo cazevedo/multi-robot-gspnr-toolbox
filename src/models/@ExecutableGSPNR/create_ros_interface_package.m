@@ -1,4 +1,4 @@
-function create_ros_interface_package(obj)
+function create_ros_interface_package(obj, suppress_output)
     [status, toolbox_dir] = system("pwd");
     bash_cmd = "source " + strtrim(toolbox_dir) + "/res/create_ros_pkg.sh temp_matlab_gspnr_python_interface";
     system(bash_cmd);
@@ -8,8 +8,12 @@ function create_ros_interface_package(obj)
     catkin_ws = strrep(catkin_ws(1), "/devel","/src");
     package_dir = catkin_ws + "/temp_matlab_gspnr_python_interface";
     launch_temp_interface = obj.create_python_interface_scripts(package_dir);
-    bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
+    if suppress_output
+        bash_cmd = "cd "+package_dir+" && "+"catkin build --this > /dev/null";
+    else
+        bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
+    end
     system(bash_cmd);
-    bash_cmd = "roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface+" &"
+    bash_cmd = "roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface+" &";
     [status, cmdout] = system(bash_cmd);
 end

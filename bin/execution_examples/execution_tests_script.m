@@ -26,7 +26,7 @@ executableModel.set_empty_policy();
 
 executableModel.add_robots(["robot_0"], ["decision"]);
 RobotDistribution = executableModel.robot_initial_locations;
-executableModel.create_ros_interface_package();
+executableModel.create_ros_interface_package(true);
 
 %% Execute
 
