@@ -49,10 +49,7 @@ GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models,
 executableModel = ExecutableGSPNR();
 
 yaml_filepath = 'meeting_example.yaml';
-
-action_place_struct = ReadfromYAML(yaml_filepath);
-
-executableModel.initialize(GSPNRModel, action_place_struct);
+executableModel.initialize(GSPNRModel, yaml_filepath, []);
 
 %% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
 

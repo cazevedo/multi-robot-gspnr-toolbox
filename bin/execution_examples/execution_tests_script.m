@@ -14,9 +14,8 @@ model = models.small_with_exp;
 executableModel = ExecutableGSPNR();
 
 YAML_file = 'small_with_exp.yaml';
-action_place_struct = ReadfromYAML(YAML_file);
 
-executableModel.initialize(model, action_place_struct);
+executableModel.initialize(model, YAML_file, []);
 
 %% Preparing execution - setting empty policy (random)
 

@@ -31,7 +31,9 @@ classdef ExecutableGSPNR < GSPNR
         function execGSPNR = ExecutableGSPNR()
             execGSPNR = execGSPNR@GSPNR();
         end
-        function initialize(obj, GSPNR, action_map)
+        function initialize(obj, GSPNR, YAML_filepath, action_map)
+            %If YAML_filepath input is not empty, function will disregard
+            %completely the third input "action_map";
             %Copy properties of non-executable instance;
             copy_gspn = copy(GSPNR);
             obj.places = copy_gspn.places;
@@ -45,7 +47,12 @@ classdef ExecutableGSPNR < GSPNR
             obj.current_marking = copy_gspn.current_marking;
             obj.place_rewards = copy_gspn.place_rewards;
             obj.transition_rewards = copy_gspn.transition_rewards;
-            %Fill out the action properties;
+            %Fill out the action properties, either directly from
+            %action_map structure, and if input YAML filepath is not empty,
+            %load action_map from file;
+            if ~isempty(YAML_filepath)
+                action_map = ReadfromYAML(YAML_filepath);
+            end 
             action_places = string(fieldnames(action_map));
             nActionPlaces = size(action_places, 1);
             for a_index = 1:nActionPlaces
