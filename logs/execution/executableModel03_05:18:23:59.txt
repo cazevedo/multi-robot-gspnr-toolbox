@@ -1,0 +1,95 @@
+Starting execution at 18:23:59
+Places -> ["decision" "vacuuming" "r.Requires" "r.NotRequires"]
+Robots -> "robot_0"
+Current Marking -> [1 0 1 0]
+ Transitions -> ["start_vacuum" "finished_vacuuming" "timeout1"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition start_vacuum, at time 18:23:59 the state of the system was the following:
+Robots Places -> 1
+Robot Flags -> "FIN"
+Current Marking -> [1 0 1 0]
+------------------------------------------------
+After firing transition start_vacuum the state of the system was the following:
+Robots Places -> 2
+Robot Flags -> "FIN"
+Current Marking -> [0 1 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 2, to robot with index -> 1, at time 18:24:00
+Execution flags before sending the goal: "FIN"
+------------------------------------------------
+Sent goal at time 18:24:00
+Execution flags after sending goal: "EXE"
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+The simple exponential transition timeout1 started a timer with 5.56 seconds, at time 18:24:00
+
+ Exponential flags -> "EXE"
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition finished_vacuuming, at time 18:24:05 the state of the system was the following:
+Robots Places -> 2
+Robot Flags -> "EXE"
+Current Marking -> [0 1 0 1]
+------------------------------------------------
+After firing transition finished_vacuuming the state of the system was the following:
+Robots Places -> 1
+Robot Flags -> "FIN"
+Current Marking -> [1 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing simple exponential transition timeout1, at time 18:24:06 the state of the system was the following:
+
+Current Marking -> [1 0 0 1]
+ Exponential flags -> "EXE"
+------------------------------------------------
+After firing simple exponential transition timeout1, at time 18:24:06 the state of the system was the following:
+
+Current Marking -> [1 0 1 0]
+ Exponential flags -> "FIN"
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition start_vacuum, at time 18:24:06 the state of the system was the following:
+Robots Places -> 1
+Robot Flags -> "FIN"
+Current Marking -> [1 0 1 0]
+------------------------------------------------
+After firing transition start_vacuum the state of the system was the following:
+Robots Places -> 2
+Robot Flags -> "FIN"
+Current Marking -> [0 1 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 2, to robot with index -> 1, at time 18:24:07
+Execution flags before sending the goal: "FIN"
+------------------------------------------------
+Sent goal at time 18:24:07
+Execution flags after sending goal: "EXE"
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+The simple exponential transition timeout1 started a timer with 19.33 seconds, at time 18:24:07
+
+ Exponential flags -> "EXE"
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition finished_vacuuming, at time 18:24:12 the state of the system was the following:
+Robots Places -> 2
+Robot Flags -> "EXE"
+Current Marking -> [0 1 0 1]
+------------------------------------------------
+After firing transition finished_vacuuming the state of the system was the following:
+Robots Places -> 1
+Robot Flags -> "FIN"
+Current Marking -> [1 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
