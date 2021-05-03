@@ -15,12 +15,17 @@ function start_execution(obj)
 %----------------------
     %Create buffer global variable that ResultFcn of action clients can
     %fill
+    global logID;
     global finished_actions_buffer;
     global finished_actions_count;
     finished_actions_count = 0;
     global lock;
     finished_actions_buffer = struct();
     lock = 0;
+    log_name = inputname(1)+string(datestr(now, 'dd_mm:HH:MM:SS'));
+    log_path = "logs/execution/"+log_name+".txt";
+    logID = fopen(char(log_path), 'w');
+    log_firing(logID, obj, 0, [], [], []);
     %Checking GSPN properties
     fprintf('----------------------\nChecking GSPNR properties\n');
     obj.check_robot_ambiguity();
@@ -81,13 +86,6 @@ function start_execution(obj)
     done = false;
 
     while (~done)
-        fprintf("\n\n");
-        for r_index = 1:obj.nRobots
-            robot_name = obj.robot_list(r_index);
-            robot_flag = ExecutionFlags(r_index);
-            robot_place = obj.places(RobotPlaces(r_index));
-            fprintf("\nRobot %s has flag %s and is in place %s", robot_name, robot_flag, robot_place);
-        end
         
         while (finished_actions_count ~= 0)
           fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
@@ -96,23 +94,17 @@ function start_execution(obj)
           if fin_action.action == true
               %Processing exponential transition that represents the end of
               %an action
-              ExecutionFlags(fin_action.robot_index) = "FIN";
               place_done = obj.places(fin_action.place_index);
               transitions = obj.find_target_trans(obj.places(fin_action.place_index));
               if size(transitions, 2) ~= 1
                   error("Action places are only allowed to be connected by a single input arc to a single transition");
               end
-              %fprintf("\nWill fire transition - %s", transitions(1));
-              %exec.places
-              %exec.current_marking
-              %RobotPlaces
+              log_firing(logID, obj, 1, transitions(1), RobotPlaces, ExecutionFlags);
+              ExecutionFlags(fin_action.robot_index) = "FIN";
               robots_involved = obj.check_robots_involved(transitions(1), RobotPlaces);
               obj.fire_transition(transitions(1));
               RobotPlaces = obj.update_robot_places(transitions(1), RobotPlaces, robots_involved);
-              obj.current_marking
-              %exec.places
-              %exec.current_marking
-              %RobotPlaces
+              log_firing(logID, obj, 2, transitions(1), RobotPlaces, ExecutionFlags);
           else
               %Processing exponential transition that is not involved with
               %any robot places, can independently fire
@@ -120,10 +112,11 @@ function start_execution(obj)
               transition_name = obj.transitions(transition_index);
               [imm, exp] = obj.enabled_transitions();
               if ~isempty(find(exp == transition_name))
+                  log_exponential_transitions(logID, obj, 0, transition_name, ExponentialFlags, []);
                   obj.fire_transition(transition_name);
-                  disp = "Fired simple exp "+transition_name
                   in_vector_index = find(simple_transitions == transition_name);
                   ExponentialFlags(in_vector_index) = "FIN";
+                  log_exponential_transitions(logID, obj, 1, transition_name, ExponentialFlags, []);
               end
               
           end
@@ -137,18 +130,12 @@ function start_execution(obj)
                   done_cleaning_buffer = 1;
               end
           end
-           for r_index = 1:obj.nRobots
-                robot_name = obj.robot_list(r_index);
-                robot_flag = ExecutionFlags(r_index);
-                robot_place = obj.places(RobotPlaces(r_index));
-                fprintf("\nRobot %s has flag %s and is in place %s", robot_name, robot_flag, robot_place);
-           end
            fprintf("\n\nFINISHED BUFFER MESSAGES---------------");
            
           
         end
         
-        marking_type = obj.check_marking_type()
+        marking_type = obj.check_marking_type();
         
         if ( marking_type == "TAN" )
             %fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
@@ -159,15 +146,14 @@ function start_execution(obj)
                     robot_name = obj.robot_list(r_index);
                     place_index = RobotPlaces(r_index);
                     if ~isempty(obj.place_actions(place_index).place_name)
+                        log_goals(logID, obj, 1, place_index, r_index, ExecutionFlags);
                         interface_action_clients(r_index).goalmsg.Order = int32(place_index);
                         ExecutionFlags(r_index) = "EXE";
                         sendGoal(interface_action_clients(r_index).client, interface_action_clients(r_index).goalmsg);
-                        disp = "Sent goal of place index - "+string(interface_action_clients(r_index).goalmsg.Order)+" to robot "+robot_name
+                        log_goals(logID, obj, 0, place_index, r_index, ExecutionFlags);
                     end
                 end
             end
-            %fprintf("\nFINISHING SENDING GOALS-------------------------------\n");
-            %fprintf("\nChecking if any simple exponential transitions can fire\n");
             for st_index = 1:nSimpleTransitions
                 flag = ExponentialFlags(st_index);
                 transition_name = obj.simple_exp_transitions(st_index);
@@ -176,12 +162,12 @@ function start_execution(obj)
                     exec_trans_index = obj.find_transition_index(transition_name);
                     transition_rate = obj.rate_transitions(exec_trans_index);
                     if flag == "FIN"
-                       ExponentialFlags(st_index) = "EXE";
                        delay = round(exprnd(1/transition_rate), 2);
-                       print = "Will start delay of transition "+transition_name+" with delay "+string(delay)+"s"
                        exp_timer = timer('StartDelay', delay);
                        exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
                        start(exp_timer);
+                       ExponentialFlags(st_index) = "EXE";
+                       log_exponential_transitions(logID, obj, 2, transition_name, ExponentialFlags, delay);
                     end
                 else
                     continue
@@ -191,9 +177,6 @@ function start_execution(obj)
         else
         %Marking either "RAN" or "DET"
             transition = obj.get_policy(obj.current_marking);
-            %fprintf("\n\n-------------------DEALING WITH VANISHING MARKING");
-            %exec.current_marking
-            %RobotPlaces
             if transition == ""
                 %No policy action for current marking
                 [imm, exp] = obj.enabled_transitions();
@@ -201,19 +184,20 @@ function start_execution(obj)
                 rn_trans = randi(nTransitions);
                 %fprintf("\nWill fire transition (random) - %s", imm(rn_trans));
                 robots_involved = obj.check_robots_involved(imm(rn_trans), RobotPlaces);
+                log_firing(logID, obj, 1, imm(rn_trans), RobotPlaces, ExecutionFlags);
                 obj.fire_transition(imm(rn_trans));
                 RobotPlaces     = obj.update_robot_places(imm(rn_trans), RobotPlaces, robots_involved);
+                log_firing(logID, obj, 2, imm(rn_trans), RobotPlaces, ExecutionFlags);
             elseif transition == "WAIT"
                 
             else
                 %fprintf("\nWill fire transition (policy) - %s", transition);
                 robots_involved = obj.check_robots_involved(transition, RobotPlaces);
+                log_firing(logID, obj, 1, transition, RobotPlaces, ExecutionFlags);
                 obj.fire_transition(transition);
                 RobotPlaces     = obj.update_robot_places(transition, RobotPlaces, robots_involved);
+                log_firing(logID, obj, 2, transition, RobotPlaces, ExecutionFlags);
             end
-            %exec.current_marking
-            %RobotPlaces
-            %fprintf("\n\n---------------------FINISHED WITH VANISHING MARKING");
         end
         pause(1);
     end
@@ -271,5 +255,7 @@ function FinishedExponentialTransition(obj,~,transition_index)
 end
 
 function CleaningAfterInterrupt()
+    global logID;
+    fclose(logID);
     rosshutdown;
 end
