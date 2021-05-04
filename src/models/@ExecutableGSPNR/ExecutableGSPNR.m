@@ -204,7 +204,10 @@ classdef ExecutableGSPNR < GSPNR
                     end
                 end
                 if is_simple == true
-                    obj.simple_exp_transitions = cat(2, obj.simple_exp_transitions, obj.transitions(t_index));
+                    transition_type = obj.type_transitions(t_index);
+                    if transition_type == "exp"
+                        obj.simple_exp_transitions = cat(2, obj.simple_exp_transitions, obj.transitions(t_index));
+                    end
                 end
             end
             simple_exp_trans = obj.simple_exp_transitions;
