@@ -15,6 +15,7 @@ function start_execution(obj)
 %----------------------
     %Create buffer global variable that ResultFcn of action clients can
     %fill
+    delete(timerfindall)
     global logID;
     global finished_actions_buffer;
     global finished_actions_count;
@@ -34,7 +35,6 @@ function start_execution(obj)
     fprintf('----------------------\nConnecting to ROS Network\n');
     rosinit
     cleanupObj = onCleanup(@CleaningAfterInterrupt);
-    %rosinit
     %Check available actions
     actionlist = string(rosaction("list"));
     %----------------------
@@ -77,7 +77,7 @@ function start_execution(obj)
     %Initializing flag vector for all robots
     ExecutionFlags = repmat("FIN", [1 nRobots]);
     
-    simple_transitions = obj.find_simple_exp_transitions();
+    simple_transitions = obj.find_simple_exp_transitions()
     nSimpleTransitions = size(simple_transitions, 2);
     ExponentialFlags = repmat("FIN", [1 nSimpleTransitions]);
     
@@ -110,13 +110,14 @@ function start_execution(obj)
               %any robot places, can independently fire
               transition_index = fin_action.robot_index;
               transition_name = obj.transitions(transition_index);
+              timer_name = fin_action.timer_name;
               [imm, exp] = obj.enabled_transitions();
               if ~isempty(find(exp == transition_name))
-                  log_exponential_transitions(logID, obj, 0, transition_name, ExponentialFlags, []);
+                  log_exponential_transitions(logID, obj, 0, transition_name, ExponentialFlags, [], timer_name);
                   obj.fire_transition(transition_name);
                   in_vector_index = find(simple_transitions == transition_name);
                   ExponentialFlags(in_vector_index) = "FIN";
-                  log_exponential_transitions(logID, obj, 1, transition_name, ExponentialFlags, []);
+                  log_exponential_transitions(logID, obj, 1, transition_name, ExponentialFlags, [], timer_name);
               end
               
           end
@@ -167,7 +168,7 @@ function start_execution(obj)
                        exp_timer.TimerFcn = {@FinishedExponentialTransition, exec_trans_index};
                        start(exp_timer);
                        ExponentialFlags(st_index) = "EXE";
-                       log_exponential_transitions(logID, obj, 2, transition_name, ExponentialFlags, delay);
+                       log_exponential_transitions(logID, obj, 2, transition_name, ExponentialFlags, delay, exp_timer.Name);
                     end
                 else
                     continue
@@ -237,6 +238,7 @@ function FinishedExponentialTransition(obj,~,transition_index)
     fin_action.action = false;
     fin_action.robot_index = transition_index;
     fin_action.place_index = 0;
+    fin_action.timer_name = obj.Name;
     done = 0;
     while ~done
         if lock == 0
