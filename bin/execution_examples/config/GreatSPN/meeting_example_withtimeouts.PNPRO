@@ -46,9 +46,9 @@
       <place name="&lt;1&gt;" x="12.0" y="11.0"/>
       <transition label-y="-2.0" name="Vacuum_&lt;1&gt;" type="IMM" weight="0" x="17.85" y="11.0"/>
       <place label-y="2.0" name="Vacuuming_&lt;1&gt;" x="22.0" y="11.0"/>
-      <transition delay="10.0" label-y="-2.0" name="FinishedVacuum_&lt;1&gt;" nservers-x="0.5" type="EXP" x="28.55" y="11.0"/>
+      <transition delay="0.1" label-y="-2.0" name="FinishedVacuum_&lt;1&gt;" nservers-x="0.5" type="EXP" x="28.55" y="11.0"/>
       <place label-x="6.5" label-y="0.0" name="r.NotRequiredVacuum&lt;1&gt;" x="21.0" y="5.0"/>
-      <transition delay="100" label-y="-2.5" name="timeout_vacuum&lt;1&gt;" nservers-x="0.5" type="EXP" x="17.55" y="5.0"/>
+      <transition delay="0.01" label-y="-2.5" name="timeout_vacuum&lt;1&gt;" nservers-x="0.5" type="EXP" x="17.55" y="5.0"/>
       <place label-x="-5.5" label-y="0.0" marking="1" name="r.RequiresVacuum&lt;1&gt;" x="12.0" y="5.0"/>
     </nodes>
     <edges>

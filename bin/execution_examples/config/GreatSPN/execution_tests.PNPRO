@@ -9,7 +9,9 @@
       <place label-x="-2.5" label-y="2.0" marking="1" name="r.Requires" x="11.0" y="7.0"/>
       <place label-x="3.0" label-y="2.0" name="r.NotRequires" x="19.0" y="7.0"/>
       <transition delay="0.05" name="timeout1" nservers-x="0.5" type="EXP" x="15.55" y="7.0"/>
-      <transition delay="0.07" delay-x="1.0" delay-y="0.5" name="timeout2" nservers-x="0.5" type="EXP" x="15.55" y="2.0"/>
+      <place marking="1" name="r.P0" x="11.0" y="21.0"/>
+      <transition name="t0" type="IMM" x="15.85" y="21.0"/>
+      <place name="r.P1" x="19.0" y="21.0"/>
     </nodes>
     <edges>
       <arc head="start_vacuum" kind="INPUT" tail="decision"/>
@@ -25,8 +27,8 @@
       <arc head="r.NotRequires" kind="OUTPUT" tail="start_vacuum"/>
       <arc head="timeout1" kind="INPUT" tail="r.NotRequires"/>
       <arc head="r.Requires" kind="OUTPUT" tail="timeout1"/>
-      <arc head="timeout2" kind="INPUT" tail="r.NotRequires"/>
-      <arc head="r.Requires" kind="OUTPUT" tail="timeout2"/>
+      <arc head="t0" kind="INPUT" tail="r.P0"/>
+      <arc head="r.P1" kind="OUTPUT" tail="t0"/>
     </edges>
   </gspn>
 </project>
