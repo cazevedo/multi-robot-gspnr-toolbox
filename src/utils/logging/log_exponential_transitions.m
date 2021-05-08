@@ -1,4 +1,4 @@
-function log_exponential_transitions(fileID, execGSPNR, firing, transition, exponential_flags, delay)
+function log_exponential_transitions(fileID, execGSPNR, firing, transition, exponential_flags, delay, timer_name)
 %LOG_TO_FILE Summary of this function goes here
 %   Before firing simple exponential transition - firing = 0
 %   After firing simple expoenetial transition - firing = 1
@@ -11,6 +11,7 @@ function log_exponential_transitions(fileID, execGSPNR, firing, transition, expo
         fprintf(fileID, mat2str(execGSPNR.current_marking));
         fprintf(fileID, '\n Exponential flags -> ');
         fprintf(fileID, mat2str(exponential_flags));
+        fprintf(fileID, '\n Timer name -> %s', timer_name);
         fprintf(fileID, '\n------------------------------------------------');
     elseif firing == 1
         %State of the robots after firing transition
@@ -19,12 +20,14 @@ function log_exponential_transitions(fileID, execGSPNR, firing, transition, expo
         fprintf(fileID, mat2str(execGSPNR.current_marking));
         fprintf(fileID, '\n Exponential flags -> ');
         fprintf(fileID, mat2str(exponential_flags));
+        fprintf(fileID, '\n Timer name -> %s', timer_name);
         fprintf(fileID, '\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n');
     elseif firing == 2
         %Log delay value for particular transition
-        fprintf(fileID, '\nThe simple exponential transition %s started a timer with %s seconds, at time %s\n', transition, string(delay), datestr(now, 'HH:MM:SS'));
+        fprintf(fileID, '\nThe simple exponential transition %s started a timer with %s seconds, at time %s', transition, string(delay), datestr(now, 'HH:MM:SS'));
         fprintf(fileID, '\n Exponential flags -> ');
         fprintf(fileID, mat2str(exponential_flags));
+        fprintf(fileID, '\n Timer name -> %s', timer_name);
         fprintf(fileID, '\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n');
         
         
