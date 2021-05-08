@@ -36,14 +36,14 @@ classdef MDP < handle
                 MDP.nStates = MDP.nStates+1;
                 state_index = length(MDP.states);
             else
-                disp("WARNING: Tried to add state that already exists")
+%                 disp("WARNING: Tried to add state that already exists")
                 state_index = find(MDP.states == state_name);
             end
         end
         function state_index = find_state(MDP, state_name)
             index = find(MDP.states == state_name);
             if isempty(index)
-                disp("State does not exist")
+%                 disp("State does not exist")
                 state_index = 0;
             else
                 state_index = index;
@@ -57,7 +57,7 @@ classdef MDP < handle
                     action_index = length(MDP.actions);
 
                 else
-                    disp("WARNING: Tried to add action that already exists")
+%                     disp("WARNING: Tried to add action that already exists")
                     action_index = find(MDP.actions == action_name);
                 end
             elseif (type == "exp")
@@ -66,7 +66,7 @@ classdef MDP < handle
                     action_index = length(MDP.exp_actions);
 
                 else
-                    disp("WARNING: Tried to add action that already exists")
+%                     disp("WARNING: Tried to add action that already exists")
                     action_index = find(MDP.exp_actions == action_name);
                 end
             else

@@ -77,7 +77,7 @@ function start_execution(obj)
     %Initializing flag vector for all robots
     ExecutionFlags = repmat("FIN", [1 nRobots]);
     
-    simple_transitions = obj.find_simple_exp_transitions()
+    simple_transitions = obj.find_simple_exp_transitions();
     nSimpleTransitions = size(simple_transitions, 2);
     ExponentialFlags = repmat("FIN", [1 nSimpleTransitions]);
     
