@@ -37,6 +37,7 @@ classdef ExecutableGSPNR < GSPNR
             %Copy properties of non-executable instance;
             copy_gspn = copy(GSPNR);
             obj.places = copy_gspn.places;
+            nPlaces = size(obj.places, 2);
             obj.transitions = copy_gspn.transitions;
             obj.type_transitions = copy_gspn.type_transitions;
             obj.rate_transitions = copy_gspn.rate_transitions;
@@ -47,6 +48,12 @@ classdef ExecutableGSPNR < GSPNR
             obj.current_marking = copy_gspn.current_marking;
             obj.place_rewards = copy_gspn.place_rewards;
             obj.transition_rewards = copy_gspn.transition_rewards;
+            %Initialize place_actions propertyd
+            basic_element = struct('place_name', [], 'server_name', [], 'package_name', [], 'message', []);
+            obj.place_actions = basic_element;
+            for p_index = 1:(nPlaces-1)
+                obj.place_actions = [obj.place_actions, basic_element];
+            end
             %Fill out the action properties, either directly from
             %action_map structure, and if input YAML filepath is not empty,
             %load action_map from file;
@@ -162,8 +169,8 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function set_policy(obj, policy_struct)
-            obj.policy.markings = policy_struct.markings;
-            nMarkings = size(markings, 1);
+            obj.policy.state_index_to_markings = policy_struct.state_index_to_markings;
+            nMarkings = size(obj.policy.markings, 1);
             for m_index = 1:nMarkings
                 state_name = policy_struct.states(m_index);
                 state_index = policy_struct.mdp.find_state(state_name);
@@ -174,7 +181,7 @@ classdef ExecutableGSPNR < GSPNR
         
         function transition = get_policy(obj, marking)
             if obj.empty_policy == false
-                [exists, marking_index] = ismember(marking, obj.policy.markings, 'rows');
+                [exists, marking_index] = ismember(marking, obj.policy.state_index_to_markings, 'rows');
                 if exists
                     transition = obj.policy.transitions(marking_index);
                 else
