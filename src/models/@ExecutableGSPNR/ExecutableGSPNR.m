@@ -5,6 +5,7 @@ classdef ExecutableGSPNR < GSPNR
     properties (SetAccess = private)
         unique_ROS_package_dependencies = [string.empty];
         nROSDependencies = 0;
+        launch_cmd = string.empty;
         
         place_actions = struct();
 
@@ -230,6 +231,10 @@ classdef ExecutableGSPNR < GSPNR
             path = path + "/temp_matlab_gspnr_python_interface";
             bash_cmd = "rm -rf "+path;
             system(bash_cmd);
+            for r_index = 1:obj.nRobots
+                kill_cmd = "rosnode kill /matlab_interface_server_"+obj.robot_list(r_index);
+                system(kill_cmd);
+            end
         end
     end
 end
