@@ -14,6 +14,6 @@ function create_ros_interface_package(obj, suppress_output)
         bash_cmd = "cd "+package_dir+" && "+"catkin build --this";
     end
     system(bash_cmd);
-    bash_cmd = "roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface+" &";
-    [status, cmdout] = system(bash_cmd);
+    obj.launch_cmd = "roslaunch temp_matlab_gspnr_python_interface "+launch_temp_interface+" &";
+    %[status, cmdout] = system(bash_cmd);
 end
