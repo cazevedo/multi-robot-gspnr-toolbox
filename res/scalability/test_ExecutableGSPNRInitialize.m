@@ -1,11 +1,21 @@
-function [GSPNRModel, parameters] = test_ExecutableGSPNRInitialize(nLocations)
+function [executableModel, parameters] = test_ExecutableGSPNRInitialize(nLocations)
     
     parameters = struct();
     %Importing GSPNR Model from previous run test
     mat_filename = "locations"+string(nLocations)+"_creation_test.mat";
-    load(mat_filename, 'GSPNR');
+    load(mat_filename, 'GSPNR', 'action_place');
+    executableModel = ExecutableGSPNR();
     
-    executableModel.initialize(GSPNR, YAML_file, []);
+    tic
+    executableModel.initialize(GSPNR, [], action_place);
+    parameters.initialization_time = toc;
     
+    executableModel.set_empty_policy();
+    
+    name_last_location = "L"+string(nLocations);
+    executableModel.add_robots(["robot_0", "robot_1"], ["L1", name_last_location]);
+    RobotDistribution = executableModel.robot_initial_locations;
+    executableModel.create_ros_interface_package(true)
+
 end
 
