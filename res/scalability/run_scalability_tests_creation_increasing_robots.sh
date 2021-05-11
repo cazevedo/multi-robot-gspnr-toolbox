@@ -19,8 +19,6 @@ for NROBOTS in `seq 1 $MAX_NROBOTS`;
       $COMMAND &
       MATLAB_PID=$!
       # echo $MATLAB_PID
-      source env/bin/activate
       python3 measure_cpu.py $MATLAB_PID $NROBOTS >> $LOG_PATH
-      deactivate
       echo DONE TESTING FOR $NROBOTS
     done

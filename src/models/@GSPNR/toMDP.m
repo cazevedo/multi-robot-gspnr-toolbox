@@ -141,7 +141,8 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
 
       markings_to_explore(1,:) = [];
    end
-
+   
+   disp("Finished creating all states - continuing to uniformization");
    emb_MDP.consolidation_uniformization(covered_state_type);
 
    exp_action_index = emb_MDP.find_action("EXP", "imm");
