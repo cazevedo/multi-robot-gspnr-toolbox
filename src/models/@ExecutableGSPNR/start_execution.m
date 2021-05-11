@@ -23,6 +23,7 @@ function start_execution(obj)
     global lock;
     finished_actions_buffer = struct();
     lock = 0;
+    cleanupObj = onCleanup(@CleaningAfterInterrupt);
     log_name = inputname(1)+string(datestr(now, 'dd_mm:HH:MM:SS'));
     log_path = "logs/execution/"+log_name+".txt";
     logID = fopen(char(log_path), 'w');
@@ -34,7 +35,12 @@ function start_execution(obj)
     %Connect to ROS Network
     fprintf('----------------------\nConnecting to ROS Network\n');
     rosinit
-    cleanupObj = onCleanup(@CleaningAfterInterrupt);
+    %disp(obj.launch_cmd)
+    %rosnode list
+    [status, cmdout] = system(obj.launch_cmd);
+    pause(5);
+    rosaction list
+    %rosnode list
     %Check available actions
     actionlist = string(rosaction("list"));
     %----------------------
@@ -73,20 +79,20 @@ function start_execution(obj)
 %     end
     %Checking initial robot distribution and initializing variables
     nRobots = obj.nRobots;
-    RobotPlaces = obj.robot_initial_locations;
+    RobotPlaces = obj.robot_initial_locations
     %Initializing flag vector for all robots
     ExecutionFlags = repmat("FIN", [1 nRobots]);
-    
+
     simple_transitions = obj.find_simple_exp_transitions();
     nSimpleTransitions = size(simple_transitions, 2);
     ExponentialFlags = repmat("FIN", [1 nSimpleTransitions]);
-    
+
 
     %Main firing loop
     done = false;
 
     while (~done)
-        
+
         while (finished_actions_count ~= 0)
           fprintf("\n\nPROCESSING BUFFER MESSAGES---------------");
           %Processing all actions that returned in the meantime;
@@ -119,7 +125,7 @@ function start_execution(obj)
                   ExponentialFlags(in_vector_index) = "FIN";
                   log_exponential_transitions(logID, obj, 1, transition_name, ExponentialFlags, [], timer_name);
               end
-              
+
           end
           done_cleaning_buffer = 0;
           while ~done_cleaning_buffer
@@ -132,12 +138,12 @@ function start_execution(obj)
               end
           end
            fprintf("\n\nFINISHED BUFFER MESSAGES---------------");
-           
-          
+
+
         end
-        
+
         marking_type = obj.check_marking_type();
-        
+
         if ( marking_type == "TAN" )
             %fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
             for r_index = 1:obj.nRobots
@@ -174,7 +180,7 @@ function start_execution(obj)
                     continue
                 end
             end
-            
+
         else
         %Marking either "RAN" or "DET"
             transition = obj.get_policy(obj.current_marking);
@@ -190,7 +196,7 @@ function start_execution(obj)
                 RobotPlaces     = obj.update_robot_places(imm(rn_trans), RobotPlaces, robots_involved);
                 log_firing(logID, obj, 2, imm(rn_trans), RobotPlaces, ExecutionFlags);
             elseif transition == "WAIT"
-                
+
             else
                 %fprintf("\nWill fire transition (policy) - %s", transition);
                 robots_involved = obj.check_robots_involved(transition, RobotPlaces);
@@ -259,5 +265,6 @@ end
 function CleaningAfterInterrupt()
     global logID;
     fclose(logID);
+    disp('Shutting down MATLAB ROS node')
     rosshutdown;
 end
