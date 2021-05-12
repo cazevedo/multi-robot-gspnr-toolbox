@@ -26,11 +26,16 @@ while (psutil.pid_exists(measure_pid)):
 # print(mem_list)
 
 cpu_mean = mean(cpu_list)
+cpu_max = max(cpu_list)
+cpu_min = min(cpu_list)
+
 mem_mean = mean(mem_list)
+mem_max = max(mem_list)
+mem_min = min(mem_list)
 
-save_string = "{},{},{}"
+save_string = "{},{},{},{},{},{},{}"
 
-print(save_string.format(nLocations,cpu_mean,mem_mean))
+print(save_string.format(nLocations,cpu_mean,cpu_max,cpu_min,mem_mean,mem_max,mem_min))
 
 # datetime object containing current date and time
 # now = datetime.now()
