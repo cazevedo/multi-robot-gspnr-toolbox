@@ -144,6 +144,7 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
    
    disp("Finished creating all states - continuing to uniformization");
    emb_MDP.consolidation_uniformization(covered_state_type);
+   disp("Finished uniformization - continuing to add rewards");
 
    exp_action_index = emb_MDP.find_action("EXP", "imm");
    for state = 1:emb_MDP.nStates
