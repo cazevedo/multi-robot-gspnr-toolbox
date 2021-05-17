@@ -162,8 +162,8 @@ classdef MDP < handle
         
         function consolidation_uniformization(MDP, state_types)
            %Calculation of eta, uniformization constant
-           exp_action_matrix = zeros(MDP.nStates, MDP.nStates);
-           total_trans_freq = zeros(MDP.nStates, MDP.nStates);
+           exp_action_matrix = sparse(MDP.nStates, MDP.nStates);
+           total_trans_freq = sparse(MDP.nStates, MDP.nStates);
            exit_rates = [];
            for row_index = 1:MDP.nEXPTransitions
                indices = MDP.exponential_transition_matrix{1}(row_index, :);
