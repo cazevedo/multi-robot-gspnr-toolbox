@@ -11,15 +11,17 @@ LOG_PATH=${2}
 
 for NLOCATIONS in `seq 1 $MAX_NLOCATIONS`;
     do
-      STRING1="run_ExecutableGSPNRInitialize("
-      STRING2=")"
-      # echo $COMMAND
+      for TEST in `seq 1 10`
+          do
+            STRING1="run_ExecutableGSPNRInitialize("
+            STRING2=")"
+            # echo $COMMAND
 
-      COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NLOCATIONS$STRING2"
-      $COMMAND &
-      MATLAB_PID=$!
-      # echo $MATLAB_PID
-      python3 measure_cpu.py $MATLAB_PID $NLOCATIONS >> $LOG_PATH
-
+            COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NLOCATIONS$STRING2"
+            $COMMAND &
+            MATLAB_PID=$!
+            # echo $MATLAB_PID
+            python3 measure_cpu.py $MATLAB_PID $NLOCATIONS >> $LOG_PATH
+          done
       echo DONE TESTING FOR $NLOCATIONS
     done
