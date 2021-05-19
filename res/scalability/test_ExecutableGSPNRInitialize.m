@@ -15,6 +15,7 @@ function [executableModel, parameters] = test_ExecutableGSPNRInitialize(nLocatio
     name_last_location = "L"+string(nLocations);
     executableModel.add_robots(["robot_0", "robot_1"], ["L1", name_last_location]);
     RobotDistribution = executableModel.robot_initial_locations;
+    executableModel.set_catkin_ws("/home/harode/tiago_ws");
     executableModel.create_ros_interface_package(true)
 
 end
