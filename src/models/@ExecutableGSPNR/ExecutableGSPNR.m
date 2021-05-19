@@ -3,6 +3,7 @@ classdef ExecutableGSPNR < GSPNR
     %   Detailed explanation goes here
     
     properties (SetAccess = private)
+        catkin_ws = string.empty;
         unique_ROS_package_dependencies = [string.empty];
         nROSDependencies = 0;
         launch_cmd = string.empty;
@@ -221,16 +222,30 @@ classdef ExecutableGSPNR < GSPNR
             simple_exp_trans = obj.simple_exp_transitions;
         end
         
+        function set_catkin_ws(obj, catkin_ws)
+            %Set catkin workspace path, if empty
+            %create_ros_interface_package() method and
+            %create_ros_interface_scripts() method will fallback to
+            %CMAKE_PREFIX_PATH environment variable
+            obj.catkin_ws = catkin_ws;
+        end
+        
         function delete(obj)
             disp("Deleting temporary files")
-            [status, cmdout] = system("echo $CMAKE_PREFIX_PATH");
-            path = strtrim(cmdout);
-            path = strsplit(path, ":");
-            path = path{1};
-            path = strrep(path, "devel", "src");
-            path = path + "/temp_matlab_gspnr_python_interface";
-            bash_cmd = "rm -rf "+path;
-            system(bash_cmd);
+            if isempty(obj.catkin_ws)
+                [status, cmdout] = system("echo $CMAKE_PREFIX_PATH");
+                path = strtrim(cmdout);
+                path = strsplit(path, ":");
+                path = path{1};
+                path = strrep(path, "devel", "src");
+                path = path + "/temp_matlab_gspnr_python_interface";
+                bash_cmd = "rm -rf "+path;
+                system(bash_cmd);
+            else
+                path = obj.catkin_ws + "/src/temp_matlab_gspnr_python_interface";
+                bash_cmd = "rm -rf "+path;
+                system(bash_cmd);
+            end
             for r_index = 1:obj.nRobots
                 kill_cmd = "rosnode kill /matlab_interface_server_"+obj.robot_list(r_index);
                 system(kill_cmd);

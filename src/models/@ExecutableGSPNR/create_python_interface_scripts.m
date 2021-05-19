@@ -1,10 +1,12 @@
 function launch_name = create_python_interface_scripts(obj, package_dir)
     nScripts = obj.nRobots;
     script_paths = package_dir + "/src/";
+    disp("Scripts path when creating - ");
+    disp(script_paths)
     for s_index = 1:nScripts
         robot_name = obj.robot_list(s_index);
         script_name = "matlab_interface_server_"+robot_name;
-        script_location = script_paths + script_name;
+        script_location = script_paths + script_name
         fileID = fopen(script_location, 'w');
         fprintf(fileID, '#! /usr/bin/env python\nimport rospy\nimport actionlib\nimport actionlib_tutorials.msg\n');
         for d_index = 1:obj.nROSDependencies
