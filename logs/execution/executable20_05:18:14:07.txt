@@ -1,0 +1,501 @@
+Starting execution at 18:14:07
+Places -> ["Mopping_L1" "Vacuuming_L1" "Mopping_L2" "Vacuuming_L2" "Navigating_L1_L2" "Navigating_L2_L1" "L1" "L2"]
+Robots -> ["robot_0" "robot_1"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+ Transitions -> ["Mop_L1" "FinishedMop_L1" "Vacuum_L1" "FinishedVacuum_L1" "Mop_L2" "FinishedMop_L2" "Vacuum_L2" "FinishedVacuum_L2" "Go_L1_L2" "Arrived_L1_L2" "Go_L2_L1" "Arrived_L2_L1"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L1_L2, at time 18:14:14 the state of the system was the following:
+Robots Places -> [7 8]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+------------------------------------------------
+After firing transition Go_L1_L2 the state of the system was the following:
+Robots Places -> [5 8]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 1 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 18:14:16 the state of the system was the following:
+Robots Places -> [5 8]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 1 0 0 1]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [5 6]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 1 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 5, to robot with index -> 1, at time 18:14:17
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:17
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 6, to robot with index -> 2, at time 18:14:17
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:17
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L1, at time 18:14:22 the state of the system was the following:
+Robots Places -> [5 6]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 1 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L2_L1 the state of the system was the following:
+Robots Places -> [5 7]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 1 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L1_L2, at time 18:14:22 the state of the system was the following:
+Robots Places -> [5 7]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 1 0 1 0]
+------------------------------------------------
+After firing transition Arrived_L1_L2 the state of the system was the following:
+Robots Places -> [8 7]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L1, at time 18:14:22 the state of the system was the following:
+Robots Places -> [8 7]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+------------------------------------------------
+After firing transition Mop_L1 the state of the system was the following:
+Robots Places -> [8 1]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [1 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 18:14:23 the state of the system was the following:
+Robots Places -> [8 1]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [1 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [6 1]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [1 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 6, to robot with index -> 1, at time 18:14:24
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:24
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 1, to robot with index -> 2, at time 18:14:24
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:24
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L1, at time 18:14:29 the state of the system was the following:
+Robots Places -> [6 1]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [1 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L2_L1 the state of the system was the following:
+Robots Places -> [7 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L1, at time 18:14:29 the state of the system was the following:
+Robots Places -> [7 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Vacuum_L1 the state of the system was the following:
+Robots Places -> [2 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 1 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 2, to robot with index -> 1, at time 18:14:30
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:14:30
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L1, at time 18:14:34 the state of the system was the following:
+Robots Places -> [2 1]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [1 1 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L1 the state of the system was the following:
+Robots Places -> [2 7]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 1 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L1, at time 18:14:34 the state of the system was the following:
+Robots Places -> [2 7]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 1 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Mop_L1 the state of the system was the following:
+Robots Places -> [2 1]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [1 1 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 1, to robot with index -> 2, at time 18:14:35
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:35
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L1, at time 18:14:40 the state of the system was the following:
+Robots Places -> [2 1]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [1 1 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L1 the state of the system was the following:
+Robots Places -> [7 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L1, at time 18:14:40 the state of the system was the following:
+Robots Places -> [7 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Mop_L1 the state of the system was the following:
+Robots Places -> [1 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [2 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 1, to robot with index -> 1, at time 18:14:41
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:14:41
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L1, at time 18:14:45 the state of the system was the following:
+Robots Places -> [1 1]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [2 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L1 the state of the system was the following:
+Robots Places -> [7 1]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [1 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L1_L2, at time 18:14:45 the state of the system was the following:
+Robots Places -> [7 1]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [1 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L1_L2 the state of the system was the following:
+Robots Places -> [5 1]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [1 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 1, to robot with index -> 2, at time 18:14:46
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:46
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L1, at time 18:14:50 the state of the system was the following:
+Robots Places -> [5 1]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [1 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L1 the state of the system was the following:
+Robots Places -> [5 7]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 1 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L1, at time 18:14:50 the state of the system was the following:
+Robots Places -> [5 7]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 1 0 1 0]
+------------------------------------------------
+After firing transition Mop_L1 the state of the system was the following:
+Robots Places -> [5 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 5, to robot with index -> 1, at time 18:14:51
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:14:51
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L1_L2, at time 18:14:56 the state of the system was the following:
+Robots Places -> [5 1]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [1 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L1_L2 the state of the system was the following:
+Robots Places -> [8 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L1, at time 18:14:56 the state of the system was the following:
+Robots Places -> [8 1]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition FinishedMop_L1 the state of the system was the following:
+Robots Places -> [8 7]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 18:14:56 the state of the system was the following:
+Robots Places -> [8 7]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [6 7]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 1 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L1_L2, at time 18:14:57 the state of the system was the following:
+Robots Places -> [6 7]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 1 1 0]
+------------------------------------------------
+After firing transition Go_L1_L2 the state of the system was the following:
+Robots Places -> [6 5]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 1 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 6, to robot with index -> 1, at time 18:14:58
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:58
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 5, to robot with index -> 2, at time 18:14:58
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:14:58
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L1, at time 18:15:03 the state of the system was the following:
+Robots Places -> [6 5]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 1 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L2_L1 the state of the system was the following:
+Robots Places -> [7 5]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 1 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L1_L2, at time 18:15:03 the state of the system was the following:
+Robots Places -> [7 5]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 1 0 1 0]
+------------------------------------------------
+After firing transition Arrived_L1_L2 the state of the system was the following:
+Robots Places -> [7 8]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L2, at time 18:15:03 the state of the system was the following:
+Robots Places -> [7 8]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 1 1]
+------------------------------------------------
+After firing transition Mop_L2 the state of the system was the following:
+Robots Places -> [7 3]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 1 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L1_L2, at time 18:15:04 the state of the system was the following:
+Robots Places -> [7 3]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 1 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L1_L2 the state of the system was the following:
+Robots Places -> [5 3]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 1 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 5, to robot with index -> 1, at time 18:15:05
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 18:15:05
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 3, to robot with index -> 2, at time 18:15:05
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:15:05
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L1_L2, at time 18:15:10 the state of the system was the following:
+Robots Places -> [5 3]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 1 0 1 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L1_L2 the state of the system was the following:
+Robots Places -> [8 3]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 1 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L2, at time 18:15:10 the state of the system was the following:
+Robots Places -> [8 3]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 1 0 0 0 0 1]
+------------------------------------------------
+After firing transition Mop_L2 the state of the system was the following:
+Robots Places -> [3 3]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 2 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 3, to robot with index -> 1, at time 18:15:11
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:15:11
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L2, at time 18:15:15 the state of the system was the following:
+Robots Places -> [3 3]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 2 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L2 the state of the system was the following:
+Robots Places -> [8 3]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 1 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 18:15:15 the state of the system was the following:
+Robots Places -> [8 3]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 1 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [6 3]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 1 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 3, to robot with index -> 2, at time 18:15:16
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:15:16
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L2, at time 18:15:21 the state of the system was the following:
+Robots Places -> [6 3]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 1 0 0 1 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L2 the state of the system was the following:
+Robots Places -> [6 8]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 1 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 18:15:21 the state of the system was the following:
+Robots Places -> [6 8]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 1 0 1]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [6 6]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 2 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 6, to robot with index -> 1, at time 18:15:22
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:15:22
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L2, at time 18:15:26 the state of the system was the following:
+Robots Places -> [6 6]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 2 0 0]
+------------------------------------------------

@@ -1,0 +1,947 @@
+Starting execution at 00:32:51
+Places -> ["Mopping_L1" "Vacuuming_L1" "Mopping_L2" "Vacuuming_L2" "Mopping_L3" "Vacuuming_L3" "Mopping_L4" "Vacuuming_L4" "Mopping_L5" "Vacuuming_L5" "Mopping_L6" "Vacuuming_L6" "Mopping_L7" "Vacuuming_L7" "Mopping_L8" "Vacuuming_L8" "Mopping_L9" "Vacuuming_L9" "Mopping_L10" "Vacuuming_L10" "Mopping_L11" "Vacuuming_L11" "Mopping_L12" "Vacuuming_L12" "Mopping_L13" "Vacuuming_L13" "Mopping_L14" "Vacuuming_L14" "Mopping_L15" "Vacuuming_L15" "Mopping_L16" "Vacuuming_L16" "Navigating_L1_L2" "Navigating_L2_L1" "L1" "Navigating_L2_L3" "Navigating_L3_L2" "L2" "Navigating_L3_L4" "Navigating_L4_L3" "L3" "Navigating_L4_L5" "Navigating_L5_L4" "L4" "Navigating_L5_L6" "Navigating_L6_L5" "L5" "Navigating_L6_L7" "Navigating_L7_L6" "L6" "Navigating_L7_L8" "Navigating_L8_L7" "L7" "Navigating_L8_L9" "Navigating_L9_L8" "L8" "Navigating_L9_L10" "Navigating_L10_L9" "L9" "Navigating_L10_L11" "Navigating_L11_L10" "L10" "Navigating_L11_L12" "Navigating_L12_L11" "L11" "Navigating_L12_L13" "Navigating_L13_L12" "L12" "Navigating_L13_L14" "Navigating_L14_L13" "L13" "Navigating_L14_L15" "Navigating_L15_L14" "L14" "Navigating_L15_L16" "Navigating_L16_L15" "L15" "L16"]
+Robots -> ["robot_0" "robot_1"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+ Transitions -> ["Mop_L1" "FinishedMop_L1" "Vacuum_L1" "FinishedVacuum_L1" "Mop_L2" "FinishedMop_L2" "Vacuum_L2" "FinishedVacuum_L2" "Mop_L3" "FinishedMop_L3" "Vacuum_L3" "FinishedVacuum_L3" "Mop_L4" "FinishedMop_L4" "Vacuum_L4" "FinishedVacuum_L4" "Mop_L5" "FinishedMop_L5" "Vacuum_L5" "FinishedVacuum_L5" "Mop_L6" "FinishedMop_L6" "Vacuum_L6" "FinishedVacuum_L6" "Mop_L7" "FinishedMop_L7" "Vacuum_L7" "FinishedVacuum_L7" "Mop_L8" "FinishedMop_L8" "Vacuum_L8" "FinishedVacuum_L8" "Mop_L9" "FinishedMop_L9" "Vacuum_L9" "FinishedVacuum_L9" "Mop_L10" "FinishedMop_L10" "Vacuum_L10" "FinishedVacuum_L10" "Mop_L11" "FinishedMop_L11" "Vacuum_L11" "FinishedVacuum_L11" "Mop_L12" "FinishedMop_L12" "Vacuum_L12" "FinishedVacuum_L12" "Mop_L13" "FinishedMop_L13" "Vacuum_L13" "FinishedVacuum_L13" "Mop_L14" "FinishedMop_L14" "Vacuum_L14" "FinishedVacuum_L14" "Mop_L15" "FinishedMop_L15" "Vacuum_L15" "FinishedVacuum_L15" "Mop_L16" "FinishedMop_L16" "Vacuum_L16" "FinishedVacuum_L16" "Go_L1_L2" "Arrived_L1_L2" "Go_L2_L1" "Arrived_L2_L1" "Go_L2_L3" "Arrived_L2_L3" "Go_L3_L2" "Arrived_L3_L2" "Go_L3_L4" "Arrived_L3_L4" "Go_L4_L3" "Arrived_L4_L3" "Go_L4_L5" "Arrived_L4_L5" "Go_L5_L4" "Arrived_L5_L4" "Go_L5_L6" "Arrived_L5_L6" "Go_L6_L5" "Arrived_L6_L5" "Go_L6_L7" "Arrived_L6_L7" "Go_L7_L6" "Arrived_L7_L6" "Go_L7_L8" "Arrived_L7_L8" "Go_L8_L7" "Arrived_L8_L7" "Go_L8_L9" "Arrived_L8_L9" "Go_L9_L8" "Arrived_L9_L8" "Go_L9_L10" "Arrived_L9_L10" "Go_L10_L9" "Arrived_L10_L9" "Go_L10_L11" "Arrived_L10_L11" "Go_L11_L10" "Arrived_L11_L10" "Go_L11_L12" "Arrived_L11_L12" "Go_L12_L11" "Arrived_L12_L11" "Go_L12_L13" "Arrived_L12_L13" "Go_L13_L12" "Arrived_L13_L12" "Go_L13_L14" "Arrived_L13_L14" "Go_L14_L13" "Arrived_L14_L13" "Go_L14_L15" "Arrived_L14_L15" "Go_L15_L14" "Arrived_L15_L14" "Go_L15_L16" "Arrived_L15_L16" "Go_L16_L15" "Arrived_L16_L15"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L1_L2, at time 00:32:59 the state of the system was the following:
+Robots Places -> [35 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L1_L2 the state of the system was the following:
+Robots Places -> [33 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L16_L15, at time 00:33:00 the state of the system was the following:
+Robots Places -> [33 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L16_L15 the state of the system was the following:
+Robots Places -> [33 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 33, to robot with index -> 1, at time 00:33:01
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:01
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 76, to robot with index -> 2, at time 00:33:01
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:01
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L1_L2, at time 00:33:06 the state of the system was the following:
+Robots Places -> [33 76]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L1_L2 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L16_L15, at time 00:33:06 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L16_L15 the state of the system was the following:
+Robots Places -> [38 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L2, at time 00:33:06 the state of the system was the following:
+Robots Places -> [38 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Vacuum_L2 the state of the system was the following:
+Robots Places -> [4 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L15_L16, at time 00:33:07 the state of the system was the following:
+Robots Places -> [4 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L15_L16 the state of the system was the following:
+Robots Places -> [4 75]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 4, to robot with index -> 1, at time 00:33:08
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:08
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 75, to robot with index -> 2, at time 00:33:08
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:08
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L15_L16, at time 00:33:13 the state of the system was the following:
+Robots Places -> [4 75]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L15_L16 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L16, at time 00:33:13 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Vacuum_L16 the state of the system was the following:
+Robots Places -> [4 32]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 32, to robot with index -> 2, at time 00:33:14
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:14
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L2, at time 00:33:18 the state of the system was the following:
+Robots Places -> [4 32]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L2 the state of the system was the following:
+Robots Places -> [38 32]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L2, at time 00:33:18 the state of the system was the following:
+Robots Places -> [38 32]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Mop_L2 the state of the system was the following:
+Robots Places -> [3 32]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 3, to robot with index -> 1, at time 00:33:19
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 00:33:19
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L16, at time 00:33:24 the state of the system was the following:
+Robots Places -> [3 32]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L16 the state of the system was the following:
+Robots Places -> [3 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L16, at time 00:33:24 the state of the system was the following:
+Robots Places -> [3 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Mop_L16 the state of the system was the following:
+Robots Places -> [3 31]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 31, to robot with index -> 2, at time 00:33:25
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:25
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L2, at time 00:33:29 the state of the system was the following:
+Robots Places -> [3 31]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L2 the state of the system was the following:
+Robots Places -> [38 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 00:33:29 the state of the system was the following:
+Robots Places -> [38 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [34 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 34, to robot with index -> 1, at time 00:33:30
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 00:33:30
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L1, at time 00:33:35 the state of the system was the following:
+Robots Places -> [34 31]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L2_L1 the state of the system was the following:
+Robots Places -> [35 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L16, at time 00:33:35 the state of the system was the following:
+Robots Places -> [35 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L16 the state of the system was the following:
+Robots Places -> [35 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L16_L15, at time 00:33:35 the state of the system was the following:
+Robots Places -> [35 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L16_L15 the state of the system was the following:
+Robots Places -> [35 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L1_L2, at time 00:33:36 the state of the system was the following:
+Robots Places -> [35 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Go_L1_L2 the state of the system was the following:
+Robots Places -> [33 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 33, to robot with index -> 1, at time 00:33:37
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:37
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 76, to robot with index -> 2, at time 00:33:37
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:37
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L1_L2, at time 00:33:42 the state of the system was the following:
+Robots Places -> [33 76]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L1_L2 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L16_L15, at time 00:33:42 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L16_L15 the state of the system was the following:
+Robots Places -> [38 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L2, at time 00:33:42 the state of the system was the following:
+Robots Places -> [38 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Vacuum_L2 the state of the system was the following:
+Robots Places -> [4 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L15_L16, at time 00:33:43 the state of the system was the following:
+Robots Places -> [4 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L15_L16 the state of the system was the following:
+Robots Places -> [4 75]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 4, to robot with index -> 1, at time 00:33:44
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:44
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 75, to robot with index -> 2, at time 00:33:44
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:44
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L15_L16, at time 00:33:49 the state of the system was the following:
+Robots Places -> [4 75]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L15_L16 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L16_L15, at time 00:33:49 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L16_L15 the state of the system was the following:
+Robots Places -> [4 76]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 76, to robot with index -> 2, at time 00:33:50
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:50
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L2, at time 00:33:54 the state of the system was the following:
+Robots Places -> [4 76]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L2 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L2, at time 00:33:54 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Vacuum_L2 the state of the system was the following:
+Robots Places -> [4 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L16_L15, at time 00:33:55 the state of the system was the following:
+Robots Places -> [4 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L16_L15 the state of the system was the following:
+Robots Places -> [4 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L15_L16, at time 00:33:55 the state of the system was the following:
+Robots Places -> [4 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L15_L16 the state of the system was the following:
+Robots Places -> [4 75]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 4, to robot with index -> 1, at time 00:33:56
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:56
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 75, to robot with index -> 2, at time 00:33:56
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:33:56
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L15_L16, at time 00:34:01 the state of the system was the following:
+Robots Places -> [4 75]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L15_L16 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L16, at time 00:34:01 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Mop_L16 the state of the system was the following:
+Robots Places -> [4 31]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 31, to robot with index -> 2, at time 00:34:02
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:02
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L2, at time 00:34:06 the state of the system was the following:
+Robots Places -> [4 31]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L2 the state of the system was the following:
+Robots Places -> [38 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L2, at time 00:34:06 the state of the system was the following:
+Robots Places -> [38 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Vacuum_L2 the state of the system was the following:
+Robots Places -> [4 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 4, to robot with index -> 1, at time 00:34:07
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 00:34:07
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L16, at time 00:34:12 the state of the system was the following:
+Robots Places -> [4 31]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L16 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L16_L15, at time 00:34:12 the state of the system was the following:
+Robots Places -> [4 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L16_L15 the state of the system was the following:
+Robots Places -> [4 76]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 76, to robot with index -> 2, at time 00:34:13
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:13
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L2, at time 00:34:17 the state of the system was the following:
+Robots Places -> [4 76]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L2 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L3, at time 00:34:17 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Go_L2_L3 the state of the system was the following:
+Robots Places -> [36 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L16_L15, at time 00:34:18 the state of the system was the following:
+Robots Places -> [36 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L16_L15 the state of the system was the following:
+Robots Places -> [36 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L15_L16, at time 00:34:18 the state of the system was the following:
+Robots Places -> [36 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L15_L16 the state of the system was the following:
+Robots Places -> [36 75]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 36, to robot with index -> 1, at time 00:34:19
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:19
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 75, to robot with index -> 2, at time 00:34:19
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:19
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L15_L16, at time 00:34:24 the state of the system was the following:
+Robots Places -> [36 75]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L15_L16 the state of the system was the following:
+Robots Places -> [36 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L3, at time 00:34:24 the state of the system was the following:
+Robots Places -> [36 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Arrived_L2_L3 the state of the system was the following:
+Robots Places -> [41 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L3_L2, at time 00:34:24 the state of the system was the following:
+Robots Places -> [41 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L3_L2 the state of the system was the following:
+Robots Places -> [37 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L16, at time 00:34:25 the state of the system was the following:
+Robots Places -> [37 78]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Mop_L16 the state of the system was the following:
+Robots Places -> [37 31]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 37, to robot with index -> 1, at time 00:34:26
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:26
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 31, to robot with index -> 2, at time 00:34:26
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:26
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L3_L2, at time 00:34:31 the state of the system was the following:
+Robots Places -> [37 31]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L3_L2 the state of the system was the following:
+Robots Places -> [38 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L3, at time 00:34:31 the state of the system was the following:
+Robots Places -> [38 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Go_L2_L3 the state of the system was the following:
+Robots Places -> [36 31]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 36, to robot with index -> 1, at time 00:34:32
+Execution flags before sending the goal: ["FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 00:34:32
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L16, at time 00:34:36 the state of the system was the following:
+Robots Places -> [36 31]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L16 the state of the system was the following:
+Robots Places -> [36 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L16_L15, at time 00:34:36 the state of the system was the following:
+Robots Places -> [36 78]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_L16_L15 the state of the system was the following:
+Robots Places -> [36 76]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L3, at time 00:34:37 the state of the system was the following:
+Robots Places -> [36 76]
+Robot Flags -> ["EXE" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L2_L3 the state of the system was the following:
+Robots Places -> [41 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L3_L2, at time 00:34:37 the state of the system was the following:
+Robots Places -> [41 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Go_L3_L2 the state of the system was the following:
+Robots Places -> [37 76]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 37, to robot with index -> 1, at time 00:34:38
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:38
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 76, to robot with index -> 2, at time 00:34:38
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:38
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L3_L2, at time 00:34:43 the state of the system was the following:
+Robots Places -> [37 76]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L3_L2 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L16_L15, at time 00:34:43 the state of the system was the following:
+Robots Places -> [38 76]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_L16_L15 the state of the system was the following:
+Robots Places -> [38 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L15_L14, at time 00:34:43 the state of the system was the following:
+Robots Places -> [38 77]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_L15_L14 the state of the system was the following:
+Robots Places -> [38 73]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_L2_L1, at time 00:34:44 the state of the system was the following:
+Robots Places -> [38 73]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Go_L2_L1 the state of the system was the following:
+Robots Places -> [34 73]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 34, to robot with index -> 1, at time 00:34:45
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:45
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 73, to robot with index -> 2, at time 00:34:45
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:45
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L2_L1, at time 00:34:50 the state of the system was the following:
+Robots Places -> [34 73]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L2_L1 the state of the system was the following:
+Robots Places -> [35 73]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_L15_L14, at time 00:34:50 the state of the system was the following:
+Robots Places -> [35 73]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_L15_L14 the state of the system was the following:
+Robots Places -> [35 74]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Mop_L14, at time 00:34:50 the state of the system was the following:
+Robots Places -> [35 74]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
+------------------------------------------------
+After firing transition Mop_L14 the state of the system was the following:
+Robots Places -> [35 27]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L1, at time 00:34:51 the state of the system was the following:
+Robots Places -> [35 27]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Vacuum_L1 the state of the system was the following:
+Robots Places -> [2 27]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 2, to robot with index -> 1, at time 00:34:52
+Execution flags before sending the goal: ["FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:52
+Execution flags after sending goal: ["EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 27, to robot with index -> 2, at time 00:34:52
+Execution flags before sending the goal: ["EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 00:34:52
+Execution flags after sending goal: ["EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedVacuum_L1, at time 00:35:02 the state of the system was the following:
+Robots Places -> [2 27]
+Robot Flags -> ["EXE" "EXE"]
+Current Marking -> [0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedVacuum_L1 the state of the system was the following:
+Robots Places -> [35 27]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedMop_L14, at time 00:35:02 the state of the system was the following:
+Robots Places -> [35 27]
+Robot Flags -> ["FIN" "EXE"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedMop_L14 the state of the system was the following:
+Robots Places -> [35 74]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Vacuum_L1, at time 00:35:02 the state of the system was the following:
+Robots Places -> [35 74]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
+------------------------------------------------
+After firing transition Vacuum_L1 the state of the system was the following:
+Robots Places -> [2 74]
+Robot Flags -> ["FIN" "FIN"]
+Current Marking -> [0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+

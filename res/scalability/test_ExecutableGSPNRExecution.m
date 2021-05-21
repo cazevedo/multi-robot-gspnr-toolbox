@@ -6,12 +6,13 @@ function test_ExecutableGSPNRExecution(nLocations)
     load(mat_filename, 'executable');
     executable.set_marking(executable.initial_marking)
     executable.create_ros_interface_package(true);
+    pause(20);
     disp("STARTING EXECUTION");
     executable.start_execution();
 end
 
 function CleaningAfterInterrupt()
     disp("Exiting MATLAB");
-    %quit();
+    quit();
 end
 

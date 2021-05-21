@@ -16,7 +16,7 @@ for NLOCATIONS in `seq 1 $MAX_NLOCATIONS`;
             STRING1="run_ExecutableGSPNRInitialize("
             STRING2=")"
             # echo $COMMAND
-
+	    export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libcurl.so.4"
             COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NLOCATIONS$STRING2"
             $COMMAND &
             MATLAB_PID=$!

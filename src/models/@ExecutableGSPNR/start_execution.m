@@ -37,7 +37,7 @@ function start_execution(obj)
     rosinit
     %disp(obj.launch_cmd)
     %rosnode list
-    [status, cmdout] = system(obj.launch_cmd);
+    %[status, cmdout] = system(obj.launch_cmd);
     pause(5);
     rosaction list
     %rosnode list
