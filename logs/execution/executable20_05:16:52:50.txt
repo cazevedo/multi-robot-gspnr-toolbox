@@ -1,0 +1,7 @@
+Starting execution at 16:52:50
+Places -> ["Mopping_L1" "Vacuuming_L1" "L1"]
+Robots -> ["robot_0" "robot_1"]
+Current Marking -> [0 0 1]
+ Transitions -> ["Mop_L1" "FinishedMop_L1" "Vacuum_L1" "FinishedVacuum_L1"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
