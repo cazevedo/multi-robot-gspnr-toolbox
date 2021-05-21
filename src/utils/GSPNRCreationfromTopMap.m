@@ -52,11 +52,14 @@ function exec = GSPNRCreationfromTopMap(top_map,action_dict, models, robot_marki
     end
     %Iterating through edges and adding the navigation action
     edges = string(top_map.Edges.EndNodes);
+    weights = top_map.Edges.Weight;
     nEdges = size(edges, 1);
     for e_index = 1:nEdges
         source = edges(e_index, 1);
         target = edges(e_index, 2);
+        rate = 1/weights(e_index);
         navigation_gspn = copy(models.navigation);
+        navigation_gspn.change_rate_of_transition("Arrived_<1>_<2>", rate);
         navigation_gspn.format([source, target]);
         exec = MergeGSPNR(exec, navigation_gspn);
     end

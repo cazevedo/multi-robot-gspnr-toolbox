@@ -298,6 +298,16 @@ classdef GSPNR < matlab.mixin.Copyable
            end
         end
         
+        function change_rate_of_transition(GSPN, name, new_rate)
+            trans_index = GSPN.find_transition_index(name);
+            if trans_index == 0
+                error('Could not find transition');
+            else
+                GSPN.rate_transitions(trans_index) = new_rate;
+            end
+        end
+            
+        
         function target_trans = find_target_trans(GSPN, place)
             place_index = GSPN.find_place_index(place);
             arc_row_vector = GSPN.input_arcs(place_index, :);
@@ -331,9 +341,11 @@ classdef GSPNR < matlab.mixin.Copyable
         function policy_struct = policy_synthesis(GSPN)
             policy_struct = struct();
             [mdp, markings, states, types] = GSPN.toMDP();
+            disp("Finished converting to MDP");
             mdp.check_validity();
             mdp.set_enabled_actions();
             % Evaluating optimal policy
+            disp("Starting value iteration");
             [values, policy] = value_iteration(mdp, 1, 0.99, 0.01);
             policy_struct.gspn = GSPN;
             policy_struct.state_index_to_markings = markings;
