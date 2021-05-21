@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="cpr_solar_farm" version="121">
+  <gspn name="navigation" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;1&gt;" x="9.0" y="7.0"/>
+      <transition label-y="-2.0" name="Go_&lt;1&gt;_&lt;2&gt;" type="IMM" weight="0" x="14.85" y="7.0"/>
+      <place label-y="2.0" name="Navigating_&lt;1&gt;_&lt;2&gt;" x="19.0" y="7.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Arrived_&lt;1&gt;_&lt;2&gt;" nservers-x="0.5" type="EXP" x="25.55" y="7.0"/>
+      <place name="&lt;2&gt;" x="31.0" y="7.0"/>
+    </nodes>
+    <edges>
+      <arc head="Go_&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="&lt;1&gt;"/>
+      <arc head="Navigating_&lt;1&gt;_&lt;2&gt;" kind="OUTPUT" tail="Go_&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="Arrived_&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="Navigating_&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="&lt;2&gt;" kind="OUTPUT" tail="Arrived_&lt;1&gt;_&lt;2&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="inspection" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;1&gt;" x="8.0" y="4.0"/>
+      <transition label-y="-2.0" name="Inspect_&lt;1&gt;" type="IMM" weight="0" x="13.85" y="4.0"/>
+      <place label-y="2.0" name="Inspecting_&lt;1&gt;" x="18.0" y="4.0"/>
+      <transition delay="0.2" label-y="-2.0" name="FinishedInspect_&lt;1&gt;" nservers-x="0.5" type="EXP" x="24.55" y="4.0"/>
+    </nodes>
+    <edges>
+      <arc head="Inspect_&lt;1&gt;" kind="INPUT" tail="&lt;1&gt;"/>
+      <arc head="Inspecting_&lt;1&gt;" kind="OUTPUT" tail="Inspect_&lt;1&gt;"/>
+      <arc head="FinishedInspect_&lt;1&gt;" kind="INPUT" tail="Inspecting_&lt;1&gt;"/>
+      <arc head="&lt;1&gt;" kind="OUTPUT" tail="FinishedInspect_&lt;1&gt;">
+        <point x="29.5" y="5.0"/>
+        <point x="29.5" y="9.5"/>
+        <point x="6.5" y="9.5"/>
+        <point x="6.5" y="5.0"/>
+      </arc>
+    </edges>
+  </gspn>
+</project>
