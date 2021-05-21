@@ -140,6 +140,7 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
       end
 
       markings_to_explore(1,:) = [];
+      size(covered_marking_list, 1)
    end
    
    disp("Finished creating all states - continuing to uniformization");
