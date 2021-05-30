@@ -19,13 +19,13 @@ echo GROUP PID
 echo $$
 
 for NROBOTS in `seq 1 $MAX_NROBOTS`;
-    roscore &
-    ROSCORE_PID=$!
-    roscd
-    cd /src/multi_robot_home_clean/src
-    bash launch_arbitrary_robots.sh $NROBOTS
-    cd; cd $C_DIR
     do
+      roscore &
+      ROSCORE_PID=$!
+      roscd
+      cd /src/multi_robot_home_clean/src
+      bash launch_arbitrary_robots.sh $NROBOTS
+      cd; cd $C_DIR
       	  STRING1="run_ExecutableGSPNRExecution_increasing_robots("
           STRING2=")"
           # echo $COMMAND
