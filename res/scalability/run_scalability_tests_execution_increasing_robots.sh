@@ -37,8 +37,8 @@ for NROBOTS in `seq 1 $MAX_NROBOTS`;
           sleep 10s
           roslaunch temp_matlab_gspnr_python_interface matlab_interface_servers.launch &
           ROSLAUNCH_PID=$!
-          python3 measure_cpu.py $MATLAB_PID $NLOCATIONS >> $MATLAB_LOG_PATH &
-          python3 measure_cpu.py $ROSLAUNCH_PID $NLOCATIONS >> $ROS_LOG_PATH &
+          python3 measure_cpu.py $MATLAB_PID $NROBOTS >> $MATLAB_LOG_PATH &
+          python3 measure_cpu.py $ROSLAUNCH_PID $NROBOTS >> $ROS_LOG_PATH &
           sleep 300s
           echo Finished sleeping
           kill -SIGINT $MATLAB_PID
