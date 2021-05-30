@@ -11,16 +11,19 @@ LOG_PATH=${2}
 
 for NLOCATIONS in `seq 1 $MAX_NLOCATIONS`;
     do
-      date
-      STRING1="run_value_iteration("
-      STRING2=")"
-      # echo $COMMAND
+      for TEST in `seq 1 3`
+        do
+          date
+      	  STRING1="run_value_iteration("
+          STRING2=")"
+          # echo $COMMAND
 
-      COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NLOCATIONS$STRING2"
-      $COMMAND &
-      MATLAB_PID=$!
-      # echo $MATLAB_PID
-      python3 measure_cpu.py $MATLAB_PID $NLOCATIONS >> $LOG_PATH
-      echo DONE TESTING FOR $NLOCATIONS
-      date
+          COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NLOCATIONS$STRING2"
+          $COMMAND &
+          MATLAB_PID=$!
+          # echo $MATLAB_PID
+          python3 measure_cpu.py $MATLAB_PID $NLOCATIONS >> $LOG_PATH
+          echo DONE $TEST FOR $NLOCATIONS
+	done
+        echo DONE TESTING FOR $NLOCATIONS
     done

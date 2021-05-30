@@ -11,14 +11,17 @@ LOG_PATH=${2}
 
 for NROBOTS in `seq 1 $MAX_NROBOTS`;
     do
-      STRING1="run_GSPNRCreationAndConversiontoMDP_increasing_robots("
-      STRING2=")"
-      # echo $COMMAND
+      for TEST in `seq 1 10`
+	do
+      	  STRING1="run_GSPNRCreationAndConversiontoMDP_increasing_robots("
+          STRING2=")"
+          # echo $COMMAND
 
-      COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NROBOTS$STRING2"
-      $COMMAND &
-      MATLAB_PID=$!
-      # echo $MATLAB_PID
-      python3 measure_cpu.py $MATLAB_PID $NROBOTS >> $LOG_PATH
+          COMMAND="matlab -nodisplay -nosplash -batch $STRING1$NROBOTS$STRING2"
+          $COMMAND &
+          MATLAB_PID=$!
+          # echo $MATLAB_PID
+          python3 measure_cpu.py $MATLAB_PID $NROBOTS >> $LOG_PATH
+	done
       echo DONE TESTING FOR $NROBOTS
     done
