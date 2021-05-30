@@ -17,7 +17,11 @@ function [executableModel, parameters] = test_ExecutableGSPNRInitialize_increasi
         int = r_index - 1;
         name = "robot_"+string(int);
         robot_names = cat(2, robot_names, name);
-        robot_locations = cat(2, robot_locations, "L1");
+        if mod(r_index, 2)~=0
+            robot_locations = cat(2, robot_locations, "L1");
+        else
+            robot_locations = cat(2, robot_locations, "L4");
+        end
     end
     executableModel.add_robots(robot_names, robot_locations);
     RobotDistribution = executableModel.robot_initial_locations;
