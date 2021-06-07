@@ -1,0 +1,77 @@
+---
+    Inspecting_panel1:
+      -action_server_name: "InspectWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "InspectWaypointAction"
+      -message_fields: {"waypoint":"'panel1'"}
+    Inspecting_panel2:
+      -action_server_name: "InspectWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "InspectWaypointAction"
+      -message_fields: {"waypoint":"'panel2'"}
+    Inspecting_panel3:
+      -action_server_name: "InspectWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "InspectWaypointAction"
+      -message_fields: {"waypoint":"'panel3'"}
+    Inspecting_panel4:
+      -action_server_name: "InspectWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "InspectWaypointAction"
+      -message_fields: {"waypoint":"'panel4'"}
+    Inspecting_panel5:
+      -action_server_name: "InspectWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "InspectWaypointAction"
+      -message_fields: {"waypoint":"'panel5'"}
+    Navigating_panel1_panel2:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel2'","origin":"'panel1'"}
+    Navigating_panel2_panel1:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel1'","origin":"'panel2'"}
+    Navigating_panel3_panel2:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel2'","origin":"'panel3'"}
+    Navigating_panel2_panel3:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel3'","origin":"'panel2'"}
+    Navigating_center_panel2:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel2'","origin":"'center'"}
+    Navigating_panel2_center:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'center'","origin":"'panel2'"}
+    Navigating_center_panel5:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel5'","origin":"'center'"}
+    Navigating_panel5_center:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'center'","origin":"'panel5'"}
+    Navigating_panel4_panel5:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel5'","origin":"'panel4'"}
+    Navigating_panel5_panel4:
+      -action_server_name: "NavigateWaypointActionServer"
+      -package_name: "multi_jackal_tutorials"
+      -action_name: "NavigateWaypointAction"
+      -message_fields: {"destination":"'panel4'","origin":"'panel5'"}
+...

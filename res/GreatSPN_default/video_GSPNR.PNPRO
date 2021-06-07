@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="video" version="121">
+  <gspn name="GSPN" show-color-cmd="false" show-fluid-cmd="false" zoom="75">
+    <nodes>
+      <place name="panel1" x="13.0" y="12.0"/>
+      <place label-x="2.5" label-y="2.0" marking="1" name="panel2" x="46.0" y="12.0"/>
+      <place marking="1" name="panel3" x="85.0" y="12.0"/>
+      <place label-x="2.5" label-y="0.0" name="center" x="46.0" y="35.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="panel5" x="46.0" y="57.0"/>
+      <place label-y="-2.0" name="panel4" x="22.0" y="57.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Go_center_panel2" rotation="4.71238898038469" type="IMM" weight="0" x="50.85" y="29.0"/>
+      <place label-x="6.5" label-y="0.0" name="Navigating_center_panel2" x="50.0" y="24.0"/>
+      <transition delay="0.2" label-x="7.0" label-y="0.0" name="Arrived_center_panel2" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="50.55" y="20.0"/>
+      <transition label-x="-6.0" label-y="0.0" name="Go_panel2_center" rotation="1.5707963267948966" type="IMM" weight="0" x="42.85" y="20.0"/>
+      <place label-x="-6.5" label-y="0.0" name="Navigating_panel2_center" x="42.0" y="24.0"/>
+      <transition delay="0.2" label-x="-7.0" label-y="0.0" name="Arrived_panel2_center" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="42.55" y="29.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Go_center_panel5" rotation="4.71238898038469" type="IMM" weight="0" x="50.85" y="40.0"/>
+      <place label-x="6.5" label-y="0.0" name="Navigating_center_panel5" x="50.0" y="44.0"/>
+      <transition delay="0.2" label-x="7.0" label-y="0.0" name="Arrived_center_panel5" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="50.55" y="49.0"/>
+      <transition label-x="-6.0" label-y="0.0" name="Go_panel5_center" rotation="1.5707963267948966" type="IMM" weight="0" x="42.85" y="49.0"/>
+      <place label-x="-6.5" label-y="0.0" name="Navigating_panel5_center" x="42.0" y="44.0"/>
+      <transition delay="0.2" label-x="-7.0" label-y="0.0" name="Arrived_panel5_center" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="42.55" y="40.0"/>
+      <transition label-y="-2.0" name="Go_panel2_panel3" type="IMM" weight="0" x="60.85" y="8.0"/>
+      <place label-y="2.0" name="Navigating_panel2_panel3" x="65.0" y="8.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Arrived_panel2_panel3" nservers-x="0.5" type="EXP" x="71.55" y="8.0"/>
+      <transition label-y="-2.0" name="Go_panel3_panel2" type="IMM" weight="0" x="71.85" y="16.0"/>
+      <place label-y="2.0" name="Navigating_panel3_panel2" x="65.0" y="16.0"/>
+      <transition delay="0.2" label-y="-2.5" name="Arrived_panel3_panel2" nservers-x="0.5" type="EXP" x="60.55" y="16.0"/>
+      <transition label-y="-2.0" name="Go_panel1_panel2" type="IMM" weight="0" x="25.85" y="8.0"/>
+      <place label-y="2.0" name="Navigating_panel1_panel2" x="30.0" y="8.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Arrived_panel1_panel2" nservers-x="0.5" type="EXP" x="36.55" y="8.0"/>
+      <transition label-y="-2.0" name="Go_panel2_panel1" type="IMM" weight="0" x="36.85" y="16.0"/>
+      <place label-y="2.0" name="Navigating_panel2_panel1" x="30.0" y="16.0"/>
+      <transition delay="0.2" label-y="-2.5" name="Arrived_panel2_panel1" nservers-x="0.5" type="EXP" x="25.55" y="16.0"/>
+      <transition label-y="-2.0" name="Go_panel4_panel5" type="IMM" weight="0" x="29.85" y="53.0"/>
+      <place label-y="2.0" name="Navigating_panel4_panel5" x="34.0" y="53.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Arrived_panel4_panel5" nservers-x="0.5" type="EXP" x="40.55" y="53.0"/>
+      <transition label-y="-2.0" name="Go_panel5_panel4" type="IMM" weight="0" x="40.85" y="61.0"/>
+      <place label-y="2.0" name="Navigating_panel5_panel4" x="34.0" y="61.0"/>
+      <transition delay="0.2" label-y="-2.5" name="Arrived_panel5_panel4" nservers-x="0.5" type="EXP" x="29.55" y="61.0"/>
+      <transition label-x="-5.0" label-y="-0.5" name="Inspect_panel1" rotation="4.71238898038469" type="IMM" weight="0" x="13.85" y="8.0"/>
+      <place label-x="-5.0" label-y="0.0" name="Inspecting_panel1" x="13.0" y="4.0"/>
+      <transition delay="0.2" label-x="-7.0" label-y="0.0" name="FinishedInspect_panel1" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="13.55" y="0.0"/>
+      <transition label-x="3.5" label-y="-1.0" name="Inspect_panel2" rotation="4.71238898038469" type="IMM" weight="0" x="46.85" y="8.0"/>
+      <place label-x="-4.5" label-y="-1.0" name="Inspecting_panel2" x="46.0" y="4.0"/>
+      <transition delay="0.2" label-x="-7.0" label-y="0.0" name="FinishedInspect_panel2" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="46.55" y="0.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="Inspect_panel4" rotation="4.71238898038469" type="IMM" weight="0" x="22.85" y="61.0"/>
+      <place label-x="-5.0" label-y="0.0" name="Inspecting_panel4" x="22.0" y="64.0"/>
+      <transition delay="0.2" label-x="-7.0" label-y="0.0" name="FinishedInspect_panel4" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="22.55" y="68.0"/>
+      <transition label-x="4.5" label-y="0.0" name="Inspect_panel5" rotation="4.71238898038469" type="IMM" weight="0" x="46.85" y="61.0"/>
+      <place label-x="5.0" label-y="0.0" name="Inspecting_panel5" x="46.0" y="64.0"/>
+      <transition delay="0.2" label-x="7.0" label-y="0.0" name="FinishedInspect_panel5" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="46.55" y="68.0"/>
+      <transition label-x="5.0" label-y="0.0" name="Inspect_panel3" rotation="4.71238898038469" type="IMM" weight="0" x="85.85" y="8.0"/>
+      <place label-x="5.0" label-y="0.0" name="Inspecting_panel3" x="85.0" y="4.0"/>
+      <transition delay="0.2" label-x="7.0" label-y="0.0" name="FinishedInspect_panel3" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="85.55" y="0.0"/>
+    </nodes>
+    <edges>
+      <arc head="Navigating_center_panel2" kind="OUTPUT" tail="Go_center_panel2"/>
+      <arc head="Arrived_center_panel2" kind="INPUT" tail="Navigating_center_panel2"/>
+      <arc head="Go_center_panel2" kind="INPUT" tail="center"/>
+      <arc head="panel2" kind="OUTPUT" tail="Arrived_center_panel2"/>
+      <arc head="Navigating_panel2_center" kind="OUTPUT" tail="Go_panel2_center"/>
+      <arc head="Arrived_panel2_center" kind="INPUT" tail="Navigating_panel2_center"/>
+      <arc head="Go_panel2_center" kind="INPUT" tail="panel2"/>
+      <arc head="center" kind="OUTPUT" tail="Arrived_panel2_center"/>
+      <arc head="Navigating_center_panel5" kind="OUTPUT" tail="Go_center_panel5"/>
+      <arc head="Arrived_center_panel5" kind="INPUT" tail="Navigating_center_panel5"/>
+      <arc head="Navigating_panel5_center" kind="OUTPUT" tail="Go_panel5_center"/>
+      <arc head="Arrived_panel5_center" kind="INPUT" tail="Navigating_panel5_center"/>
+      <arc head="Go_center_panel5" kind="INPUT" tail="center"/>
+      <arc head="center" kind="OUTPUT" tail="Arrived_panel5_center"/>
+      <arc head="panel5" kind="OUTPUT" tail="Arrived_center_panel5"/>
+      <arc head="Go_panel5_center" kind="INPUT" tail="panel5"/>
+      <arc head="Navigating_panel2_panel3" kind="OUTPUT" tail="Go_panel2_panel3"/>
+      <arc head="Arrived_panel2_panel3" kind="INPUT" tail="Navigating_panel2_panel3"/>
+      <arc head="Navigating_panel3_panel2" kind="OUTPUT" tail="Go_panel3_panel2"/>
+      <arc head="Arrived_panel3_panel2" kind="INPUT" tail="Navigating_panel3_panel2"/>
+      <arc head="Go_panel2_panel3" kind="INPUT" tail="panel2"/>
+      <arc head="panel2" kind="OUTPUT" tail="Arrived_panel3_panel2"/>
+      <arc head="Go_panel3_panel2" kind="INPUT" tail="panel3"/>
+      <arc head="panel3" kind="OUTPUT" tail="Arrived_panel2_panel3"/>
+      <arc head="Navigating_panel1_panel2" kind="OUTPUT" tail="Go_panel1_panel2"/>
+      <arc head="Arrived_panel1_panel2" kind="INPUT" tail="Navigating_panel1_panel2"/>
+      <arc head="Navigating_panel2_panel1" kind="OUTPUT" tail="Go_panel2_panel1"/>
+      <arc head="Arrived_panel2_panel1" kind="INPUT" tail="Navigating_panel2_panel1"/>
+      <arc head="Go_panel2_panel1" kind="INPUT" tail="panel2"/>
+      <arc head="Go_panel1_panel2" kind="INPUT" tail="panel1"/>
+      <arc head="panel2" kind="OUTPUT" tail="Arrived_panel1_panel2"/>
+      <arc head="panel1" kind="OUTPUT" tail="Arrived_panel2_panel1"/>
+      <arc head="Navigating_panel4_panel5" kind="OUTPUT" tail="Go_panel4_panel5"/>
+      <arc head="Arrived_panel4_panel5" kind="INPUT" tail="Navigating_panel4_panel5"/>
+      <arc head="Navigating_panel5_panel4" kind="OUTPUT" tail="Go_panel5_panel4"/>
+      <arc head="Arrived_panel5_panel4" kind="INPUT" tail="Navigating_panel5_panel4"/>
+      <arc head="Go_panel5_panel4" kind="INPUT" tail="panel5"/>
+      <arc head="panel5" kind="OUTPUT" tail="Arrived_panel4_panel5"/>
+      <arc head="panel4" kind="OUTPUT" tail="Arrived_panel5_panel4"/>
+      <arc head="Go_panel4_panel5" kind="INPUT" tail="panel4"/>
+      <arc head="Inspecting_panel1" kind="OUTPUT" tail="Inspect_panel1"/>
+      <arc head="FinishedInspect_panel1" kind="INPUT" tail="Inspecting_panel1"/>
+      <arc head="Inspecting_panel2" kind="OUTPUT" tail="Inspect_panel2"/>
+      <arc head="FinishedInspect_panel2" kind="INPUT" tail="Inspecting_panel2"/>
+      <arc head="Inspect_panel1" kind="INPUT" tail="panel1"/>
+      <arc head="panel1" kind="OUTPUT" tail="FinishedInspect_panel1">
+        <point x="19.0" y="1.0"/>
+      </arc>
+      <arc head="Inspect_panel2" kind="INPUT" tail="panel2"/>
+      <arc head="panel2" kind="OUTPUT" tail="FinishedInspect_panel2">
+        <point x="52.0" y="1.0"/>
+      </arc>
+      <arc head="Inspecting_panel4" kind="OUTPUT" tail="Inspect_panel4"/>
+      <arc head="FinishedInspect_panel4" kind="INPUT" tail="Inspecting_panel4"/>
+      <arc head="Inspect_panel4" kind="INPUT" tail="panel4"/>
+      <arc head="panel4" kind="OUTPUT" tail="FinishedInspect_panel4">
+        <point x="28.0" y="70.0"/>
+      </arc>
+      <arc head="Inspecting_panel5" kind="OUTPUT" tail="Inspect_panel5"/>
+      <arc head="FinishedInspect_panel5" kind="INPUT" tail="Inspecting_panel5"/>
+      <arc head="Inspect_panel5" kind="INPUT" tail="panel5"/>
+      <arc head="panel5" kind="OUTPUT" tail="FinishedInspect_panel5">
+        <point x="42.5" y="69.0"/>
+      </arc>
+      <arc head="Inspecting_panel3" kind="OUTPUT" tail="Inspect_panel3"/>
+      <arc head="FinishedInspect_panel3" kind="INPUT" tail="Inspecting_panel3"/>
+      <arc head="Inspect_panel3" kind="INPUT" tail="panel3"/>
+      <arc head="panel3" kind="OUTPUT" tail="FinishedInspect_panel3">
+        <point x="81.5" y="1.0"/>
+      </arc>
+    </edges>
+  </gspn>
+  <gspn name="heterogeneous team" show-color-cmd="false" show-fluid-cmd="false" zoom="50">
+    <nodes>
+      <place label-x="-3.5" label-y="0.0" name="panel1_B2" x="15.0" y="6.0"/>
+      <place label-x="3.5" label-y="0.0" name="panel2_B2" x="48.0" y="6.0"/>
+      <place name="panel3_B2" x="87.0" y="6.0"/>
+      <place label-x="4.0" label-y="0.0" name="center_B2" x="48.0" y="37.0"/>
+      <place label-x="4.0" label-y="0.0" name="panel5_B2" x="48.0" y="62.0"/>
+      <place label-x="-4.0" label-y="0.0" name="panel4_B2" x="24.0" y="62.0"/>
+      <place label-x="-3.5" label-y="0.0" name="panel1_B1" x="15.0" y="10.0"/>
+      <place label-x="3.5" label-y="0.0" name="panel2_B1" x="48.0" y="10.0"/>
+      <place name="panel3_B1" x="87.0" y="10.0"/>
+      <place label-x="4.0" label-y="0.0" name="center_B1" x="48.0" y="41.0"/>
+      <place label-x="4.0" label-y="0.0" name="panel5_B1" x="48.0" y="66.0"/>
+      <place label-x="-4.0" label-y="0.0" name="panel4_B1" x="24.0" y="66.0"/>
+      <place label-x="-3.5" label-y="0.0" name="panel1_B0" x="15.0" y="14.0"/>
+      <place label-x="3.5" label-y="0.0" name="panel2_B0" x="48.0" y="14.0"/>
+      <place name="panel3_B0" x="87.0" y="14.0"/>
+      <place label-x="4.0" label-y="0.0" name="center_B0" x="48.0" y="45.0"/>
+      <place label-x="4.0" label-y="0.0" name="panel5_B0" x="48.0" y="70.0"/>
+      <place label-x="-4.0" label-y="0.0" name="panel4_B0" x="24.0" y="70.0"/>
+      <place label-x="-4.0" label-y="0.0" name="panel1_UGV" x="15.0" y="18.0"/>
+      <place label-x="4.0" label-y="0.0" name="panel2_UGV" x="48.0" y="18.0"/>
+      <place name="panel3_UGV" x="87.0" y="18.0"/>
+      <place label-x="4.5" label-y="0.0" name="center_UGV" x="48.0" y="49.0"/>
+      <place label-x="-4.5" label-y="0.0" name="panel4_UGV" x="24.0" y="74.0"/>
+      <place label-x="4.5" label-y="0.0" name="panel5_UGV" x="48.0" y="74.0"/>
+    </nodes>
+    <edges/>
+  </gspn>
+  <gspn name="navigation" show-color-cmd="false" show-fluid-cmd="false" zoom="125">
+    <nodes>
+      <transition label-x="-6.5" label-y="0.0" name="Go_&lt;panel1&gt;_&lt;battery&gt;" rotation="4.71238898038469" type="IMM" x="19.85" y="8.0"/>
+      <place label-x="9.0" label-y="0.0" name="Navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;" x="19.0" y="13.0"/>
+      <transition label-x="-9.5" label-y="0.0" name="Arrived_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="19.55" y="20.0"/>
+      <place label-x="13.0" label-y="0.0" name="Discharging_after_navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;" x="19.0" y="26.0"/>
+      <transition name="t1" rotation="4.71238898038469" type="IMM" x="16.85" y="31.0"/>
+      <transition name="t2" rotation="4.71238898038469" type="IMM" x="19.85" y="31.0"/>
+      <transition name="t3" rotation="4.71238898038469" type="IMM" x="22.85" y="31.0"/>
+      <place label-x="-5.0" label-y="0.0" name="&lt;panel2&gt;_&lt;battery&gt;" x="16.0" y="37.0"/>
+      <place label-x="-0.5" label-y="2.0" name="&lt;panel2&gt;_&lt;battery-1&gt;" x="19.0" y="37.0"/>
+      <place label-x="5.5" label-y="0.0" name="&lt;panel2&gt;_&lt;battery-0&gt;" x="22.0" y="37.0"/>
+      <place label-x="5.0" label-y="0.0" name="&lt;panel1&gt;_&lt;battery&gt;" x="19.0" y="3.0"/>
+    </nodes>
+    <edges>
+      <arc head="Navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;" kind="OUTPUT" tail="Go_&lt;panel1&gt;_&lt;battery&gt;"/>
+      <arc head="Arrived_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;" kind="INPUT" tail="Navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;"/>
+      <arc head="Discharging_after_navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;" kind="OUTPUT" tail="Arrived_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;"/>
+      <arc head="t1" kind="INPUT" tail="Discharging_after_navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;"/>
+      <arc head="t2" kind="INPUT" tail="Discharging_after_navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;"/>
+      <arc head="t3" kind="INPUT" tail="Discharging_after_navigating_&lt;panel1&gt;_&lt;panel2&gt;_&lt;battery&gt;"/>
+      <arc head="&lt;panel2&gt;_&lt;battery&gt;" kind="OUTPUT" tail="t1"/>
+      <arc head="&lt;panel2&gt;_&lt;battery-1&gt;" kind="OUTPUT" tail="t2"/>
+      <arc head="&lt;panel2&gt;_&lt;battery-0&gt;" kind="OUTPUT" tail="t3"/>
+      <arc head="Go_&lt;panel1&gt;_&lt;battery&gt;" kind="INPUT" tail="&lt;panel1&gt;_&lt;battery&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="charging" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <transition label-x="7.5" label-y="0.0" name="Charge_&lt;panel&gt;_&lt;battery&gt;" rotation="4.71238898038469" type="IMM" x="23.85" y="8.0"/>
+      <place label-x="7.5" label-y="0.0" name="Charging_&lt;panel&gt;_&lt;battery&gt;" x="29.0" y="13.0"/>
+      <transition label-x="10.5" label-y="0.0" name="FinishedBeingCharged_&lt;panel&gt;_&lt;battery&gt;" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="29.55" y="20.0"/>
+      <place label-x="6.5" label-y="0.0" name="&lt;panel&gt;_&lt;batteryFULL&gt;" x="29.0" y="26.0"/>
+      <place label-x="5.0" label-y="0.0" name="&lt;panel&gt;_&lt;battery&gt;" x="29.0" y="3.0"/>
+      <place label-y="-2.0" name="UGV_&lt;panel&gt;" x="17.0" y="3.0"/>
+      <place label-x="-6.5" label-y="0.0" name="UGV_Charging_&lt;panel&gt;" x="17.0" y="13.0"/>
+      <transition name="FinishedCharging_&lt;panel&gt;_&lt;battery&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="17.55" y="20.0"/>
+    </nodes>
+    <edges>
+      <arc head="Charging_&lt;panel&gt;_&lt;battery&gt;" kind="OUTPUT" tail="Charge_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="FinishedBeingCharged_&lt;panel&gt;_&lt;battery&gt;" kind="INPUT" tail="Charging_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="&lt;panel&gt;_&lt;batteryFULL&gt;" kind="OUTPUT" tail="FinishedBeingCharged_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="Charge_&lt;panel&gt;_&lt;battery&gt;" kind="INPUT" tail="&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="Charge_&lt;panel&gt;_&lt;battery&gt;" kind="INPUT" tail="UGV_&lt;panel&gt;"/>
+      <arc head="UGV_Charging_&lt;panel&gt;" kind="OUTPUT" tail="Charge_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="FinishedCharging_&lt;panel&gt;_&lt;battery&gt;" kind="INPUT" tail="UGV_Charging_&lt;panel&gt;"/>
+      <arc head="UGV_&lt;panel&gt;" kind="OUTPUT" tail="FinishedCharging_&lt;panel&gt;_&lt;battery&gt;">
+        <point x="18.0" y="27.0"/>
+        <point x="3.5" y="27.0"/>
+        <point x="3.5" y="4.0"/>
+      </arc>
+    </edges>
+  </gspn>
+  <gspn name="inspection" show-color-cmd="false" show-fluid-cmd="false" zoom="125">
+    <nodes>
+      <transition label-x="7.5" label-y="0.0" name="Inspect_&lt;panel&gt;_&lt;battery&gt;" rotation="4.71238898038469" type="IMM" x="20.85" y="7.0"/>
+      <place label-x="7.5" label-y="0.0" name="Inspecting_&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="12.0"/>
+      <transition label-x="9.5" label-y="0.0" name="FinishedInspect_&lt;panel&gt;_&lt;battery&gt;" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="20.55" y="19.0"/>
+      <place label-x="10.0" label-y="0.0" name="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="25.0"/>
+      <transition name="t1" rotation="4.71238898038469" type="IMM" x="17.85" y="30.0"/>
+      <transition name="t2" rotation="4.71238898038469" type="IMM" x="20.85" y="30.0"/>
+      <transition name="t3" rotation="4.71238898038469" type="IMM" x="23.85" y="30.0"/>
+      <place label-x="5.0" label-y="0.0" name="&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="2.0"/>
+      <place label-x="-2.0" label-y="2.0" name="&lt;panel&gt;_&lt;battery-1&gt;" x="20.0" y="35.0"/>
+      <place label-x="5.5" label-y="0.0" name="&lt;panel&gt;_&lt;battery-2&gt;" x="23.0" y="35.0"/>
+    </nodes>
+    <edges>
+      <arc head="Inspecting_&lt;panel&gt;_&lt;battery&gt;" kind="OUTPUT" tail="Inspect_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="FinishedInspect_&lt;panel&gt;_&lt;battery&gt;" kind="INPUT" tail="Inspecting_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;" kind="OUTPUT" tail="FinishedInspect_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="t1" kind="INPUT" tail="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="t2" kind="INPUT" tail="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="t3" kind="INPUT" tail="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="Inspect_&lt;panel&gt;_&lt;battery&gt;" kind="INPUT" tail="&lt;panel&gt;_&lt;battery&gt;"/>
+      <arc head="&lt;panel&gt;_&lt;battery-1&gt;" kind="OUTPUT" tail="t2"/>
+      <arc head="&lt;panel&gt;_&lt;battery-2&gt;" kind="OUTPUT" tail="t3"/>
+      <arc head="&lt;panel&gt;_&lt;battery&gt;" kind="OUTPUT" tail="t1">
+        <point x="18.0" y="31.5"/>
+        <point x="18.0" y="36.0"/>
+        <point x="3.0" y="36.0"/>
+        <point x="3.0" y="3.0"/>
+      </arc>
+    </edges>
+  </gspn>
+</project>

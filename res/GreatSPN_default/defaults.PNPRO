@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="defaults" version="121">
+  <gspn name="navigation" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;1&gt;" x="8.0" y="6.0"/>
+      <transition label-y="-2.0" name="Go_&lt;1&gt;_&lt;2&gt;" type="IMM" weight="0" x="13.85" y="6.0"/>
+      <place label-y="2.0" name="Navigating_&lt;1&gt;_&lt;2&gt;" x="18.0" y="6.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Arrived_&lt;1&gt;_&lt;2&gt;" nservers-x="0.5" type="EXP" x="24.55" y="6.0"/>
+      <place name="&lt;2&gt;" x="30.0" y="6.0"/>
+    </nodes>
+    <edges>
+      <arc head="Go_&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="&lt;1&gt;"/>
+      <arc head="Navigating_&lt;1&gt;_&lt;2&gt;" kind="OUTPUT" tail="Go_&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="Arrived_&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="Navigating_&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="&lt;2&gt;" kind="OUTPUT" tail="Arrived_&lt;1&gt;_&lt;2&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="action" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;2&gt;" x="10.0" y="7.0"/>
+      <transition label-y="-2.0" name="Started&lt;1&gt;_&lt;2&gt;" type="IMM" weight="0" x="15.85" y="7.0"/>
+      <place label-y="2.0" name="&lt;1&gt;ing_&lt;2&gt;" x="20.0" y="7.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Finished&lt;1&gt;_&lt;2&gt;" nservers-x="0.5" type="EXP" x="26.55" y="7.0"/>
+    </nodes>
+    <edges>
+      <arc head="Started&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="&lt;2&gt;"/>
+      <arc head="&lt;1&gt;ing_&lt;2&gt;" kind="OUTPUT" tail="Started&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="Finished&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="&lt;1&gt;ing_&lt;2&gt;"/>
+      <arc head="&lt;2&gt;" kind="OUTPUT" tail="Finished&lt;1&gt;_&lt;2&gt;">
+        <point x="31.5" y="8.0"/>
+        <point x="31.5" y="12.5"/>
+        <point x="8.5" y="12.5"/>
+        <point x="8.5" y="8.0"/>
+      </arc>
+    </edges>
+  </gspn>
+</project>

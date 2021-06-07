@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="Meeting_Example" version="121">
+  <gspn name="navigation" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;1&gt;" x="7.0" y="5.0"/>
+      <transition label-y="-2.0" name="Go_&lt;1&gt;_&lt;2&gt;" type="IMM" weight="0" x="12.85" y="5.0"/>
+      <place label-y="2.0" name="Navigating_&lt;1&gt;_&lt;2&gt;" x="17.0" y="5.0"/>
+      <transition delay="0.2" label-y="-2.0" name="Arrived_&lt;1&gt;_&lt;2&gt;" nservers-x="0.5" type="EXP" x="23.55" y="5.0"/>
+      <place name="&lt;2&gt;" x="29.0" y="5.0"/>
+    </nodes>
+    <edges>
+      <arc head="Go_&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="&lt;1&gt;"/>
+      <arc head="Navigating_&lt;1&gt;_&lt;2&gt;" kind="OUTPUT" tail="Go_&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="Arrived_&lt;1&gt;_&lt;2&gt;" kind="INPUT" tail="Navigating_&lt;1&gt;_&lt;2&gt;"/>
+      <arc head="&lt;2&gt;" kind="OUTPUT" tail="Arrived_&lt;1&gt;_&lt;2&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="mopping" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;1&gt;" x="9.0" y="9.0"/>
+      <transition label-y="-2.0" name="Mop_&lt;1&gt;" type="IMM" weight="0" x="14.85" y="9.0"/>
+      <place label-y="2.0" name="Mopping_&lt;1&gt;" x="19.0" y="9.0"/>
+      <transition delay="0.1" label-y="-2.0" name="FinishedMop_&lt;1&gt;" nservers-x="0.5" type="EXP" x="25.55" y="9.0"/>
+    </nodes>
+    <edges>
+      <arc head="Mop_&lt;1&gt;" kind="INPUT" tail="&lt;1&gt;"/>
+      <arc head="Mopping_&lt;1&gt;" kind="OUTPUT" tail="Mop_&lt;1&gt;"/>
+      <arc head="FinishedMop_&lt;1&gt;" kind="INPUT" tail="Mopping_&lt;1&gt;"/>
+      <arc head="&lt;1&gt;" kind="OUTPUT" tail="FinishedMop_&lt;1&gt;">
+        <point x="30.5" y="10.0"/>
+        <point x="30.5" y="14.5"/>
+        <point x="7.5" y="14.5"/>
+        <point x="7.5" y="10.0"/>
+      </arc>
+    </edges>
+  </gspn>
+  <gspn name="vacuuming" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place name="&lt;1&gt;" x="10.0" y="6.0"/>
+      <transition label-y="-2.0" name="Vacuum_&lt;1&gt;" type="IMM" weight="0" x="15.85" y="6.0"/>
+      <place label-y="2.0" name="Vacuuming_&lt;1&gt;" x="20.0" y="6.0"/>
+      <transition delay="10.0" label-y="-2.0" name="FinishedVacuum_&lt;1&gt;" nservers-x="0.5" type="EXP" x="26.55" y="6.0"/>
+    </nodes>
+    <edges>
+      <arc head="Vacuum_&lt;1&gt;" kind="INPUT" tail="&lt;1&gt;"/>
+      <arc head="Vacuuming_&lt;1&gt;" kind="OUTPUT" tail="Vacuum_&lt;1&gt;"/>
+      <arc head="FinishedVacuum_&lt;1&gt;" kind="INPUT" tail="Vacuuming_&lt;1&gt;"/>
+      <arc head="&lt;1&gt;" kind="OUTPUT" tail="FinishedVacuum_&lt;1&gt;">
+        <point x="31.5" y="7.0"/>
+        <point x="31.5" y="11.5"/>
+        <point x="8.5" y="11.5"/>
+        <point x="8.5" y="7.0"/>
+      </arc>
+    </edges>
+  </gspn>
+</project>
