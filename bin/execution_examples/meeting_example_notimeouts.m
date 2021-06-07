@@ -3,7 +3,7 @@ clear
 
 %% Importing GSPN primitive action models (navigation/mopping/vacuuming)
 
-PNPRO_path = "meeting_example_notimeouts.PNPRO";
+PNPRO_path = "homeclean_notimeouts.PNPRO";
 
 [nGSPN, models] = ImportfromGreatSPN(PNPRO_path);
 
@@ -50,6 +50,7 @@ GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models,
 executableModel = ExecutableGSPNR();
 % 
 yaml_filepath = 'meeting_example.yaml';
+% action_places = ReadfromYAML(yaml_filepath);
 executableModel.initialize(GSPNRModel, yaml_filepath, []);
 
 %% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
@@ -59,14 +60,15 @@ executableModel.initialize(GSPNRModel, yaml_filepath, []);
 % load(policy_workspace_filepath, 'complete_policy');
 
 % executableModel.set_policy(complete_policy);
-% executableModel.set_empty_policy();
+executableModel.set_empty_policy();
 
 %% Preparing executable GSPNR - adding robots, creating interface action servers;
 
-% executableModel.add_robots(["robot_0", "robot_1"], ["L1", "L3"]);
-% RobotDistribution = executableModel.robot_initial_locations;
-% executableModel.create_ros_interface_package(true)
-
+executableModel.add_robots(["robot_0", "robot_1"], ["L1", "L3"]);
+RobotDistribution = executableModel.robot_initial_locations;
+pwd
+executableModel.create_ros_interface_package(true)
+pwd
 %% Executing the GSPNR
-% executableModel.start_execution();
+executableModel.start_execution();
 
