@@ -41,3 +41,4 @@ venv.bak/
 
 #Execution logs
 logs/execution/
+logs/scalability/plots/
