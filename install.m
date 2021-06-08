@@ -6,4 +6,5 @@ cd ..;
 toolbox_location = pwd;
 addpath(genpath('multi-robot-gspnr-toolbox'));
 cd multi-robot-gspnr-toolbox
+mkdir logs/execution/
 open("GettingStarted.mlx")

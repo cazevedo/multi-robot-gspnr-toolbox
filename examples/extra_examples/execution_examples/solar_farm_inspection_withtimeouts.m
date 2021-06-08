@@ -23,10 +23,10 @@ topological_map = digraph(adjacency_matrix, {'panel1' 'panel2' 'panel3' 'center'
 
 plot(topological_map)
 
-actions_available.panel1 = ["inspection_with_timeout"];
+actions_available.panel1 = ["inspection"];
 actions_available.panel2 = ["inspection"];
 actions_available.panel3 = ["inspection"];
-actions_available.panel4 = ["inspection_with_timeout"];
+actions_available.panel4 = ["inspection"];
 actions_available.panel5 = ["inspection"];
 actions_available.center = [string.empty];
 
@@ -36,42 +36,42 @@ GSPNRModel = GSPNRCreationfromTopMap(topological_map, actions_available, models,
 
 %% Adding transition rewards, and converting GSPNR model to equivalent MDP
 
-reward_elements = ["Inspect_panel1", "Inspect_panel2", "Inspect_panel3", "Inspect_panel4", "Inspect_panel5" ];
-reward_types = ["transition", "transition", "transition", "transition", "transition"];
-reward_values = [5, 1, 1, 5, 1];
+% reward_elements = ["Inspect_panel1", "Inspect_panel2", "Inspect_panel3", "Inspect_panel4", "Inspect_panel5" ];
+% reward_types = ["transition", "transition", "transition", "transition", "transition"];
+% reward_values = [5, 1, 1, 5, 1];
 
-GSPNRModel.set_reward_functions(reward_elements, reward_values, reward_types);
+% GSPNRModel.set_reward_functions(reward_elements, reward_values, reward_types);
 
-%% Evaluating optimal policy
+% %% Evaluating optimal policy
+% 
+% disp("Started policy synthesis");
+% complete_policy = GSPNRModel.policy_synthesis();
+% disp("Finished policy synthesis");
 
-disp("Started policy synthesis");
-complete_policy = GSPNRModel.policy_synthesis();
-disp("Finished policy synthesis");
-
-% %% Converting GSPNRModel to an executable version - reading from YAML file execution parameters
+%% Converting GSPNRModel to an executable version - reading from YAML file execution parameters
 % 
 % executableModel = ExecutableGSPNR();
 % % 
-% yaml_filepath = 'meeting_example.yaml';
+% yaml_filepath = 'solar_farm_inspection.yaml';
 % % action_places = ReadfromYAML(yaml_filepath);
 % executableModel.initialize(GSPNRModel, yaml_filepath, []);
 % 
 % %% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
 % 
 % %Set policy
-% % policy_workspace_filepath = 'policy_meeting_example_notimeouts_place_rewards.mat';
-% % load(policy_workspace_filepath, 'complete_policy');
+% policy_workspace_filepath = 'solarfarm_inspection_2timeouts.mat';
+% load(policy_workspace_filepath, 'complete_policy');
 % 
-% % executableModel.set_policy(complete_policy);
-% executableModel.set_empty_policy();
-% 
+% executableModel.set_policy(complete_policy);
+% % executableModel.set_empty_policy();
+% % 
 % %% Preparing executable GSPNR - adding robots, creating interface action servers;
 % 
-% executableModel.add_robots(["robot_0", "robot_1"], ["L1", "L3"]);
+% executableModel.add_robots(["jackal0", "jackal1", "jackal2"], ["center", "center", "center"]);
 % RobotDistribution = executableModel.robot_initial_locations;
-% pwd
-% executableModel.create_ros_interface_package(true)
-% pwd
+% 
+% executableModel.create_ros_interface_package(false)
+% pause()
 % %% Executing the GSPNR
 % executableModel.start_execution();
 

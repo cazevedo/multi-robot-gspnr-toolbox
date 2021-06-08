@@ -2,7 +2,7 @@
 <!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="creating_GSPNs" version="121">
   <gspn name="Model" show-color-cmd="false" show-fluid-cmd="false">
     <nodes>
-      <place label-y="-1.5" marking="2" name="L1" x="27.0" y="6.0"/>
+      <place label-y="-1.5" name="L1" x="27.0" y="6.0"/>
       <transition name="GoL1-L3" type="IMM" x="20.85" y="6.0"/>
       <transition name="GoL1-L2" type="IMM" x="34.85" y="6.0"/>
       <place label-x="-0.5" label-y="-1.5" name="L3" x="3.0" y="6.0"/>
@@ -10,9 +10,9 @@
       <transition label-x="-1.0" label-y="1.0" name="GoL3-L1" rotation="1.5707963267948966" type="IMM" x="3.85" y="13.0"/>
       <transition label-x="0.5" label-y="1.0" name="GoL2-L1" rotation="1.5707963267948966" type="IMM" x="53.85" y="13.0"/>
       <place name="NavigatingL3-L1" x="9.0" y="13.0"/>
-      <place name="NavigatingL2-L1" x="45.0" y="13.0"/>
+      <place marking="1" name="NavigatingL2-L1" x="45.0" y="13.0"/>
       <transition name="ArrivedL1-L3" nservers-x="0.5" type="EXP" x="9.55" y="6.0"/>
-      <place name="NavigatingL1-L3" x="15.0" y="6.0"/>
+      <place marking="1" name="NavigatingL1-L3" x="15.0" y="6.0"/>
       <transition label-x="2.5" label-y="2.0" name="ArrivedL3-L1" nservers-x="0.5" type="EXP" x="15.55" y="13.0"/>
       <place name="NavigatingL1-L2" x="41.0" y="6.0"/>
       <transition name="ArrivedL1-L2" nservers-x="0.5" type="EXP" x="47.55" y="6.0"/>

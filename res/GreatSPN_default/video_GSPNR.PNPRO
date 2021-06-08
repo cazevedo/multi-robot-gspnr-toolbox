@@ -127,7 +127,7 @@
       </arc>
     </edges>
   </gspn>
-  <gspn name="heterogeneous team" show-color-cmd="false" show-fluid-cmd="false" zoom="50">
+  <gspn name="heterogeneous team" show-color-cmd="false" show-fluid-cmd="false" zoom="75">
     <nodes>
       <place label-x="-3.5" label-y="0.0" name="panel1_B2" x="15.0" y="6.0"/>
       <place label-x="3.5" label-y="0.0" name="panel2_B2" x="48.0" y="6.0"/>
@@ -214,11 +214,11 @@
       <transition label-x="7.5" label-y="0.0" name="Inspect_&lt;panel&gt;_&lt;battery&gt;" rotation="4.71238898038469" type="IMM" x="20.85" y="7.0"/>
       <place label-x="7.5" label-y="0.0" name="Inspecting_&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="12.0"/>
       <transition label-x="9.5" label-y="0.0" name="FinishedInspect_&lt;panel&gt;_&lt;battery&gt;" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="20.55" y="19.0"/>
-      <place label-x="10.0" label-y="0.0" name="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="25.0"/>
+      <place label-x="10.0" label-y="0.0" marking="1" name="Discharging_after_inspect_&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="25.0"/>
       <transition name="t1" rotation="4.71238898038469" type="IMM" x="17.85" y="30.0"/>
       <transition name="t2" rotation="4.71238898038469" type="IMM" x="20.85" y="30.0"/>
       <transition name="t3" rotation="4.71238898038469" type="IMM" x="23.85" y="30.0"/>
-      <place label-x="5.0" label-y="0.0" name="&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="2.0"/>
+      <place label-x="5.0" label-y="0.0" marking="1" name="&lt;panel&gt;_&lt;battery&gt;" x="20.0" y="2.0"/>
       <place label-x="-2.0" label-y="2.0" name="&lt;panel&gt;_&lt;battery-1&gt;" x="20.0" y="35.0"/>
       <place label-x="5.5" label-y="0.0" name="&lt;panel&gt;_&lt;battery-2&gt;" x="23.0" y="35.0"/>
     </nodes>
