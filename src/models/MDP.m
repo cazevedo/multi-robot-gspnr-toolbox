@@ -244,7 +244,7 @@ classdef MDP < handle
             %actions;
             MDP.enabled_actions = cell(MDP.nStates, 2);
             for state_index = 1:MDP.nStates
-                state_name = MDP.states(state_index)
+                state_name = MDP.states(state_index);
                 MDP.enabled_actions{state_index, 1} = state_name;
                 row = MDP.cumulative_prob(state_index, :);
                 action_indices = find(row);

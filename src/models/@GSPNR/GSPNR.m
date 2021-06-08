@@ -338,15 +338,17 @@ classdef GSPNR < matlab.mixin.Copyable
             end
         end
         
-        function policy_struct = policy_synthesis(GSPN)
+        function [policy_struct, error, nStates] = policy_synthesis(GSPN, timeout, discount_factor)
             policy_struct = struct();
+            disp("Started converting to MDP");
             [mdp, markings, states, types] = GSPN.toMDP();
             disp("Finished converting to MDP");
             mdp.check_validity();
             mdp.set_enabled_actions();
+            nStates = mdp.nStates;
             % Evaluating optimal policy
             disp("Starting value iteration");
-            [values, policy] = value_iteration(mdp, 1, 0.99, 0.01);
+            [values, policy, error] = value_iteration(mdp, 1, discount_factor, 0.01, timeout);
             policy_struct.gspn = GSPN;
             policy_struct.state_index_to_markings = markings;
             policy_struct.states = states;

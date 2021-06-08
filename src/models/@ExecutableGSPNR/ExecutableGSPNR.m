@@ -33,6 +33,9 @@ classdef ExecutableGSPNR < GSPNR
         function execGSPNR = ExecutableGSPNR()
             execGSPNR = execGSPNR@GSPNR();
         end
+        function set_place_actions(obj, action_map)
+            obj.place_actions = action_map;
+        end
         function initialize(obj, GSPNR, YAML_filepath, action_map)
             %If YAML_filepath input is not empty, function will disregard
             %completely the third input "action_map";
@@ -170,8 +173,14 @@ classdef ExecutableGSPNR < GSPNR
             end
         end
         
+        function set_manual_policy(obj, markings, transitions)
+            obj.policy.markings = markings;
+            obj.transitions = transitions;
+        end
+        
         function set_policy(obj, policy_struct)
-            obj.policy.state_index_to_markings = policy_struct.state_index_to_markings;
+            obj.empty_policy = false;
+            obj.policy.markings = policy_struct.state_index_to_markings;
             nMarkings = size(obj.policy.markings, 1);
             for m_index = 1:nMarkings
                 state_name = policy_struct.states(m_index);
@@ -183,7 +192,7 @@ classdef ExecutableGSPNR < GSPNR
         
         function transition = get_policy(obj, marking)
             if obj.empty_policy == false
-                [exists, marking_index] = ismember(marking, obj.policy.state_index_to_markings, 'rows');
+                [exists, marking_index] = ismember(marking, obj.policy.markings, 'rows');
                 if exists
                     transition = obj.policy.transitions(marking_index);
                 else

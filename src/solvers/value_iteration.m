@@ -1,4 +1,6 @@
-function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
+function [values, policy, max_res, timed_out] = value_iteration(MDP, max_min, gamma, epsilon, max_duration)
+
+    global timed_out
 
     if ~(MDP.valid && MDP.prepared)
         error("MDP must be valid and prepared to run value iteration")
@@ -16,6 +18,13 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
     max_res = -Inf;
     converged = false;
     step = 0;
+    timed_out = false;
+    
+    if max_duration > 0
+        timeout = timer('TimerFcn',@SetConvergence,'StartDelay',max_duration);
+        start(timeout);
+    end
+    
     while (~converged)
         step = step + 1;
         for state_index = 1:MDP.nStates
@@ -32,14 +41,18 @@ function [values, policy] = value_iteration(MDP, max_min, gamma, epsilon)
                 max_res = new_res;
             end
         end
-        print = "ITERATED THRU ALL STATES"
-        print = "Error was - "+string(max_res)
+        %print = "ITERATED THRU ALL STATES"
+        %print = "Error was - "+string(max_res)
         converged = max_res<epsilon;
-        max_res = -Inf;
-%         values
-%         policy
+        if timed_out == true
+            converged = true;
+        end
+        if ~converged
+            max_res = -Inf;
+        end
+        
     end
-    debug = "Number of iterations done: "+string(step)
+    %debug = "Number of iterations done: "+string(step)
 end
 
 function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gamma, values, Q_max)
@@ -87,4 +100,10 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
         new_policy = 0;
         new_value = 0;
     end
+end
+
+function SetConvergence(~,~)
+    global timed_out
+    timed_out = true;
+    disp("Timed out");
 end

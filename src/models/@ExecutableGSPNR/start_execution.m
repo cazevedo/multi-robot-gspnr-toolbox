@@ -35,10 +35,11 @@ function start_execution(obj)
     %Connect to ROS Network
     fprintf('----------------------\nConnecting to ROS Network\n');
     rosinit
-    %disp(obj.launch_cmd)
-    %rosnode list
-    %[status, cmdout] = system(obj.launch_cmd);
-    pause(5);
+    disp(obj.launch_cmd)
+    rosnode list
+    [status, cmdout] = system(obj.launch_cmd)
+    pause();
+    rosnode list
     rosaction list
     %rosnode list
     %Check available actions
@@ -87,7 +88,7 @@ function start_execution(obj)
     nSimpleTransitions = size(simple_transitions, 2);
     ExponentialFlags = repmat("FIN", [1 nSimpleTransitions]);
 
-
+    wait_state = false;
     %Main firing loop
     done = false;
 
@@ -100,15 +101,16 @@ function start_execution(obj)
           if fin_action.action == true
               %Processing exponential transition that represents the end of
               %an action
-              place_done = obj.places(fin_action.place_index);
+              place_done = obj.places(fin_action.place_index)
               transitions = obj.find_target_trans(obj.places(fin_action.place_index));
               if size(transitions, 2) ~= 1
                   error("Action places are only allowed to be connected by a single input arc to a single transition");
               end
               log_firing(logID, obj, 1, transitions(1), RobotPlaces, ExecutionFlags);
               ExecutionFlags(fin_action.robot_index) = "FIN";
-              robots_involved = obj.check_robots_involved(transitions(1), RobotPlaces);
+              robots_involved = fin_action.robot_index;
               obj.fire_transition(transitions(1));
+              wait_state = false;
               RobotPlaces = obj.update_robot_places(transitions(1), RobotPlaces, robots_involved);
               log_firing(logID, obj, 2, transitions(1), RobotPlaces, ExecutionFlags);
           else
@@ -121,6 +123,7 @@ function start_execution(obj)
               if ~isempty(find(exp == transition_name))
                   log_exponential_transitions(logID, obj, 0, transition_name, ExponentialFlags, [], timer_name);
                   obj.fire_transition(transition_name);
+                  wait_state = false;
                   in_vector_index = find(simple_transitions == transition_name);
                   ExponentialFlags(in_vector_index) = "FIN";
                   log_exponential_transitions(logID, obj, 1, transition_name, ExponentialFlags, [], timer_name);
@@ -139,19 +142,19 @@ function start_execution(obj)
           end
            fprintf("\n\nFINISHED BUFFER MESSAGES---------------");
 
-
         end
 
         marking_type = obj.check_marking_type();
 
-        if ( marking_type == "TAN" )
+        if ( marking_type == "TAN" || wait_state == true)
             %fprintf("\nCHECKING IF GOALS NEED TO BE SENT----------------------\n");
             for r_index = 1:obj.nRobots
                 %Check that it is a new action
                 flag = ExecutionFlags(r_index);
                 if flag == "FIN"
-                    robot_name = obj.robot_list(r_index);
-                    place_index = RobotPlaces(r_index);
+                    robot_name = obj.robot_list(r_index)
+                    place_index = RobotPlaces(r_index)
+                    print = "Sent goal of place - "+obj.places(place_index)+"to robot "+robot_name
                     if ~isempty(obj.place_actions(place_index).place_name)
                         log_goals(logID, obj, 1, place_index, r_index, ExecutionFlags);
                         interface_action_clients(r_index).goalmsg.Order = int32(place_index);
@@ -185,7 +188,7 @@ function start_execution(obj)
         %Marking either "RAN" or "DET"
             transition = obj.get_policy(obj.current_marking);
             if transition == ""
-                %No policy action for current marking
+                fprintf("No policy action for current marking");
                 [imm, exp] = obj.enabled_transitions();
                 nTransitions = size(imm, 2);
                 rn_trans = randi(nTransitions);
@@ -193,20 +196,24 @@ function start_execution(obj)
                 robots_involved = obj.check_robots_involved(imm(rn_trans), RobotPlaces);
                 log_firing(logID, obj, 1, imm(rn_trans), RobotPlaces, ExecutionFlags);
                 obj.fire_transition(imm(rn_trans));
+                wait_state = false;
                 RobotPlaces     = obj.update_robot_places(imm(rn_trans), RobotPlaces, robots_involved);
                 log_firing(logID, obj, 2, imm(rn_trans), RobotPlaces, ExecutionFlags);
             elseif transition == "WAIT"
-
+                fprintf("Policy action was WAIT")
+                wait_state = true;
             else
                 %fprintf("\nWill fire transition (policy) - %s", transition);
+                fprintf("Will fire transition from policy");
                 robots_involved = obj.check_robots_involved(transition, RobotPlaces);
                 log_firing(logID, obj, 1, transition, RobotPlaces, ExecutionFlags);
                 obj.fire_transition(transition);
+                wait_state = false;
                 RobotPlaces     = obj.update_robot_places(transition, RobotPlaces, robots_involved);
                 log_firing(logID, obj, 2, transition, RobotPlaces, ExecutionFlags);
             end
         end
-        pause(1);
+        pause(0.1);
     end
 
 end

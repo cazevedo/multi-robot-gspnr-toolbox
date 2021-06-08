@@ -16,62 +16,114 @@ function exec = GSPNRCreationfromTopMap(top_map,action_dict, models, robot_marki
             
     %Check that all actions in action dict have a corresponding model in
     %the models input + check that there is a navigation action
-    if ~isfield(models, "navigation")
-        error("There is a missing model for the NAVIGATION action");
-    end
-    nodes_with_actions = string(fieldnames(action_dict));
-    nNodesWithActions = size(nodes_with_actions, 1);
-    for n_index = 1:nNodesWithActions
-        node = nodes_with_actions(n_index);
-        action_list = action_dict.(node);
-        nActions = size(action_list, 2);
-        for a_index = 1:nActions
-            action = action_list(a_index);
-            if ~isfield(models, action)
-                error_string = "There is a missing model for action - "+action;
-                error(error_string);
+    if ~isempty(models)
+        if ~isfield(models, "navigation")
+            error("There is a missing model for the NAVIGATION action");
+        end
+        nodes_with_actions = string(fieldnames(action_dict));
+        nNodesWithActions = size(nodes_with_actions, 1);
+        for n_index = 1:nNodesWithActions
+            node = nodes_with_actions(n_index);
+            action_list = action_dict.(node);
+            nActions = size(action_list, 2);
+            for a_index = 1:nActions
+                action = action_list(a_index);
+                if ~isfield(models, action)
+                    error_string = "There is a missing model for action - "+action;
+                    error(error_string);
+                end
             end
         end
-    end
-    %Creating empty GSPNR object to start building on        
-    exec = GSPNR();
-    %Iterating through list of nodes and adding the action GSPNR models +
-    %decision places
-    nodes = string(table2array(top_map.Nodes));
-    nNodes = size(nodes, 1);
-    for n_index = 1:nNodes
-        node_name = nodes(n_index);
-        action_list = action_dict.(node_name);
-        nActions = size(action_list, 2);
-        for a_index = 1:nActions
-            action_name = action_list(a_index);
-            action_gspn = copy(models.(action_name));
-            action_gspn.format([node_name]);
-            exec = MergeGSPNR(exec, action_gspn);
+        %Creating empty GSPNR object to start building on        
+        exec = GSPNR();
+        %Iterating through list of nodes and adding the action GSPNR models +
+        %decision places
+        nodes = string(table2array(top_map.Nodes));
+        nNodes = size(nodes, 1);
+        for n_index = 1:nNodes
+            node_name = nodes(n_index);
+            action_list = action_dict.(node_name);
+            nActions = size(action_list, 2);
+            for a_index = 1:nActions
+                action_name = action_list(a_index);
+                action_gspn = copy(models.(action_name));
+                action_gspn.format([node_name]);
+                exec = MergeGSPNR(exec, action_gspn);
+            end
         end
-    end
-    %Iterating through edges and adding the navigation action
-    edges = string(top_map.Edges.EndNodes);
-    weights = top_map.Edges.Weight;
-    nEdges = size(edges, 1);
-    for e_index = 1:nEdges
-        source = edges(e_index, 1);
-        target = edges(e_index, 2);
-        rate = 1/weights(e_index);
-        navigation_gspn = copy(models.navigation);
-        navigation_gspn.change_rate_of_transition("Arrived_<1>_<2>", rate);
-        navigation_gspn.format([source, target]);
-        exec = MergeGSPNR(exec, navigation_gspn);
-    end
+        %Iterating through edges and adding the navigation action
+        edges = string(top_map.Edges.EndNodes);
+        weights = top_map.Edges.Weight;
+        nEdges = size(edges, 1);
+        for e_index = 1:nEdges
+            source = edges(e_index, 1);
+            target = edges(e_index, 2);
+            rate = 1/weights(e_index);
+            navigation_gspn = copy(models.navigation);
+            navigation_gspn.change_rate_of_transition("Arrived_<1>_<2>", rate);
+            navigation_gspn.format([source, target]);
+            exec = MergeGSPNR(exec, navigation_gspn);
+        end
 
-    %Place robots in the assigned locations
-    places_with_robots = string(fieldnames(robot_marking));
-    n_places_with_robots = size(places_with_robots, 1);
-    new_marking = exec.initial_marking;
-    for p_index = 1:n_places_with_robots
-        global_place_index = exec.find_place_index(places_with_robots(p_index));
-        new_marking(global_place_index) = robot_marking.(places_with_robots(p_index));
+        %Place robots in the assigned locations
+        places_with_robots = string(fieldnames(robot_marking));
+        n_places_with_robots = size(places_with_robots, 1);
+        new_marking = exec.initial_marking;
+        for p_index = 1:n_places_with_robots
+            global_place_index = exec.find_place_index(places_with_robots(p_index));
+            new_marking(global_place_index) = robot_marking.(places_with_robots(p_index));
+        end
+        exec.set_initial_marking(new_marking);
+    else
+        %Models input was not specified (empty array) - use default GSPNRs
+        PNPRO_path = "defaults.PNPRO";
+        [nGSPN, models] = ImportfromGreatSPN(PNPRO_path);
+        NavigationModel = models.navigation;
+        ActionModel = models.action;
+        
+        nodes_with_actions = string(fieldnames(action_dict));
+        nNodesWithActions = size(nodes_with_actions, 1);
+
+        %Creating empty GSPNR object to start building on        
+        exec = GSPNR();
+        %Iterating through list of nodes and adding the action GSPNR models +
+        %decision places
+        nodes = string(table2array(top_map.Nodes));
+        nNodes = size(nodes, 1);
+        for n_index = 1:nNodes
+            node_name = nodes(n_index);
+            action_list = action_dict.(node_name);
+            nActions = size(action_list, 2);
+            for a_index = 1:nActions
+                action_name = action_list(a_index);
+                action_gspn = copy(ActionModel);
+                action_gspn.format([action_name, node_name]);
+                exec = MergeGSPNR(exec, action_gspn);
+            end
+        end
+        %Iterating through edges and adding the navigation action
+        edges = string(top_map.Edges.EndNodes);
+        weights = top_map.Edges.Weight;
+        nEdges = size(edges, 1);
+        for e_index = 1:nEdges
+            source = edges(e_index, 1);
+            target = edges(e_index, 2);
+            rate = 1/weights(e_index);
+            navigation_gspn = copy(NavigationModel);
+            navigation_gspn.change_rate_of_transition("Arrived_<1>_<2>", rate);
+            navigation_gspn.format([source, target]);
+            exec = MergeGSPNR(exec, navigation_gspn);
+        end
+
+        %Place robots in the assigned locations
+        places_with_robots = string(fieldnames(robot_marking));
+        n_places_with_robots = size(places_with_robots, 1);
+        new_marking = exec.initial_marking;
+        for p_index = 1:n_places_with_robots
+            global_place_index = exec.find_place_index(places_with_robots(p_index));
+            new_marking(global_place_index) = robot_marking.(places_with_robots(p_index));
+        end
+        exec.set_initial_marking(new_marking);
     end
-    exec.set_initial_marking(new_marking);
 
 end
