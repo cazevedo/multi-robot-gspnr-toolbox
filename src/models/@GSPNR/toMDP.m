@@ -1,5 +1,21 @@
 function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = toMDP(GSPN)
    %Transforms the GSPNR object into the equivalent MDP
+   %Output:
+   %    emb_MDP                 [MDP object] - instance of MDP class;
+   %    covered_marking_list    [int matrix] - each row of this matrix
+   %                                           represents a marking that was 
+   %                                           found by the algorithm;
+   %    covered_state_list      [string array] - each element is a state
+   %                                             name in the MDP Model,
+   %                                             equivalent to the marking
+   %                                             in the same position in
+   %                                             the covered_marking_list
+   %                                             output
+   %    covered_state_type      [string array] - each element contains a
+   %                                             string defining the type
+   %                                             of state in the MDP
+   
+   
    %Markings are added to the state as soon as they are discovered
    emb_MDP = MDP();
    covered_marking_list = [];   %The marking represented by row i, is
@@ -72,7 +88,7 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
               target_state_name = emb_MDP.states(target_state_index);
           end
           if weight_sum ~= 0
-              %RACE CONDITION
+              %RANDOM SWITCH
               transition_index = find(GSPN.transitions == transition);
               action_index = emb_MDP.add_action(race_name, "imm");
               transition_weight = GSPN.rate_transitions(transition_index);
@@ -156,7 +172,7 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
       end                  
       equivalent_marking = covered_marking_list(state,:);
       marked_places = equivalent_marking~=0;
-      state_reward = dot(GSPN.place_rewards,marked_places);
+      state_reward = dot(GSPN.place_rewards,marked_places~=0);
       if state_type == "TAN"
         normalized_reward = state_reward/emb_MDP.eta;
         emb_MDP.set_reward(state_name, "EXP", normalized_reward);

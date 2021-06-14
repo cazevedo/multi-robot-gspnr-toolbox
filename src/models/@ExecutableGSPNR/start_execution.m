@@ -1,18 +1,6 @@
 function start_execution(obj)
-%ROSEXECUTIONMANAGER Summary of this function goes here
-%
-%   gspn            (ExecutableGSPNR object)    GSPNR to be executed;
-%
-%   RobotsList      (string list)               Name of robots in the system (must match
-%                                               the number of tokens in the initial
-%                                               marking)
-%
-%   DistRobots      (integer list)              (1xn) Robots integer list, sets the initial
-%                                               distribution of robots throughout the
-%                                               system. Is needed to map robots to tokens.
-%                                               j = distRobots(i) means robot i starts off
-%                                               in the place in the gspn with index j
-%----------------------
+    %Starts execution with ROS Action Servers
+    
     %Create buffer global variable that ResultFcn of action clients can
     %fill
     delete(timerfindall)

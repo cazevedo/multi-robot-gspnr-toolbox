@@ -3,22 +3,22 @@ classdef GSPNR < matlab.mixin.Copyable
     %   Class that implements GSPNR model
     
     properties (SetAccess = protected)
-        places = [];            %Array of strings, where each element is a place in the GSPN
-        transitions = [];       %Array of strings, where each element is a transition in the GSPN
-        type_transitions = [];  %Array of strings, where each element is either the string "imm" or "exp", denoting the type of the corresponding transition in the "transitions" property
-        rate_transitions = [];%Array of real numbers, element i corresponds to the weight/rate of transition i
-        input_arcs = [];        %Matrix, where the entry (i,j) corresponds to the input arc weight between place i and transition j. If 0, no arc exists
-        output_arcs = [];       %Matrix, where the entry (i,j) corresponds to the output arc weight between transition i and place j. If 0, no arc exists
+        places = [];            %[string array] - each element is a place in the GSPN
+        transitions = [];       %[string array] - each element is a transition in the GSPN
+        type_transitions = [];  %[string array] - each element is either the string "imm" or "exp", denoting the type of the corresponding transition in the "transitions" property
+        rate_transitions = [];  %[float array] - element i corresponds to the weight/rate of transition i
+        input_arcs = [];        %[int matrix] - entry (i,j) corresponds to the input arc weight between place i and transition j. If 0, no arc exists
+        output_arcs = [];       %[int matrix] - entry (i,j) corresponds to the output arc weight between transition i and place j. If 0, no arc exists
         arcs = struct();        %Struct that holds arcs auxiliary variables
-        initial_marking = [];   %Array of positive integers, where each element corresponds to the number of tokens present in the corresponding place in the initial marking.
-        current_marking = [];   %Array of positive integers, representing current marking
-        place_rewards = [];     %Array of real numbers corresponding to the place rewards for the corresponding place.
-        transition_rewards = [];%Array of real numbers corresponding to the transition rewards for the corresponding transition.
-        %Add coment
+        initial_marking = [];   %[int array] - each element corresponds to the number of tokens present in the corresponding place in the initial marking.
+        current_marking = [];   %[int array] - representing current marking
+        place_rewards = [];     %[float array] - each element corresponds to the place rewards for place with the same index in places property
+        transition_rewards = [];%[float array] - each element corresponds to the transition rewards for the transition with the same index in the transitions property.
     end
     
     methods
         function GSPN = GSPNR()
+            %Instantiating empty instance of GSPNR Model
             GSPN.arcs.places = [string.empty];
             GSPN.arcs.transitions = [string.empty];
             GSPN.arcs.types = [string.empty];
@@ -26,10 +26,9 @@ classdef GSPNR < matlab.mixin.Copyable
         end
         function add_places(GSPN, places, ntokens)
             %Adds places to the GSPNR object
-            %places is an array of strings, which will be added as places
-            %to the GSPNR, ntokens is a vector that represents the initial
-            %number of tokens present in the corresponding places to be
-            %added.
+            %Input:
+            %   places [string array] - places to add
+            %   ntokens [int array] - tokens in the added places
            if length(places) ~= length(ntokens)
                error('Error, places and ntokens vectors must have the same size')
            end
@@ -47,6 +46,11 @@ classdef GSPNR < matlab.mixin.Copyable
            GSPN.place_rewards = cat(2, GSPN.place_rewards, zeros(1, length(places)));
         end
         function index = find_place_index(GSPN, place_name)
+            %Returns the index in the obj.places array of the place_name input
+            %Input:
+            %   place_name [string]
+            %Output:
+            %   index [int]
             index = find(GSPN.places == place_name);
             if isempty(index)
                 warning("Could not find place, returned 0");
@@ -54,7 +58,9 @@ classdef GSPNR < matlab.mixin.Copyable
             end
         end
         function set_initial_marking(GSPN, new_marking)
-            %Sets a new marking to the GSPN object
+            %Sets the initial marking of the GSPNR object
+            %Input:
+            %   new_marking [int array] - new initial marking, must be the same length as the obj.places property
             nPlaces = length(GSPN.places);
             if nPlaces ~= length(new_marking)
                 error("New marking must be consistent with the number of places that exist")
@@ -63,7 +69,9 @@ classdef GSPNR < matlab.mixin.Copyable
             GSPN.current_marking = GSPN.initial_marking;
         end
         function set_marking(GSPN, new_marking)
-            %Sets a new marking to the GSPN object
+            %Sets the current marking to the GSPN object
+            %Input
+            %   new_marking [int array] - new marking, must be the same length as the obj.places property
             nPlaces = length(GSPN.places);
             if nPlaces ~= length(new_marking)
                 error("New marking must be consistent with the number of places that exist")
@@ -71,9 +79,9 @@ classdef GSPNR < matlab.mixin.Copyable
             GSPN.current_marking = new_marking;
         end
         function type = check_marking_type(GSPN)
-            %Returns either "TAN", "DET" or "RAN" if the current marking is
-            %either tangible, deterministic (expecting policy action), or
-            %expecting a random switch, respectively.
+            %Returns either "TAN", "DET" or "RAN" if the current marking is either tangible, deterministic (expecting policy action), or expecting a random switch, respectively.
+            %Output:
+            %   type [string] - either "TAN"/"DET"/"RAN";
             [imm, exp] = GSPN.enabled_transitions();
             nTransitions = length(imm);
             if (~isempty(imm))
@@ -100,7 +108,9 @@ classdef GSPNR < matlab.mixin.Copyable
             
         end
         function remove_places(GSPN, places)
-            %Removes places from the GSPNR object
+           %Removes places from the GSPNR object
+           %Input:
+           %    places [string array] - set of places to be removed
            nPlaces = length(places);
            arc_places = [string.empty];
            arc_transitions = [string.empty];
@@ -135,8 +145,15 @@ classdef GSPNR < matlab.mixin.Copyable
         end
         
         function add_transitions(GSPN, transitions, types, rates)
-            %Adds immediate and/or exponential transition to the GSPNR
-            %object
+            %Adds immediate and/or exponential transitions to the GSPNR object
+            %Input:
+            %   transitions [string array] - name of transitions to add
+            %   types       [string array] - type of transitions to add
+            %   (with the same order as the transitions input) each element
+            %   must be either "imm" or "exp"
+            %   rates       [string array] - rates/weights of transitions
+            %   to add, interpreted as weights when transition is immediate
+            %   and as rates when transition is exponential
             if length(transitions) ~= length(types)
                 error('Error, transition and type vectors must have the same size')
             end
@@ -155,6 +172,9 @@ classdef GSPNR < matlab.mixin.Copyable
             GSPN.transition_rewards = cat(2, GSPN.transition_rewards, zeros(1, length(transitions)));
         end
         function index = find_transition_index(GSPN, trans_name)
+            %Returns the index of the transition given in the obj.transitions array
+            %Input:
+            %   trans_name [string] - name of transition
             index = find(GSPN.transitions == trans_name);
             if isempty(index)
                 warning("Could not find place, returned 0");
@@ -163,6 +183,9 @@ classdef GSPNR < matlab.mixin.Copyable
         end
         
         function remove_transitions(GSPN, transitions)
+           %Removes transitions from the GSPNR object
+           %Input:
+           %    transitions [string array] - set of transitions to be removed
            nTransitions = length(transitions);
            arc_places = [string.empty];
            arc_transitions = [string.empty];
@@ -200,8 +223,7 @@ classdef GSPNR < matlab.mixin.Copyable
         end
         
         function [exp_trans, exp_trans_indices] = get_exponential_transitions(GSPN)
-            %Returns list of exponential transition and their corresponding
-            %indices
+            %Returns list of exponential transitions and their corresponding indices
             exp_trans_indices = find(GSPN.type_transitions == "exp");
             nEXPTrans = size(exp_trans_indices, 2);
             for t_index = 1:nEXPTrans
@@ -211,6 +233,14 @@ classdef GSPNR < matlab.mixin.Copyable
         
         function add_arcs(GSPN, places, transitions, type, weights)
             %Adds input and output arcs between existing places and transitions to the GSPNR object
+            %Input:
+            %   places      [string array] - set of places where arcs connect
+            %   transitions [string array] - set of transitions where arcs connect
+            %   type        [string array] - type for each arc, either
+            %                                "in" or "out", corresponding to an arc from a place to a
+            %                                transition, or from a transition to a place,
+            %                                correspondingly
+            %   weights     [int array]    - multiplicity of each arc
            if ~(length(places) == length(transitions) && length(transitions) == length(type) && length(type)== length(weights))
                error('Error, length of inputs not the same')
            end
@@ -299,6 +329,10 @@ classdef GSPNR < matlab.mixin.Copyable
         end
         
         function change_rate_of_transition(GSPN, name, new_rate)
+            %Changes the transition rate/weight for a given transition
+            %Input:
+            %   name [string] - name of the transition;
+            %   new_rate [float/int] - new rate for transition
             trans_index = GSPN.find_transition_index(name);
             if trans_index == 0
                 error('Could not find transition');
@@ -309,6 +343,9 @@ classdef GSPNR < matlab.mixin.Copyable
             
         
         function target_trans = find_target_trans(GSPN, place)
+            %Finds all transitions connected to a given place by input arcs
+            %Input:
+            %   name [string] - name of place
             place_index = GSPN.find_place_index(place);
             arc_row_vector = GSPN.input_arcs(place_index, :);
             trans_indices = find(arc_row_vector);
@@ -317,6 +354,8 @@ classdef GSPNR < matlab.mixin.Copyable
         
         function fire_transition(GSPN, transition)
             %Fires the transition in the input and updates the current marking property
+            %Input:
+            %   transition [string] - name of transition to fire
            transition_index = find(strcmp(GSPN.transitions, transition));
            intermediate_marking = GSPN.current_marking - GSPN.input_arcs(:,transition_index)';
            if ( any(intermediate_marking<0) )
@@ -328,6 +367,14 @@ classdef GSPNR < matlab.mixin.Copyable
         
         
         function format(GSPN,argument_list)
+            %Finds all elements (places or transitions) that contain tags
+            %of the form <n>, where n is a positive integer, and
+            %substitutes the tag with nth element of the argument list.
+            %Inputs:
+            %   argument_list [string array] - list of arguments corresponding to each tag
+            %Example:
+            %   GSPNR has place "Travel_from_<1>to<2>", GSPNR.format(["L1"
+            %   "L2"]) will convert place to name "Travel_from_L1to_L2".
             nArguments = size(argument_list, 2);
             for blank_index = 1:nArguments
                 old_tag = "<"+string(blank_index)+">";
@@ -338,10 +385,33 @@ classdef GSPNR < matlab.mixin.Copyable
             end
         end
         
-        function [policy_struct, error, nStates] = policy_synthesis(GSPN, timeout, discount_factor)
+        function [policy_struct, error, nStates] = policy_synthesis(GSPN, timeout, discount_factor, wait)
+            %Computes policy for GSPNR Model by converting to MDP and
+            %running value iteration on the equivalent MDP
+            %Input:
+            %   timeout         [int]     - maximum duration that the value iteration
+            %                               solver can run;
+            %   discount_factor [float]   - value between 0 and 1;
+            %   wait            [logical] - if true, runs on equivalent MDP
+            %                               with wait states and wait
+            %                               action;
+            %Output:
+            %   policy_struct   [struct]  - struct that holds the GSPNR that
+            %                               the policy synthesis module was
+            %                               run on, equivalent MDP, and
+            %                               mapping between MDP states and
+            %                               GSPNR marking
+            %   error           [float]   - maximum error found in the last
+            %                               iteration done by value iteration;
+            %   nStates         [int]     - number of states found in the
+            %                               equivalent MDP
             policy_struct = struct();
             disp("Started converting to MDP");
-            [mdp, markings, states, types] = GSPN.toMDP();
+            if wait == true
+                [mdp, markings, states, types] = GSPN.toMDP();
+            else
+                [mdp, markings, states, types] = GSPN.toMDP_without_wait();
+            end
             disp("Finished converting to MDP");
             mdp.check_validity();
             mdp.set_enabled_actions();

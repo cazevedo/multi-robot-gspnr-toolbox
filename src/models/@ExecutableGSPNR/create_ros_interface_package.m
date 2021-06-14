@@ -1,4 +1,7 @@
 function create_ros_interface_package(obj, suppress_output)
+    %Creates the ROS interface package for the ExecutableGSPNR instance
+    %Input:
+    %   suppress_output     [logical] - if true, suppresses most of the ouput when creating the ROS package
     if isempty(obj.catkin_ws)
         [status, toolbox_dir] = system("pwd");
         bash_cmd = "source " + strtrim(toolbox_dir) + "/res/create_ros_pkg.sh temp_matlab_gspnr_python_interface";

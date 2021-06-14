@@ -1,31 +1,31 @@
 classdef ExecutableGSPNR < GSPNR
-    %UNTITLED Summary of this class goes here
+    %UNTITLED Model for executable version of GSPNR, mapping tokens to robots
     %   Detailed explanation goes here
     
     properties (SetAccess = private)
-        catkin_ws = string.empty;
-        unique_ROS_package_dependencies = [string.empty];
-        nROSDependencies = 0;
-        launch_cmd = string.empty;
+        catkin_ws = string.empty;      %[string] - absolute path to catkin workspace where interface ROS package will be created and built
+        unique_ROS_package_dependencies = [string.empty]; %[string array] - list of names of unique ROS packages used by user-defined ROS action servers
+        nROSDependencies = 0;           %[int] - number of unique ROS packages used by user-defined ROS action servers
+        launch_cmd = string.empty;      %[string] - command sent to OS to launch interface action servers
         
-        place_actions = struct();
+        place_actions = struct();       %[struct array] - each index points to the action server and further information needed to send goal corresponding to the execution of the particular place with that index
 
-        policy = struct();
-        empty_policy = true;
+        policy = struct();              %[struct]
+        empty_policy = true;            %[logical] - true if policy has not been set, and false otherwise
 
-        ambiguity = false;
-        robot_conservation = true;
+        ambiguity = false;              %[logical] - true if GSPNR model has ambiguity regarding mapping tokens to robots (cannot execute if true)
+        robot_conservation = true;      %[logical] - true if GSPNR model does not create robots or destroy robots
         
-        robot_list = [string.empty];
-        robot_initial_locations = [];
-        nRobots = 0;
+        robot_list = [string.empty];    %[string array] - each string is the ROS namespace of each robot (ordered)
+        robot_initial_locations = [];   %[int array] - each element indicates the place index where each robot starts out
+        nRobots = 0;                    %[int] - number of robots
         
-        robot_places = [string.empty];
+        robot_places = [string.empty];  %[int array] - each element indicates the place index where each token/robot currently is
         
-        interface_action_servers = [string.empty];
+        interface_action_servers = [string.empty]; %[string array] - each element indicates the name of the interface action server corresponding to each robot
         
-        simple_exp_transitions = [];
-        simple_exp_transition_flags = [];
+        simple_exp_transitions = [];            %[string array] - list of exponential transitions not involved with robot places, that can fire independently
+        simple_exp_transition_flags = [];       %[string array] - elements are either "EXE" or "FIN", indicating if there is a timer already running for each simple exponential transition in the simple_exp_transitions property
 
     end
     
@@ -37,6 +37,14 @@ classdef ExecutableGSPNR < GSPNR
             obj.place_actions = action_map;
         end
         function initialize(obj, GSPNR, YAML_filepath, action_map)
+            %Initialize instance of object with an already existing GSPNR model;
+            %Input:
+            %   GSPNR           [GSPNR object] - non executable version to be imported;
+            %   YAML_filepath   [string]       - string containing path of YAML file to use when initializing instance;
+            %   action_map      [struct]       - struct containing where each fieldname is the name of a place, and the value is the
+            %                                    struct containing the name of the ROS package, name of action server, and goal
+            %                                    message of the action place;
+            
             %If YAML_filepath input is not empty, function will disregard
             %completely the third input "action_map";
             %Copy properties of non-executable instance;
@@ -94,19 +102,30 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function add_robot_place(obj, place)
+            %Set already existing place as a robot place
+            %Input:
+            %   place [string] - name of place to be set as robot place
             obj.robot_places = cat(2, obj.robot_places, place);
         end
         
         function set_all_places_as_robot_places(obj)
+            %Set all existing places as robot places
             obj.robot_places = obj.places;
         end
         
         function remove_robot_place(obj, place)
+            %Remove already existing place from robot places property
+            %Input:
+            %   place [string] - name of place to remove as robot place
             index = find(obj.robot_places == place);
             obj.robot_places(index) = [];
         end
         
         function add_robots(obj, robot_list, initial_locations)
+            %Add robots to executable model
+            %Input:
+            %   robot_list          [string array] - namespaces of robots to add
+            %   initial_locations   [int array] - initial place indexes of robots that are being added
             if size(robot_list, 2) ~= size(initial_locations, 2)
                 error("Each robot must have its initial location defined");
             end
@@ -125,6 +144,7 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function check_robot_ambiguity(obj)
+            %Checks ambiguity regarding the token/robot mapping
             nTrans = size(obj.transitions, 2);
             for t_index = 1:nTrans
                 [input_place_indices, col, val] = find(obj.input_arcs(:,t_index));
@@ -143,6 +163,7 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function check_robot_conservation(obj)
+            %Checks that model does not create or destroy tokens that are mapped to robots
             nTrans = size(obj.transitions, 2);
             for t_index = 1:nTrans
                 [input_place_index, col, input_val] = find(obj.input_arcs(:,t_index));
@@ -174,11 +195,25 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function set_manual_policy(obj, markings, transitions)
+            %Sets handcrafted policy
+            %Input:
+            %   markings    [int matrix] - each row is a marking for the GSPNR
+            %   transitions [string array] - each i-th element is the transition that should fire when the GSPNR's current marking is the
+            %                                marking in the i-th row of the markings input
             obj.policy.markings = markings;
             obj.transitions = transitions;
         end
         
         function set_policy(obj, policy_struct)
+            %Sets policy computed by the policy synthesis module
+            %Input:
+            %   policy_struct   [struct] - struct containing the following fields:
+            %                       * state_index_to_markings - matrix where each row is a GSPNR marking, and the index corresponds
+            %                       to the index of the corresponding state of the equivalent MDP model;
+            %                       * states - string array, where the elements are ordered according to their corresponding index
+            %                       * mdp_policy - string array, where each element corresponds to the transition that should fire
+            %                       when the MDP model is in the state of the element's index;
+            %                       * mdp - MDP object where policy was computed on;
             obj.empty_policy = false;
             obj.policy.markings = policy_struct.state_index_to_markings;
             nMarkings = size(obj.policy.markings, 1);
@@ -191,6 +226,11 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function transition = get_policy(obj, marking)
+            %Returns the transition chosen by the policy for a given marking
+            %Input:
+            %   marking     [int array] - marking for the GSPNR
+            %Output:
+            %   transition  [string] - transition to fire;
             if obj.empty_policy == false
                 [exists, marking_index] = ismember(marking, obj.policy.markings, 'rows');
                 if exists
@@ -204,10 +244,14 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function set_empty_policy(obj)
+            %Sets policy as empty
             obj.empty_policy = true;
         end
  
         function simple_exp_trans = find_simple_exp_transitions(obj)
+            %Finds all exponential transitions that do not involve robot places and can fire independently
+            %Output:
+            %   simple_exp_trans    [string array] - list of all simple exponential transitions;
             nTransitions = size(obj.transitions, 2);
             for t_index = 1:nTransitions
                 [input_place_indices, col, val] = find(obj.input_arcs(:, t_index));
@@ -232,10 +276,9 @@ classdef ExecutableGSPNR < GSPNR
         end
         
         function set_catkin_ws(obj, catkin_ws)
-            %Set catkin workspace path, if empty
-            %create_ros_interface_package() method and
-            %create_ros_interface_scripts() method will fallback to
-            %CMAKE_PREFIX_PATH environment variable
+            %Set catkin workspace path, if empty create_ros_interface_package() method and create_ros_interface_scripts() method will fallback to CMAKE_PREFIX_PATH environment variable
+            %Input:
+            %   catkin_ws   [string] - absolute path to catkin workspace where ROS interface package will be created and built
             obj.catkin_ws = catkin_ws;
         end
         

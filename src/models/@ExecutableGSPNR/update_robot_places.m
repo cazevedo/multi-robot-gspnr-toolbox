@@ -1,5 +1,5 @@
 function new_robot_places = update_robot_places(obj, transition, old_robot_places, robots_to_update)
-    %Save old robot places
+    %
     new_robot_places = old_robot_places;
     trans_index = obj.find_transition_index(transition);
     [input_place_indices, col, input_val] = find(obj.input_arcs(:,trans_index));
