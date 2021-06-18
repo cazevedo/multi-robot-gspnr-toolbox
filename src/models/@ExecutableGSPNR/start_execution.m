@@ -90,17 +90,23 @@ function start_execution(obj)
               %Processing exponential transition that represents the end of
               %an action
               place_done = obj.places(fin_action.place_index)
-              transitions = obj.find_target_trans(obj.places(fin_action.place_index));
-              if size(transitions, 2) ~= 1
-                  error("Action places are only allowed to be connected by a single input arc to a single transition");
+              index_transition_to_fire = fin_action.transition_index;
+              if index_transition_to_fire == 0
+                  transition_to_fire = obj.find_target_trans(obj.places(fin_action.place_index));
+                  if size(transition_to_fire, 2) ~= 1
+                      error("Action places are only allowed to be connected by a single input arc to a single transition");
+                  end
+                  
+              else
+                  transition_to_fire = obj.transitions(index_transition_to_fire);
               end
-              log_firing(logID, obj, 1, transitions(1), RobotPlaces, ExecutionFlags);
+              log_firing(logID, obj, 1, transition_to_fire, RobotPlaces, ExecutionFlags);
               ExecutionFlags(fin_action.robot_index) = "FIN";
               robots_involved = fin_action.robot_index;
-              obj.fire_transition(transitions(1));
+              obj.fire_transition(transition_to_fire);
               wait_state = false;
-              RobotPlaces = obj.update_robot_places(transitions(1), RobotPlaces, robots_involved);
-              log_firing(logID, obj, 2, transitions(1), RobotPlaces, ExecutionFlags);
+              RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
+              log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
           else
               %Processing exponential transition that is not involved with
               %any robot places, can independently fire
@@ -175,6 +181,11 @@ function start_execution(obj)
         else
         %Marking either "RAN" or "DET"
             transition = obj.get_policy(obj.current_marking);
+            [imm, exp] = obj.enabled_transitions()
+            if isempty(imm) && isempty(exp)
+                disp("Sink marking reached");
+                return
+            end
             if transition == ""
                 fprintf("No policy action for current marking");
                 [imm, exp] = obj.enabled_transitions();
@@ -214,6 +225,7 @@ function FinishedAction(~, msg, s, ~)
     fin_action.action = true;
     fin_action.robot_index = msg.Message.Sequence(2);
     fin_action.place_index = msg.Message.Sequence(1);
+    fin_action.transition_index = msg.Message.Sequence(3);
     done = 0;
     while ~done
         if lock == 0
