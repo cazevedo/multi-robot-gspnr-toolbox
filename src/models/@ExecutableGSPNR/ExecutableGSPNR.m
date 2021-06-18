@@ -62,7 +62,7 @@ classdef ExecutableGSPNR < GSPNR
             obj.place_rewards = copy_gspn.place_rewards;
             obj.transition_rewards = copy_gspn.transition_rewards;
             %Initialize place_actions propertyd
-            basic_element = struct('place_name', [], 'server_name', [], 'package_name', [], 'message', []);
+            basic_element = struct('place_name', [], 'server_name', [], 'package_name', [], 'action_name', [], 'message', [], 'with_result', [], 'result_trans', []);
             obj.place_actions = basic_element;
             for p_index = 1:(nPlaces-1)
                 obj.place_actions = [obj.place_actions, basic_element];
@@ -87,6 +87,10 @@ classdef ExecutableGSPNR < GSPNR
                 end
                 obj.place_actions(place_index).action_name = action_map.(place_name).action_name;
                 obj.place_actions(place_index).message = action_map.(place_name).message;
+                obj.place_actions(place_index).with_result = action_map.(place_name).with_result;
+                if action_map.(place_name).with_result == 1
+                    obj.place_actions(place_index).result_trans = action_map.(place_name).result_trans;
+                end
             end
             %Check all places for initial tag of "r." to differentiate
             %between robot and non-robot places

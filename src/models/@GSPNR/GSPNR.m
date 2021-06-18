@@ -328,6 +328,15 @@ classdef GSPNR < matlab.mixin.Copyable
            end
         end
         
+        function change_type_of_transition(GSPN, name, new_type)
+            trans_index = GSPN.find_transition_index(name);
+            if trans_index == 0
+                error('Could not find transition');
+            else
+                GSPN.type_transitions(trans_index) = new_type;
+            end
+        end
+        
         function change_rate_of_transition(GSPN, name, new_rate)
             %Changes the transition rate/weight for a given transition
             %Input:
