@@ -8,7 +8,7 @@ function launch_name = create_python_interface_scripts(obj, package_dir)
         script_name = "matlab_interface_server_"+robot_name;
         script_location = script_paths + script_name
         fileID = fopen(script_location, 'w');
-        fprintf(fileID, '#! /usr/bin/env python\nimport rospy\nimport actionlib\nimport actionlib_tutorials.msg\n');
+        fprintf(fileID, '#! /usr/bin/env python3\nimport rospy\nimport actionlib\nimport actionlib_tutorials.msg\n');
         for d_index = 1:obj.nROSDependencies
             package_name = obj.unique_ROS_package_dependencies(d_index);
             package_msg = package_name + ".msg";
@@ -72,7 +72,7 @@ function launch_name = create_python_interface_scripts(obj, package_dir)
         fprintf(fileID, '\n\t\tclient.wait_for_server()');
         fprintf(fileID, '\n\t\tslave_goal = place_index_to_action_msgs(place_index)[1]');
         fprintf(fileID, '\n\t\tgoal_dict = place_index_to_goal(place_index)');
-        fprintf(fileID, '\n\t\tfor key, value in goal_dict.iteritems():');
+        fprintf(fileID, '\n\t\tfor key, value in goal_dict.items():');
         fprintf(fileID, '\n\t\t\t setattr(slave_goal, key, value)');
         fprintf(fileID, '\n\t\tclient.send_goal(slave_goal)\n\t\tclient.wait_for_result()\n\t\tclient.get_result()\n\t\tresult.sequence.append(place_index)\n\t\tresult.sequence.append(robot_index)\n\t\tself._as.set_succeeded(result)');
         fprintf(fileID, '\n\nif __name__ == ''__main__'':');
