@@ -42,8 +42,10 @@ function [values, policy, max_res, timed_out] = value_iteration(MDP, max_min, ga
                 max_res = new_res;
             end
         end
-        print = "ITERATED THRU ALL STATES"
-        print = "Error was - "+string(max_res)
+        msg ="Finished Iteration - number "+string(step);
+        disp(msg);
+        msg = "Error was - "+string(max_res);
+        disp(msg);
         converged = max_res<epsilon;
         if timed_out == true
             converged = true;
