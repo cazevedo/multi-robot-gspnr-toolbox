@@ -177,7 +177,7 @@ classdef GSPNR < matlab.mixin.Copyable
             %   trans_name [string] - name of transition
             index = find(GSPN.transitions == trans_name);
             if isempty(index)
-                warning("Could not find place, returned 0");
+                warning("Could not find transition, returned 0");
                 index = 0;
             end
         end
