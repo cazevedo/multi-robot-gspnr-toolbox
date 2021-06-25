@@ -49,7 +49,10 @@ function merged = MergeGSPNR(gspn1,gspn2)
         if gspn1.type_transitions(t_index1) ~= gspn2.type_transitions(t_index2)
             error("Common transitions between the two GSPNs must be the same type");
         elseif gspn1.rate_transitions(t_index1) ~= gspn2.rate_transitions(t_index2)
-            error("Common transitions between the two GSPNs must have the same rate/weigth");
+            gspn1.rate_transitions(t_index1)
+            gspn2.rate_transitions(t_index2)
+            error_msg = "Common transitions between the two GSPNs must have the same rate/weight - "+trans_name;
+            error(error_msg);
         end
         
         common_trans_types(index) = gspn1.type_transitions(t_index1);
