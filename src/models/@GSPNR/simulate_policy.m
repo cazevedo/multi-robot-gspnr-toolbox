@@ -1,6 +1,15 @@
-function simulate_policy(obj,policy, step_time)
-%EVALUATE_POLICY Simulate the policy execution in non real time
-%   Detailed explanation goes here
+function simulate_policy(obj, policy, step_time)
+%EVALUATE_POLICY Simulate the execution of the GSPNR with a given policy in non-real time 
+%Input:
+%   policy_struct   [struct] - struct containing the following fields:
+%                       * state_index_to_markings - matrix where each row is a GSPNR marking, and the index corresponds
+%                       to the index of the corresponding state of the equivalent MDP model;
+%                       * states - string array, where the elements are ordered according to their corresponding index
+%                       * mdp_policy - string array, where each element corresponds to the transition that should fire
+%                       when the MDP model is in the state of the element's index;
+%                       * mdp - MDP object where policy was computed on;
+%   step_time       [float] - time to pause between firing of transitions.
+%                             if 0, press any key to fire a transition                                       
 
     %Build easier policy struct
     markings_to_transition = struct();

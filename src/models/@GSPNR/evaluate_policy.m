@@ -1,6 +1,26 @@
 function results = evaluate_policy(obj, policy, nTransitions)
-%EVALUATE_POLICY Simulate the policy execution in non real time
-%   Detailed explanation goes here
+%EVALUATE_POLICY Simulate the policy execution with simulated time
+%Input:
+%   policy_struct   [struct] - struct containing the following fields:
+%                       * state_index_to_markings - matrix where each row is a GSPNR marking, and the index corresponds
+%                       to the index of the corresponding state of the equivalent MDP model;
+%                       * states - string array, where the elements are ordered according to their corresponding index
+%                       * mdp_policy - string array, where each element corresponds to the transition that should fire
+%                       when the MDP model is in the state of the element's index;
+%                       * mdp - MDP object where policy was computed on;
+%   nTransitions    [int] - number of transitions to fire;
+%Output:
+%   results         [struct] - containing the following fields:
+%                       * markings - matrix where each row represents a marking;
+%                       * transitions - string array where each element is
+%                       the transition fired that transitioned the GSPNR
+%                       into the marking in the same position in the
+%                       "markings" field;
+%                       * timestamps - duration array, where each element
+%                       represents the duration between when the simulation
+%                       started and the time that the corresponding (in the
+%                       same position in the "transitions" field)
+%                       transition fired;
 
     %Build easier policy struct
     markings_to_transition = struct();
