@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="test_executable_with_result" version="121">
+  <gspn name="GSPN" show-color-cmd="false" show-fluid-cmd="false" zoom="125">
+    <nodes>
+      <place marking="1" name="start" x="9.0" y="7.0"/>
+      <transition name="t0" type="IMM" x="14.85" y="7.0"/>
+      <place name="normal_action" x="20.0" y="7.0"/>
+      <transition name="T0" nservers-x="0.5" type="EXP" x="26.55" y="7.0"/>
+      <place name="action_with_feedback" x="33.0" y="7.0"/>
+      <place name="finish_1" x="46.0" y="3.0"/>
+      <place name="finish_2" x="46.0" y="7.0"/>
+      <place name="finish_3" x="46.0" y="11.0"/>
+      <transition name="first_result" type="IMM" x="40.85" y="3.0"/>
+      <transition name="second_result" type="IMM" x="40.85" y="7.0"/>
+      <transition name="third_result" type="IMM" x="40.85" y="11.0"/>
+    </nodes>
+    <edges>
+      <arc head="t0" kind="INPUT" tail="start"/>
+      <arc head="normal_action" kind="OUTPUT" tail="t0"/>
+      <arc head="T0" kind="INPUT" tail="normal_action"/>
+      <arc head="action_with_feedback" kind="OUTPUT" tail="T0"/>
+      <arc head="first_result" kind="INPUT" tail="action_with_feedback"/>
+      <arc head="second_result" kind="INPUT" tail="action_with_feedback"/>
+      <arc head="finish_1" kind="OUTPUT" tail="first_result"/>
+      <arc head="finish_2" kind="OUTPUT" tail="second_result"/>
+      <arc head="finish_3" kind="OUTPUT" tail="third_result"/>
+      <arc head="third_result" kind="INPUT" tail="action_with_feedback"/>
+    </edges>
+  </gspn>
+  <gspn name="GSPN_exponential" show-color-cmd="false" show-fluid-cmd="false" zoom="125">
+    <nodes>
+      <place marking="1" name="start" x="9.0" y="7.0"/>
+      <transition name="t0" type="IMM" x="14.85" y="7.0"/>
+      <place name="normal_action" x="20.0" y="7.0"/>
+      <transition name="T0" nservers-x="0.5" type="EXP" x="26.55" y="7.0"/>
+      <place name="action_with_feedback" x="33.0" y="7.0"/>
+      <place name="finish_1" x="46.0" y="3.0"/>
+      <place name="finish_2" x="46.0" y="7.0"/>
+      <place name="finish_3" x="46.0" y="11.0"/>
+      <transition name="first_result" nservers-x="0.5" type="EXP" x="40.55" y="3.0"/>
+      <transition name="second_result" nservers-x="0.5" type="EXP" x="40.55" y="7.0"/>
+      <transition label-x="1.0" label-y="3.5" name="third_result" nservers-x="0.5" type="EXP" x="40.55" y="11.0"/>
+    </nodes>
+    <edges>
+      <arc head="t0" kind="INPUT" tail="start"/>
+      <arc head="normal_action" kind="OUTPUT" tail="t0"/>
+      <arc head="T0" kind="INPUT" tail="normal_action"/>
+      <arc head="action_with_feedback" kind="OUTPUT" tail="T0"/>
+      <arc head="first_result" kind="INPUT" tail="action_with_feedback"/>
+      <arc head="second_result" kind="INPUT" tail="action_with_feedback"/>
+      <arc head="third_result" kind="INPUT" tail="action_with_feedback">
+        <point x="35.5" y="8.5"/>
+      </arc>
+      <arc head="finish_1" kind="OUTPUT" tail="first_result"/>
+      <arc head="finish_2" kind="OUTPUT" tail="second_result"/>
+      <arc head="finish_3" kind="OUTPUT" tail="third_result"/>
+    </edges>
+  </gspn>
+</project>

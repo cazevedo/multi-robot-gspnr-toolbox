@@ -1,0 +1,571 @@
+Starting execution at 18:55:50
+Places -> ["Inspecting_panel1" "r.RequiredInspectionpanel1" "Inspecting_panel2" "r.RequiredInspectionpanel2" "Inspecting_panel3" "r.RequiredInspectionpanel3" "Inspecting_panel4" "r.RequiredInspectionpanel4" "Inspecting_panel5" "r.RequiredInspectionpanel5" "r.InspectionsGlobal" "Navigating_panel1_panel2" "Navigating_panel2_panel1" "panel1" "Navigating_panel2_panel3" "Navigating_panel2_center" "Navigating_panel3_panel2" "panel3" "Navigating_center_panel2" "panel2" "Navigating_center_panel5" "Navigating_panel4_panel5" "Navigating_panel5_center" "center" "Navigating_panel5_panel4" "panel4" "panel5"]
+Robots -> ["jackal0" "jackal1" "jackal2"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0]
+ Transitions -> ["Inspect_panel1" "FinishedInspect_panel1" "Inspect_panel2" "FinishedInspect_panel2" "Inspect_panel3" "FinishedInspect_panel3" "Inspect_panel4" "FinishedInspect_panel4" "Inspect_panel5" "FinishedInspect_panel5" "InspectedAll" "Go_panel1_panel2" "Arrived_panel1_panel2" "Go_panel2_panel1" "Arrived_panel2_panel1" "Go_panel2_panel3" "Arrived_panel2_panel3" "Go_panel2_center" "Arrived_panel2_center" "Go_panel3_panel2" "Arrived_panel3_panel2" "Go_center_panel2" "Arrived_center_panel2" "Go_center_panel5" "Arrived_center_panel5" "Go_panel4_panel5" "Arrived_panel4_panel5" "Go_panel5_center" "Arrived_panel5_center" "Go_panel5_panel4" "Arrived_panel5_panel4"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_center_panel2, at time 18:56:01 the state of the system was the following:
+Robots Places -> [24 24 24]
+Robot Flags -> ["FIN" "FIN" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 0 0]
+------------------------------------------------
+After firing transition Go_center_panel2 the state of the system was the following:
+Robots Places -> [19 24 24]
+Robot Flags -> ["FIN" "FIN" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 2 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_center_panel2, at time 18:56:01 the state of the system was the following:
+Robots Places -> [19 24 24]
+Robot Flags -> ["FIN" "FIN" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 2 0 0 0]
+------------------------------------------------
+After firing transition Go_center_panel2 the state of the system was the following:
+Robots Places -> [19 19 24]
+Robot Flags -> ["FIN" "FIN" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 2 0 0 0 0 1 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_center_panel5, at time 18:56:01 the state of the system was the following:
+Robots Places -> [19 19 24]
+Robot Flags -> ["FIN" "FIN" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 2 0 0 0 0 1 0 0 0]
+------------------------------------------------
+After firing transition Go_center_panel5 the state of the system was the following:
+Robots Places -> [19 19 21]
+Robot Flags -> ["FIN" "FIN" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 2 0 1 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 19, to robot with index -> 1, at time 18:56:01
+Execution flags before sending the goal: ["FIN" "FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 18:56:01
+Execution flags after sending goal: ["EXE" "FIN" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 19, to robot with index -> 2, at time 18:56:01
+Execution flags before sending the goal: ["EXE" "FIN" "FIN"]
+------------------------------------------------
+Sent goal at time 18:56:01
+Execution flags after sending goal: ["EXE" "EXE" "FIN"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 21, to robot with index -> 3, at time 18:56:01
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:56:01
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_center_panel5, at time 18:56:47 the state of the system was the following:
+Robots Places -> [19 19 21]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 2 0 1 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_center_panel5 the state of the system was the following:
+Robots Places -> [19 19 27]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel5, at time 18:56:47 the state of the system was the following:
+Robots Places -> [19 19 27]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Inspect_panel5 the state of the system was the following:
+Robots Places -> [19 19 9]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 0 1 0 1 0 1 1 0 1 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 9, to robot with index -> 3, at time 18:56:47
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:56:47
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_center_panel2, at time 18:56:47 the state of the system was the following:
+Robots Places -> [19 19 9]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 1 0 1 0 1 0 1 1 0 1 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_center_panel2 the state of the system was the following:
+Robots Places -> [19 20 9]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 1 0 1 0 1 0 1 1 0 1 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel2, at time 18:56:47 the state of the system was the following:
+Robots Places -> [19 20 9]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 1 0 1 0 1 0 1 1 0 1 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Inspect_panel2 the state of the system was the following:
+Robots Places -> [19 3 9]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 1 0 2 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 3, to robot with index -> 2, at time 18:56:47
+Execution flags before sending the goal: ["EXE" "FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:56:47
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_center_panel2, at time 18:57:00 the state of the system was the following:
+Robots Places -> [19 3 9]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 1 0 2 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_center_panel2 the state of the system was the following:
+Robots Places -> [20 3 9]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 1 0 2 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_panel2_panel1, at time 18:57:00 the state of the system was the following:
+Robots Places -> [20 3 9]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 1 0 2 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Go_panel2_panel1 the state of the system was the following:
+Robots Places -> [13 3 9]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 1 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 13, to robot with index -> 1, at time 18:57:00
+Execution flags before sending the goal: ["FIN" "EXE" "EXE"]
+------------------------------------------------
+Sent goal at time 18:57:00
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel5, at time 18:57:19 the state of the system was the following:
+Robots Places -> [13 3 9]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 1 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel5 the state of the system was the following:
+Robots Places -> [13 3 27]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 1 0 0 1 0 1 0 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_panel5_panel4, at time 18:57:19 the state of the system was the following:
+Robots Places -> [13 3 27]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 1 0 0 1 0 1 0 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Go_panel5_panel4 the state of the system was the following:
+Robots Places -> [13 3 25]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 1 0 0 1 0 1 0 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 25, to robot with index -> 3, at time 18:57:19
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:57:19
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel2, at time 18:57:20 the state of the system was the following:
+Robots Places -> [13 3 25]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 1 1 0 0 1 0 1 0 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel2 the state of the system was the following:
+Robots Places -> [13 20 25]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 1 0 0 0 1 0 1 0 0 2 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_panel2_panel3, at time 18:57:20 the state of the system was the following:
+Robots Places -> [13 20 25]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 1 0 0 0 1 0 1 0 0 2 0 1 0 0 0 0 0 0 1 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Go_panel2_panel3 the state of the system was the following:
+Robots Places -> [13 15 25]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 1 0 0 0 1 0 1 0 0 2 0 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 15, to robot with index -> 2, at time 18:57:20
+Execution flags before sending the goal: ["EXE" "FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:57:20
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_panel2_panel1, at time 18:57:39 the state of the system was the following:
+Robots Places -> [13 15 25]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 1 0 0 0 1 0 1 0 0 2 0 1 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_panel2_panel1 the state of the system was the following:
+Robots Places -> [14 15 25]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 0 0 0 1 0 1 0 0 2 0 0 1 1 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel1, at time 18:57:39 the state of the system was the following:
+Robots Places -> [14 15 25]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 0 0 0 1 0 1 0 0 2 0 0 1 1 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Inspect_panel1 the state of the system was the following:
+Robots Places -> [1 15 25]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [1 0 0 0 0 1 0 1 0 0 3 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 1, to robot with index -> 1, at time 18:57:39
+Execution flags before sending the goal: ["FIN" "EXE" "EXE"]
+------------------------------------------------
+Sent goal at time 18:57:39
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_panel5_panel4, at time 18:57:41 the state of the system was the following:
+Robots Places -> [1 15 25]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [1 0 0 0 0 1 0 1 0 0 3 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0]
+------------------------------------------------
+After firing transition Arrived_panel5_panel4 the state of the system was the following:
+Robots Places -> [1 15 26]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [1 0 0 0 0 1 0 1 0 0 3 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel4, at time 18:57:41 the state of the system was the following:
+Robots Places -> [1 15 26]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [1 0 0 0 0 1 0 1 0 0 3 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Inspect_panel4 the state of the system was the following:
+Robots Places -> [1 15 7]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [1 0 0 0 0 1 1 0 0 0 4 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 7, to robot with index -> 3, at time 18:57:41
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:57:41
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_panel2_panel3, at time 18:57:53 the state of the system was the following:
+Robots Places -> [1 15 7]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [1 0 0 0 0 1 1 0 0 0 4 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_panel2_panel3 the state of the system was the following:
+Robots Places -> [1 18 7]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 1 1 0 0 0 4 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel3, at time 18:57:53 the state of the system was the following:
+Robots Places -> [1 18 7]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [1 0 0 0 0 1 1 0 0 0 4 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Inspect_panel3 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [1 0 0 0 1 0 1 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition InspectedAll, at time 18:57:53 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [1 0 0 0 1 0 1 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition InspectedAll the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [1 1 0 1 1 1 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 5, to robot with index -> 2, at time 18:57:53
+Execution flags before sending the goal: ["EXE" "FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:57:53
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel1, at time 18:58:09 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [1 1 0 1 1 1 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel1 the state of the system was the following:
+Robots Places -> [14 5 7]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 0 1 1 1 1 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel1, at time 18:58:09 the state of the system was the following:
+Robots Places -> [14 5 7]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 1 0 1 1 1 1 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Inspect_panel1 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [1 0 0 1 1 1 1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 1, to robot with index -> 1, at time 18:58:09
+Execution flags before sending the goal: ["FIN" "EXE" "EXE"]
+------------------------------------------------
+Sent goal at time 18:58:09
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel4, at time 18:58:12 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [1 0 0 1 1 1 1 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel4 the state of the system was the following:
+Robots Places -> [1 5 26]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [1 0 0 1 1 1 0 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel4, at time 18:58:12 the state of the system was the following:
+Robots Places -> [1 5 26]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [1 0 0 1 1 1 0 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Inspect_panel4 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [1 0 0 1 1 1 1 0 0 1 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 7, to robot with index -> 3, at time 18:58:12
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:58:12
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel1, at time 18:58:44 the state of the system was the following:
+Robots Places -> [1 5 7]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [1 0 0 1 1 1 1 0 0 1 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel1 the state of the system was the following:
+Robots Places -> [14 5 7]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 1 1 0 0 1 2 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_panel1_panel2, at time 18:58:44 the state of the system was the following:
+Robots Places -> [14 5 7]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 1 1 0 0 1 2 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition Go_panel1_panel2 the state of the system was the following:
+Robots Places -> [12 5 7]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 1 1 0 0 1 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 12, to robot with index -> 1, at time 18:58:45
+Execution flags before sending the goal: ["FIN" "EXE" "EXE"]
+------------------------------------------------
+Sent goal at time 18:58:45
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel4, at time 18:58:54 the state of the system was the following:
+Robots Places -> [12 5 7]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 1 1 0 0 1 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel4 the state of the system was the following:
+Robots Places -> [12 5 26]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 0 1 1 1 0 0 0 1 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Go_panel4_panel5, at time 18:58:54 the state of the system was the following:
+Robots Places -> [12 5 26]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 0 1 1 1 0 0 0 1 2 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0]
+------------------------------------------------
+After firing transition Go_panel4_panel5 the state of the system was the following:
+Robots Places -> [12 5 22]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 0 1 1 1 0 0 0 1 2 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 22, to robot with index -> 3, at time 18:58:54
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:58:54
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition FinishedInspect_panel3, at time 18:58:57 the state of the system was the following:
+Robots Places -> [12 5 22]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 1 0 0 0 1 2 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition FinishedInspect_panel3 the state of the system was the following:
+Robots Places -> [12 18 22]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 0 0 1 0 1 0 0 0 1 2 1 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel3, at time 18:58:57 the state of the system was the following:
+Robots Places -> [12 18 22]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 0 0 1 0 1 0 0 0 1 2 1 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Inspect_panel3 the state of the system was the following:
+Robots Places -> [12 5 22]
+Robot Flags -> ["EXE" "FIN" "EXE"]
+Current Marking -> [0 0 0 1 1 0 0 0 0 1 3 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 5, to robot with index -> 2, at time 18:58:57
+Execution flags before sending the goal: ["EXE" "FIN" "EXE"]
+------------------------------------------------
+Sent goal at time 18:58:57
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_panel1_panel2, at time 18:59:20 the state of the system was the following:
+Robots Places -> [12 5 22]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 0 0 0 0 1 3 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_panel1_panel2 the state of the system was the following:
+Robots Places -> [20 5 22]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 0 0 0 0 1 3 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel2, at time 18:59:20 the state of the system was the following:
+Robots Places -> [20 5 22]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 0 0 1 1 0 0 0 0 1 3 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Inspect_panel2 the state of the system was the following:
+Robots Places -> [3 5 22]
+Robot Flags -> ["FIN" "EXE" "EXE"]
+Current Marking -> [0 0 1 0 1 0 0 0 0 1 4 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 3, to robot with index -> 1, at time 18:59:20
+Execution flags before sending the goal: ["FIN" "EXE" "EXE"]
+------------------------------------------------
+Sent goal at time 18:59:20
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Arrived_panel4_panel5, at time 18:59:32 the state of the system was the following:
+Robots Places -> [3 5 22]
+Robot Flags -> ["EXE" "EXE" "EXE"]
+Current Marking -> [0 0 1 0 1 0 0 0 0 1 4 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]
+------------------------------------------------
+After firing transition Arrived_panel4_panel5 the state of the system was the following:
+Robots Places -> [3 5 27]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 1 0 1 0 0 0 0 1 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition Inspect_panel5, at time 18:59:32 the state of the system was the following:
+Robots Places -> [3 5 27]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 1 0 1 0 0 0 0 1 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1]
+------------------------------------------------
+After firing transition Inspect_panel5 the state of the system was the following:
+Robots Places -> [3 5 9]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 1 0 1 0 0 0 1 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Before firing transition InspectedAll, at time 18:59:32 the state of the system was the following:
+Robots Places -> [3 5 9]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 0 1 0 1 0 0 0 1 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+------------------------------------------------
+After firing transition InspectedAll the state of the system was the following:
+Robots Places -> [3 5 9]
+Robot Flags -> ["EXE" "EXE" "FIN"]
+Current Marking -> [0 1 1 1 1 1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Sending goal of place index -> 9, to robot with index -> 3, at time 18:59:32
+Execution flags before sending the goal: ["EXE" "EXE" "FIN"]
+------------------------------------------------
+Sent goal at time 18:59:32
+Execution flags after sending goal: ["EXE" "EXE" "EXE"]
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+

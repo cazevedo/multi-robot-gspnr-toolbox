@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="test_toMDP_without_WAITS" version="121">
+  <gspn name="GSPN" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-x="-2.0" label-y="0.0" marking="2" name="P1" x="6.0" y="12.0"/>
+      <transition delay="2.0" name="t1" nservers-x="0.5" type="EXP" x="9.55" y="9.0"/>
+      <transition label-y="2.0" name="t2" nservers-x="0.5" type="EXP" x="9.55" y="16.0"/>
+      <place label-x="2.0" label-y="0.0" name="P2" x="15.0" y="9.0"/>
+      <place label-x="2.0" label-y="0.0" name="P3" x="15.0" y="16.0"/>
+      <transition name="t3" rotation="1.5707963267948966" type="IMM" weight="1" x="15.85" y="4.0"/>
+      <transition label-x="2.0" label-y="0.0" name="t5" rotation="1.5707963267948966" type="IMM" weight="1" x="15.85" y="23.0"/>
+      <transition label-x="2.0" label-y="0.0" name="t4" rotation="1.5707963267948966" type="IMM" weight="1" x="15.85" y="12.0"/>
+    </nodes>
+    <edges>
+      <arc head="t1" kind="INPUT" tail="P1"/>
+      <arc head="t2" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" mult-k="0.94384765625" tail="t1">
+        <point x="13.3123046875" y="10.0"/>
+      </arc>
+      <arc head="P3" kind="OUTPUT" tail="t2"/>
+      <arc head="t3" kind="INPUT" tail="P2"/>
+      <arc head="P1" kind="OUTPUT" tail="t3">
+        <point x="7.0" y="5.0"/>
+      </arc>
+      <arc head="P1" kind="OUTPUT" tail="t5">
+        <point x="7.0" y="24.0"/>
+      </arc>
+      <arc head="t4" kind="INPUT" tail="P3"/>
+      <arc head="P2" kind="OUTPUT" tail="t4"/>
+      <arc head="t5" kind="INPUT" tail="P3"/>
+    </edges>
+  </gspn>
+</project>

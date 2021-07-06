@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+<net id="Net-One" type="P/T net">
+<token id="Default" enabled="true" red="0" green="0" blue="0"/>
+<place id="(1)_(3)">
+<graphics>
+<position x="630.0" y="90.0"/>
+</graphics>
+<name>
+<value>(1)_(3)</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="(2)_(3)">
+<graphics>
+<position x="585.0" y="630.0"/>
+</graphics>
+<name>
+<value>(2)_(3)</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="(2)_(4)">
+<graphics>
+<position x="690.0" y="630.0"/>
+</graphics>
+<name>
+<value>(2)_(4)</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Check_Bat_(1)_(2)_(3)">
+<graphics>
+<position x="630.0" y="420.0"/>
+</graphics>
+<name>
+<value>Check_Bat_(1)_(2)_(3)</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Navigating_(1)_(2)_(3)">
+<graphics>
+<position x="630.0" y="255.0"/>
+</graphics>
+<name>
+<value>Navigating_(1)_(2)_(3)</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<transition id="Arrived_(1)_(2)_(3)">
+<graphics>
+<position x="630.0" y="330.0"/>
+</graphics>
+<name>
+<value>Arrived_(1)_(2)_(3)</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>true</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Bat_Level_(1)_(2)_(3)_(3)">
+<graphics>
+<position x="585.0" y="525.0"/>
+</graphics>
+<name>
+<value>Bat_Level_(1)_(2)_(3)_(3)</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Bat_Level_(1)_(2)_(3)_(4)">
+<graphics>
+<position x="690.0" y="525.0"/>
+</graphics>
+<name>
+<value>Bat_Level_(1)_(2)_(3)_(4)</value>
+<graphics>
+<offset x="178.0" y="26.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Go_(1)_(2)_(3)">
+<graphics>
+<position x="630.0" y="165.0"/>
+</graphics>
+<name>
+<value>Go_(1)_(2)_(3)</value>
+<graphics>
+<offset x="-5.0" y="35.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>0.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<arc id="(1)_(3) to Go_(1)_(2)_(3)" source="(1)_(3)" target="Go_(1)_(2)_(3)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="642" y="116" curvePoint="false"/>
+<arcpath id="001" x="642" y="162" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Arrived_(1)_(2)_(3) to Check_Bat_(1)_(2)_(3)" source="Arrived_(1)_(2)_(3)" target="Check_Bat_(1)_(2)_(3)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="642" y="357" curvePoint="false"/>
+<arcpath id="001" x="642" y="417" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Bat_level_(1)_(2)_(3)_(3) to (2)_(3)" source="Bat_Level_(1)_(2)_(3)_(3)" target="(2)_(3)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="597" y="552" curvePoint="false"/>
+<arcpath id="001" x="597" y="627" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Bat_level_(1)_(2)_(3)_(4) to (2)_(4)" source="Bat_Level_(1)_(2)_(3)_(4)" target="(2)_(4)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="702" y="552" curvePoint="false"/>
+<arcpath id="001" x="702" y="627" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Check_Bat_(1)_(2)_(3) to Bat_level_(1)_(2)_(3)_(3)" source="Check_Bat_(1)_(2)_(3)" target="Bat_Level_(1)_(2)_(3)_(3)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="635" y="445" curvePoint="false"/>
+<arcpath id="001" x="597" y="522" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Check_Bat_(1)_(2)_(3) to Bat_level_(1)_(2)_(3)_(4)" source="Check_Bat_(1)_(2)_(3)" target="Bat_Level_(1)_(2)_(3)_(4)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="650" y="444" curvePoint="false"/>
+<arcpath id="001" x="702" y="522" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Go_(1)_(2)_(3) to Navigating_(1)_(2)_(3)" source="Go_(1)_(2)_(3)" target="Navigating_(1)_(2)_(3)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="642" y="192" curvePoint="false"/>
+<arcpath id="001" x="642" y="252" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Navigating_(1)_(2)_(3) to Arrived_(1)_(2)_(3)" source="Navigating_(1)_(2)_(3)" target="Arrived_(1)_(2)_(3)">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="642" y="281" curvePoint="false"/>
+<arcpath id="001" x="642" y="327" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+</net>
+</pnml>

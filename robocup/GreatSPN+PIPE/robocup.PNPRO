@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="robocup" version="121">
+  <gspn name="home_charge_half" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-x="-3.5" label-y="0.0" name="&lt;1&gt;_&lt;3&gt;" x="10.0" y="3.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="Charge_&lt;1&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="10.85" y="8.0"/>
+      <place label-x="-5.5" label-y="0.0" name="Charging_&lt;1&gt;_&lt;3&gt;" x="10.0" y="12.0"/>
+      <transition delay="0.0066" label-x="-5.0" label-y="0.0" name="Charged_&lt;1&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="10.55" y="17.0"/>
+      <place label-x="-3.0" label-y="0.0" name="&lt;1&gt;_&lt;4&gt;" x="10.0" y="22.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="15.0" y="4.0">&lt;1&gt; : location
+&lt;3&gt;: current battery level
+&lt;4&gt;: top battery level
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Charge_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Charging_&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Charge_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Charged_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="Charging_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="&lt;1&gt;_&lt;4&gt;" kind="OUTPUT" tail="Charged_&lt;1&gt;_&lt;3&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="home_charge_low" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-x="-3.5" label-y="0.0" name="&lt;1&gt;_&lt;3&gt;" x="10.0" y="3.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="Charge_&lt;1&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="10.85" y="8.0"/>
+      <place label-x="-5.5" label-y="0.0" name="Charging_&lt;1&gt;_&lt;3&gt;" x="10.0" y="12.0"/>
+      <transition delay="0.0033" label-x="-5.0" label-y="0.0" name="Charged_&lt;1&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="10.55" y="17.0"/>
+      <place label-x="-3.0" label-y="0.0" name="&lt;1&gt;_&lt;4&gt;" x="10.0" y="22.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="15.0" y="4.0">&lt;1&gt; : location
+&lt;3&gt;: current battery level
+&lt;4&gt;: top battery level
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Charge_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Charging_&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Charge_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Charged_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="Charging_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="&lt;1&gt;_&lt;4&gt;" kind="OUTPUT" tail="Charged_&lt;1&gt;_&lt;3&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="home_navigation_full" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-x="-2.5" label-y="0.0" name="&lt;1&gt;_&lt;3&gt;" x="15.0" y="2.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="15.85" y="7.0"/>
+      <place label-x="5.5" label-y="0.0" name="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" x="15.0" y="11.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="15.55" y="16.0"/>
+      <place label-x="6.5" label-y="0.0" name="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" x="15.0" y="21.0"/>
+      <transition label-x="-6.0" label-y="-1.0" name="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="11.85" y="26.0"/>
+      <transition label-x="5.5" label-y="-1.0" name="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;4&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="18.85" y="26.0"/>
+      <place name="&lt;2&gt;_&lt;3&gt;" x="11.0" y="31.0"/>
+      <place name="&lt;2&gt;_&lt;4&gt;" x="18.0" y="31.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="8.75" y="37.0">&lt;1&gt; : origin
+&lt;2&gt;: destination
+&lt;3&gt;: current battery level
+&lt;4&gt;: battery level below
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="INPUT" tail="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;4&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="&lt;2&gt;_&lt;4&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;4&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="home_navigation_half" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-x="-2.5" label-y="0.0" name="&lt;1&gt;_&lt;3&gt;" x="15.0" y="2.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="15.85" y="7.0"/>
+      <place label-x="5.5" label-y="0.0" name="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" x="15.0" y="11.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="15.55" y="16.0"/>
+      <place label-x="6.5" label-y="0.0" name="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" x="15.0" y="21.0"/>
+      <transition label-x="-6.0" label-y="-1.0" name="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" weight="4.0" x="11.85" y="26.0"/>
+      <transition label-x="5.5" label-y="-1.0" name="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;4&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="18.85" y="26.0"/>
+      <place name="&lt;2&gt;_&lt;3&gt;" x="11.0" y="31.0"/>
+      <place name="&lt;2&gt;_&lt;4&gt;" x="18.0" y="31.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="8.75" y="37.0">&lt;1&gt; : origin
+&lt;2&gt;: destination
+&lt;3&gt;: current battery level
+&lt;4&gt;: battery level below
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="INPUT" tail="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;4&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="&lt;2&gt;_&lt;4&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;4&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="home_navigation_low" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-x="-2.5" label-y="0.0" name="&lt;1&gt;_&lt;3&gt;" x="15.0" y="2.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="15.85" y="7.0"/>
+      <place label-x="5.5" label-y="0.0" name="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" x="15.0" y="11.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="15.55" y="16.0"/>
+      <place label-x="6.5" label-y="0.0" name="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" x="15.0" y="21.0"/>
+      <transition label-x="-6.0" label-y="-1.0" name="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="15.85" y="26.0"/>
+      <place name="&lt;2&gt;_&lt;3&gt;" x="15.0" y="31.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="8.75" y="37.0">&lt;1&gt; : origin
+&lt;2&gt;: destination
+&lt;3&gt;: current battery level
+&lt;4&gt;: battery level below
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Go_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="INPUT" tail="Navigating_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Arrived_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;"/>
+      <arc head="&lt;2&gt;_&lt;3&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;2&gt;_&lt;3&gt;_&lt;3&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="home_vacuum_full" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-y="-2.0" name="&lt;1&gt;_&lt;3&gt;" x="9.0" y="3.0"/>
+      <transition label-x="-3.5" name="Vacuum_&lt;1&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="9.85" y="9.0"/>
+      <place label-x="5.0" label-y="1.0" name="Vacuuming_&lt;1&gt;_&lt;3&gt;" x="9.0" y="13.0"/>
+      <transition delay="0.1" label-x="7.0" label-y="-0.5" name="Finished_Vacuum_&lt;1&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="9.55" y="19.0"/>
+      <place label-x="5.0" label-y="0.0" name="Check_Bat_&lt;1&gt;_&lt;3&gt;" x="9.0" y="24.0"/>
+      <transition label-x="-1.0" label-y="1.5" name="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="6.85" y="30.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;4&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="13.85" y="30.0"/>
+      <place name="&lt;1&gt;_&lt;4&gt;" x="13.0" y="37.0"/>
+      <place label-x="-0.5" label-y="-1.5" name="r.Requires_Vacuum_&lt;1&gt;" x="23.0" y="3.0"/>
+      <place name="r.Number_Vacuumed" x="23.0" y="12.0"/>
+      <transition delay="2.0" name="VacuumedAll" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="23.55" y="8.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="7.75" y="42.0">&lt;1&gt; : origin
+&lt;2&gt;: destination
+&lt;3&gt;: current battery level
+&lt;4&gt;: battery level below
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Vacuum_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Vacuuming_&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Vacuum_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Finished_Vacuum_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="Vacuuming_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Check_Bat_&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Finished_Vacuum_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;3&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;3&gt;">
+        <point x="3.5" y="31.0"/>
+        <point x="3.5" y="4.0"/>
+      </arc>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;4&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="&lt;1&gt;_&lt;4&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;4&gt;"/>
+      <arc head="Vacuum_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="r.Requires_Vacuum_&lt;1&gt;"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_&lt;1&gt;_&lt;3&gt;"/>
+    </edges>
+  </gspn>
+  <gspn name="home_vacuum_half" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <place label-y="-2.0" name="&lt;1&gt;_&lt;3&gt;" x="9.0" y="3.0"/>
+      <transition label-x="-3.5" name="Vacuum_&lt;1&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" x="9.85" y="9.0"/>
+      <place label-x="5.0" label-y="1.0" name="Vacuuming_&lt;1&gt;_&lt;3&gt;" x="9.0" y="13.0"/>
+      <transition delay="0.1" label-x="7.0" label-y="-0.5" name="Finished_Vacuum_&lt;1&gt;_&lt;3&gt;" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="9.55" y="19.0"/>
+      <place label-x="5.0" label-y="0.0" name="Check_Bat_&lt;1&gt;_&lt;3&gt;" x="9.0" y="24.0"/>
+      <transition label-x="-1.0" label-y="1.5" name="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;3&gt;" rotation="1.5707963267948966" type="IMM" weight="4.0" weight-x="0.0" weight-y="-1.0" x="6.85" y="30.0"/>
+      <transition label-x="6.0" label-y="0.0" name="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;4&gt;" rotation="1.5707963267948966" type="IMM" weight="1" x="13.85" y="30.0"/>
+      <place name="&lt;1&gt;_&lt;4&gt;" x="13.0" y="37.0"/>
+      <place label-x="-0.5" label-y="-1.5" name="r.Requires_Vacuum_&lt;1&gt;" x="23.0" y="3.0"/>
+      <place name="r.Number_Vacuumed" x="23.0" y="12.0"/>
+      <transition delay="2.0" name="VacuumedAll" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="23.55" y="8.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" width="14.5" x="7.75" y="42.0">&lt;1&gt; : origin
+&lt;2&gt;: destination
+&lt;3&gt;: current battery level
+&lt;4&gt;: battery level below
+</text-box>
+    </nodes>
+    <edges>
+      <arc head="Vacuum_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Vacuuming_&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Vacuum_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Finished_Vacuum_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="Vacuuming_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Check_Bat_&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Finished_Vacuum_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;3&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="&lt;1&gt;_&lt;3&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;3&gt;">
+        <point x="3.5" y="31.0"/>
+        <point x="3.5" y="4.0"/>
+      </arc>
+      <arc head="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;4&gt;" kind="INPUT" tail="Check_Bat_&lt;1&gt;_&lt;3&gt;"/>
+      <arc head="&lt;1&gt;_&lt;4&gt;" kind="OUTPUT" tail="Bat_Level_&lt;1&gt;_&lt;3&gt;_&lt;4&gt;"/>
+      <arc head="Vacuum_&lt;1&gt;_&lt;3&gt;" kind="INPUT" tail="r.Requires_Vacuum_&lt;1&gt;"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_&lt;1&gt;_&lt;3&gt;"/>
+    </edges>
+  </gspn>
+</project>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="robocup_open_challenge" version="121">
+  <gspn name="global_counter" show-color-cmd="false" show-fluid-cmd="false">
+    <nodes>
+      <transition label-x="3.0" label-y="1.0" name="Vacuum_L3" rotation="6.283185307179586" type="IMM" x="25.85" y="24.0"/>
+      <transition label-x="3.0" label-y="1.0" name="Vacuum_L4" rotation="6.283185307179586" type="IMM" x="25.85" y="29.0"/>
+      <transition label-x="2.5" label-y="-2.0" name="Vacuum_L2" rotation="6.283185307179586" type="IMM" x="25.85" y="20.0"/>
+      <transition label-x="3.0" label-y="1.0" name="Vacuum_L5" rotation="6.283185307179586" type="IMM" x="25.85" y="34.0"/>
+      <transition label-x="3.0" label-y="1.0" name="Vacuum_L6" type="IMM" x="25.85" y="39.0"/>
+      <place label-y="2.0" marking="1" name="r.Requires_Vacuum_L3" x="40.0" y="24.0"/>
+      <place label-x="-1.0" label-y="-2.5" name="r.Number_Vacuumed" x="8.0" y="4.0"/>
+      <transition delay="2.0" label-x="4.5" label-y="0.0" name="VacuumedAll" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="50.55" y="4.0"/>
+      <place marking="1" name="r.Requires_Vacuum_L2" x="32.0" y="20.0"/>
+      <place label-y="2.0" marking="1" name="r.Requires_Vacuum_L4" x="49.0" y="29.0"/>
+      <place label-y="2.0" marking="1" name="r.Requires_Vacuum_L5" x="60.0" y="34.0"/>
+      <place label-y="2.0" marking="1" name="r.Requires_Vacuum_L6" x="67.0" y="39.0"/>
+    </nodes>
+    <edges>
+      <arc head="Vacuum_L2" kind="INPUT" tail="r.Requires_Vacuum_L2"/>
+      <arc head="Vacuum_L3" kind="INPUT" tail="r.Requires_Vacuum_L3"/>
+      <arc head="Vacuum_L4" kind="INPUT" tail="r.Requires_Vacuum_L4"/>
+      <arc head="Vacuum_L5" kind="INPUT" tail="r.Requires_Vacuum_L5"/>
+      <arc head="Vacuum_L6" kind="INPUT" tail="r.Requires_Vacuum_L6"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_L2"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_L3"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_L4"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_L5"/>
+      <arc head="r.Number_Vacuumed" kind="OUTPUT" tail="Vacuum_L6"/>
+      <arc head="r.Requires_Vacuum_L2" kind="OUTPUT" tail="VacuumedAll"/>
+      <arc head="r.Requires_Vacuum_L4" kind="OUTPUT" tail="VacuumedAll"/>
+      <arc head="r.Requires_Vacuum_L5" kind="OUTPUT" tail="VacuumedAll"/>
+      <arc head="r.Requires_Vacuum_L6" kind="OUTPUT" tail="VacuumedAll"/>
+      <arc head="VacuumedAll" kind="INPUT" mult="5" mult-k="0.7266601562500001" tail="r.Number_Vacuumed">
+        <point x="37.870898437499996" y="5.0"/>
+      </arc>
+      <arc head="r.Requires_Vacuum_L3" kind="OUTPUT" tail="VacuumedAll"/>
+    </edges>
+  </gspn>
+  <gspn name="simple_overall" show-color-cmd="false" show-fluid-cmd="false" zoom="75">
+    <nodes>
+      <place marking="2" name="BS" x="46.0" y="65.0"/>
+      <place label-y="2.5" name="L1" x="46.0" y="48.0"/>
+      <place label-x="-1.5" label-y="-1.0" name="L2" x="15.0" y="48.0"/>
+      <place label-x="2.0" label-y="0.5" name="L3" x="81.0" y="48.0"/>
+      <place label-x="2.0" label-y="0.0" name="L4" x="65.0" y="26.0"/>
+      <place label-x="-2.0" label-y="0.0" name="L5" x="25.0" y="26.0"/>
+      <place name="L6" x="32.0" y="7.0"/>
+      <transition label-x="3.5" label-y="0.0" name="Go_BS_L1" rotation="1.5707963267948966" type="IMM" x="50.85" y="62.0"/>
+      <transition label-x="4.5" label-y="0.0" name="Arrived_BS_L1" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="50.55" y="53.0"/>
+      <place label-x="5.0" label-y="0.0" name="Navigating_BS_L1" x="50.0" y="57.0"/>
+      <transition label-x="-4.0" label-y="0.0" name="Go_L1_BS" rotation="1.5707963267948966" type="IMM" x="42.85" y="53.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="Arrived_L1_BS" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="42.55" y="62.0"/>
+      <place label-x="-5.5" label-y="0.0" name="Navigating_L1_BS" x="42.0" y="57.0"/>
+      <transition label-x="2.5" label-y="0.0" name="Go_L1_L4" rotation="2.356194490192345" type="IMM" x="58.85" y="37.0"/>
+      <transition name="Arrived_L1_L4" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="64.55" y="31.0"/>
+      <transition name="Go_L4_L1" rotation="2.356194490192345" type="IMM" x="60.85" y="27.0"/>
+      <transition label-x="-4.5" label-y="-0.5" name="Arrived_L4_L1" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="54.55" y="33.0"/>
+      <place label-x="-2.0" label-y="-2.0" name="Navigating_L4_L1" x="57.0" y="30.0"/>
+      <place label-x="3.5" label-y="1.0" name="Navigating_L1_L4" x="61.0" y="34.0"/>
+      <transition name="Go_L1_L3" type="IMM" x="64.85" y="51.0"/>
+      <transition delay-x="44.0" delay-y="0.5" label-x="1.5" label-y="1.5" name="Arrived_L1_L3" nservers-x="0.5" type="EXP" x="76.55" y="51.0"/>
+      <transition name="Arrived_L3_L1" nservers-x="0.5" type="EXP" x="64.55" y="46.0"/>
+      <transition name="Go_L3_L1" type="IMM" x="76.85" y="46.0"/>
+      <place name="Navigating_L3_L1" x="71.0" y="46.0"/>
+      <place name="Navigating_L1_L3" x="70.0" y="51.0"/>
+      <transition label-x="2.0" name="Go_L1_L5" rotation="0.7853981633974483" type="IMM" x="41.85" y="33.0"/>
+      <transition label-x="2.5" name="Arrived_L1_L5" nservers-x="0.5" rotation="0.7853981633974483" type="EXP" x="35.55" y="27.0"/>
+      <transition label-x="1.5" name="Go_L5_L1" rotation="0.7853981633974483" type="IMM" x="29.85" y="31.0"/>
+      <transition label-x="-2.5" label-y="2.5" name="Arrived_L5_L1" nservers-x="0.5" rotation="0.7853981633974483" type="EXP" x="35.55" y="37.0"/>
+      <place label-x="-3.0" name="Navigating_L5_L1" x="32.0" y="34.0"/>
+      <place label-x="2.5" label-y="-1.5" name="Navigating_L1_L5" x="38.0" y="30.0"/>
+      <transition name="Go_L1_L2" type="IMM" x="31.85" y="46.0"/>
+      <transition delay-x="99.0" delay-y="3.5" label-x="-1.0" name="Arrived_L1_L2" nservers-x="0.5" type="EXP" x="21.55" y="46.0"/>
+      <transition label-x="-2.0" label-y="1.5" name="Go_L2_L1" type="IMM" x="21.85" y="51.0"/>
+      <transition name="Arrived_L2_L1" nservers-x="0.5" type="EXP" x="31.55" y="51.0"/>
+      <place name="Navigating_L1_L2" x="26.0" y="46.0"/>
+      <place name="Navigating_L2_L1" x="26.0" y="51.0"/>
+      <transition label-x="3.5" label-y="0.0" name="Go_L5_L6" rotation="1.5707963267948966" type="IMM" x="35.85" y="17.0"/>
+      <place label-x="5.0" label-y="0.0" name="Navigating_L5_L6" x="35.0" y="13.0"/>
+      <transition label-x="4.5" label-y="0.0" name="Arrived_L5_L6" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="35.55" y="10.0"/>
+      <transition label-x="-3.5" label-y="0.0" name="Go_L6_L5" rotation="1.5707963267948966" type="IMM" x="29.85" y="10.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="Arrived_L6_L5" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="29.55" y="17.0"/>
+      <place label-x="-5.0" label-y="0.0" name="Navigating_L6_L5" x="29.0" y="13.0"/>
+      <transition label-x="3.0" label-y="1.0" name="Charge_BS" type="IMM" x="50.85" y="69.0"/>
+      <transition delay-x="78.0" delay-y="-21.5" label-x="-3.5" label-y="1.0" name="Charged_BS" nservers-x="0.5" type="EXP" x="42.55" y="69.0"/>
+      <place name="Charging_BS" x="46.0" y="69.0"/>
+      <transition label-x="3.0" label-y="-1.0" name="Vacuum_L3" rotation="1.5707963267948966" type="IMM" x="86.85" y="44.0"/>
+      <place label-x="4.0" label-y="-0.5" name="Vacuuming_L3" x="86.0" y="48.0"/>
+      <transition label-x="5.5" label-y="-1.0" name="Finished_Vacuum_L3" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="86.55" y="52.0"/>
+      <transition label-x="3.5" name="Vacuum_L4" rotation="0.7853981633974483" type="IMM" x="66.85" y="21.0"/>
+      <transition label-x="7.0" label-y="-0.5" name="Finished_Vacuum_L4" nservers-x="0.5" rotation="0.7853981633974483" type="EXP" x="72.55" y="27.0"/>
+      <place label-x="4.0" label-y="-1.0" name="Vacuuming_L4" x="69.0" y="24.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="Vacuum_L2" rotation="1.5707963267948966" type="IMM" x="10.85" y="44.0"/>
+      <place label-x="-4.5" label-y="0.0" name="Vacuuming__L2" x="10.0" y="48.0"/>
+      <transition label-x="-6.0" label-y="0.0" name="Finished_Vacuum_L2" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="10.55" y="52.0"/>
+      <transition label-x="-4.0" label-y="0.0" name="Vacuum_L5" rotation="1.5707963267948966" type="IMM" x="20.85" y="22.0"/>
+      <place label-x="-4.5" label-y="0.0" name="Vacuuming_L5" x="20.0" y="26.0"/>
+      <transition label-x="-6.0" label-y="0.0" name="Finished_Vacuum_L5" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="20.55" y="31.0"/>
+      <transition label-x="-4.0" name="Vacuum_L6" type="IMM" x="27.85" y="4.0"/>
+      <place label-y="-1.5" name="Vacuuming_L6" x="32.0" y="4.0"/>
+      <transition label-x="6.0" name="Finished_Vacuum_L6" nservers-x="0.5" type="EXP" x="37.55" y="4.0"/>
+    </nodes>
+    <edges>
+      <arc head="Go_BS_L1" kind="INPUT" tail="BS"/>
+      <arc head="Navigating_BS_L1" kind="OUTPUT" tail="Go_BS_L1"/>
+      <arc head="Arrived_BS_L1" kind="INPUT" tail="Navigating_BS_L1"/>
+      <arc head="L1" kind="OUTPUT" tail="Arrived_BS_L1"/>
+      <arc head="Navigating_L1_BS" kind="OUTPUT" tail="Go_L1_BS"/>
+      <arc head="Arrived_L1_BS" kind="INPUT" tail="Navigating_L1_BS"/>
+      <arc head="Go_L1_BS" kind="INPUT" tail="L1"/>
+      <arc head="BS" kind="OUTPUT" tail="Arrived_L1_BS"/>
+      <arc head="Navigating_L4_L1" kind="OUTPUT" tail="Go_L4_L1"/>
+      <arc head="Arrived_L4_L1" kind="INPUT" tail="Navigating_L4_L1"/>
+      <arc head="L1" kind="OUTPUT" tail="Arrived_L4_L1"/>
+      <arc head="Go_L1_L4" kind="INPUT" tail="L1"/>
+      <arc head="Navigating_L1_L4" kind="OUTPUT" tail="Go_L1_L4"/>
+      <arc head="Arrived_L1_L4" kind="INPUT" tail="Navigating_L1_L4"/>
+      <arc head="L4" kind="OUTPUT" tail="Arrived_L1_L4"/>
+      <arc head="Go_L4_L1" kind="INPUT" tail="L4"/>
+      <arc head="Go_L1_L3" kind="INPUT" tail="L1"/>
+      <arc head="Navigating_L1_L3" kind="OUTPUT" tail="Go_L1_L3"/>
+      <arc head="Arrived_L1_L3" kind="INPUT" tail="Navigating_L1_L3"/>
+      <arc head="L3" kind="OUTPUT" tail="Arrived_L1_L3"/>
+      <arc head="Go_L3_L1" kind="INPUT" tail="L3"/>
+      <arc head="Navigating_L3_L1" kind="OUTPUT" tail="Go_L3_L1"/>
+      <arc head="Arrived_L3_L1" kind="INPUT" tail="Navigating_L3_L1"/>
+      <arc head="L1" kind="OUTPUT" tail="Arrived_L3_L1"/>
+      <arc head="Go_L1_L5" kind="INPUT" tail="L1"/>
+      <arc head="Navigating_L1_L5" kind="OUTPUT" tail="Go_L1_L5"/>
+      <arc head="Arrived_L1_L5" kind="INPUT" tail="Navigating_L1_L5"/>
+      <arc head="L5" kind="OUTPUT" tail="Arrived_L1_L5"/>
+      <arc head="Go_L5_L1" kind="INPUT" tail="L5"/>
+      <arc head="Navigating_L5_L1" kind="OUTPUT" tail="Go_L5_L1"/>
+      <arc head="Arrived_L5_L1" kind="INPUT" tail="Navigating_L5_L1"/>
+      <arc head="L1" kind="OUTPUT" tail="Arrived_L5_L1"/>
+      <arc head="Go_L2_L1" kind="INPUT" tail="L2"/>
+      <arc head="Navigating_L2_L1" kind="OUTPUT" tail="Go_L2_L1"/>
+      <arc head="Arrived_L2_L1" kind="INPUT" tail="Navigating_L2_L1"/>
+      <arc head="L1" kind="OUTPUT" tail="Arrived_L2_L1"/>
+      <arc head="Go_L1_L2" kind="INPUT" tail="L1"/>
+      <arc head="Navigating_L1_L2" kind="OUTPUT" tail="Go_L1_L2"/>
+      <arc head="Arrived_L1_L2" kind="INPUT" tail="Navigating_L1_L2"/>
+      <arc head="L2" kind="OUTPUT" tail="Arrived_L1_L2"/>
+      <arc head="Go_L5_L6" kind="INPUT" tail="L5"/>
+      <arc head="Navigating_L5_L6" kind="OUTPUT" tail="Go_L5_L6"/>
+      <arc head="Arrived_L5_L6" kind="INPUT" tail="Navigating_L5_L6"/>
+      <arc head="L6" kind="OUTPUT" tail="Arrived_L5_L6"/>
+      <arc head="Go_L6_L5" kind="INPUT" tail="L6"/>
+      <arc head="Navigating_L6_L5" kind="OUTPUT" tail="Go_L6_L5"/>
+      <arc head="Arrived_L6_L5" kind="INPUT" tail="Navigating_L6_L5"/>
+      <arc head="L5" kind="OUTPUT" tail="Arrived_L6_L5"/>
+      <arc head="Charge_BS" kind="INPUT" tail="BS">
+        <point x="54.0" y="66.0"/>
+        <point x="54.0" y="70.0"/>
+      </arc>
+      <arc head="BS" kind="OUTPUT" tail="Charged_BS">
+        <point x="39.5" y="70.0"/>
+        <point x="39.5" y="66.0"/>
+      </arc>
+      <arc head="Charging_BS" kind="OUTPUT" tail="Charge_BS"/>
+      <arc head="Charged_BS" kind="INPUT" tail="Charging_BS"/>
+      <arc head="Vacuum_L3" kind="INPUT" tail="L3">
+        <point x="82.0" y="43.0"/>
+        <point x="87.0" y="43.0"/>
+      </arc>
+      <arc head="Vacuuming_L3" kind="OUTPUT" tail="Vacuum_L3"/>
+      <arc head="Finished_Vacuum_L3" kind="INPUT" tail="Vacuuming_L3"/>
+      <arc head="L3" kind="OUTPUT" tail="Finished_Vacuum_L3">
+        <point x="87.0" y="57.0"/>
+        <point x="82.0" y="57.0"/>
+      </arc>
+      <arc head="Vacuum_L4" kind="INPUT" tail="L4">
+        <point x="61.0" y="22.5"/>
+        <point x="64.5" y="19.5"/>
+      </arc>
+      <arc head="Vacuuming_L4" kind="OUTPUT" tail="Vacuum_L4"/>
+      <arc head="Finished_Vacuum_L4" kind="INPUT" tail="Vacuuming_L4"/>
+      <arc head="L4" kind="OUTPUT" tail="Finished_Vacuum_L4">
+        <point x="75.0" y="30.0"/>
+        <point x="72.0" y="32.5"/>
+      </arc>
+      <arc head="Vacuum_L2" kind="INPUT" tail="L2">
+        <point x="16.0" y="43.0"/>
+        <point x="11.0" y="43.0"/>
+      </arc>
+      <arc head="Vacuuming__L2" kind="OUTPUT" tail="Vacuum_L2"/>
+      <arc head="Finished_Vacuum_L2" kind="INPUT" tail="Vacuuming__L2"/>
+      <arc head="L2" kind="OUTPUT" tail="Finished_Vacuum_L2">
+        <point x="11.0" y="57.0"/>
+        <point x="16.0" y="57.0"/>
+      </arc>
+      <arc head="Vacuuming_L5" kind="OUTPUT" tail="Vacuum_L5"/>
+      <arc head="Finished_Vacuum_L5" kind="INPUT" tail="Vacuuming_L5"/>
+      <arc head="Vacuum_L5" kind="INPUT" tail="L5">
+        <point x="26.0" y="20.5"/>
+        <point x="21.0" y="20.5"/>
+      </arc>
+      <arc head="L5" kind="OUTPUT" tail="Finished_Vacuum_L5">
+        <point x="21.0" y="35.5"/>
+        <point x="26.0" y="35.5"/>
+      </arc>
+      <arc head="Vacuum_L6" kind="INPUT" tail="L6">
+        <point x="25.5" y="8.0"/>
+        <point x="25.5" y="5.0"/>
+      </arc>
+      <arc head="Vacuuming_L6" kind="OUTPUT" tail="Vacuum_L6"/>
+      <arc head="Finished_Vacuum_L6" kind="INPUT" tail="Vacuuming_L6"/>
+      <arc head="L6" kind="OUTPUT" tail="Finished_Vacuum_L6">
+        <point x="42.0" y="5.0"/>
+        <point x="42.0" y="8.0"/>
+      </arc>
+    </edges>
+  </gspn>
+</project>
