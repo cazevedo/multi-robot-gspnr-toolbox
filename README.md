@@ -8,6 +8,6 @@ Clone the repo:
 ```bash
 git clone https://github.com/cazevedo/multi-robot-gspnr-toolbox.git
 ```
-Run the `install.m` script on MATLAB.
+Run the `install.m` script on MATLAB and you will be directed to the `GettingStarted.mlx` live script.
 
 Follow the `GettingStarted.mlx` live script.
