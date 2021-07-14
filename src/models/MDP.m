@@ -162,8 +162,12 @@ classdef MDP < handle
         
         function consolidation_uniformization(MDP, state_types)
            %Calculation of eta, uniformization constant
+%            exp_action_matrix = sparse(MDP.nStates, MDP.nStates);
+%            total_trans_freq = sparse(MDP.nStates, MDP.nStates);
+           
            exp_action_matrix = sparse(MDP.nStates, MDP.nStates);
-           total_trans_freq = sparse(MDP.nStates, MDP.nStates);
+           total_trans_freq = spalloc(MDP.nStates, MDP.nStates, MDP.nEXPTransitions);
+           
            exit_rates = [];
            for row_index = 1:MDP.nEXPTransitions
                indices = MDP.exponential_transition_matrix{1}(row_index, :);
@@ -185,7 +189,9 @@ classdef MDP < handle
                        end
                    else
                        %Nondiagonal, normal expression
-                       exp_action_matrix(source_state, target_state) = total_trans_freq(source_state,target_state)/eta;
+                       if total_trans_freq(source_state, target_state) ~= 0
+                            exp_action_matrix(source_state, target_state) = total_trans_freq(source_state,target_state)/eta;
+                        end
                    end
                end
            end
