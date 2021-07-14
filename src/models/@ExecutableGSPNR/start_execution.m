@@ -1,4 +1,4 @@
-function start_execution(obj)
+function results = start_execution(obj)
     %Starts execution with ROS Action Servers
     
     %Create buffer global variable that ResultFcn of action clients can
@@ -79,7 +79,13 @@ function start_execution(obj)
     wait_state = false;
     %Main firing loop
     done = false;
-
+    frequency = 0.1;
+    
+    % Save results
+    global results;
+    start_time = datetime('now');
+    results = struct("markings", [], "transitions", [], "timestamps", [], "reward", 0);
+    
     while (~done)
 
         while (finished_actions_count ~= 0)
@@ -104,6 +110,17 @@ function start_execution(obj)
               ExecutionFlags(fin_action.robot_index) = "FIN";
               robots_involved = fin_action.robot_index;
               obj.fire_transition(transition_to_fire);
+              
+              %Adding transition reward
+              trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
+              results.reward = results.reward + trans_reward;
+              % Saving results
+              timestamp = datetime('now')-start_time;
+              marking = obj.current_marking;
+              results.markings = cat(1, results.markings, marking);
+              results.transitions = cat(1, results.transitions, transition_to_fire);
+              results.timestamps = cat(1, results.timestamps, timestamp);
+              
               wait_state = false;
               RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
               log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
@@ -117,6 +134,17 @@ function start_execution(obj)
               if ~isempty(find(exp == transition_name))
                   log_exponential_transitions(logID, obj, 0, transition_name, ExponentialFlags, [], timer_name);
                   obj.fire_transition(transition_name);
+                  
+                  %Adding transition reward
+                  trans_reward = obj.transition_rewards(obj.find_transition_index(transition_name));
+                  results.reward = results.reward + trans_reward;
+                  % Saving results
+                  timestamp = datetime('now')-start_time;
+                  marking = obj.current_marking;
+                  results.markings = cat(1, results.markings, marking);
+                  results.transitions = cat(1, results.transitions, transition_name);
+                  results.timestamps = cat(1, results.timestamps, timestamp);
+              
                   wait_state = false;
                   in_vector_index = find(simple_transitions == transition_name);
                   ExponentialFlags(in_vector_index) = "FIN";
@@ -181,7 +209,7 @@ function start_execution(obj)
         else
         %Marking either "RAN" or "DET"
             transition = obj.get_policy(obj.current_marking);
-            [imm, exp] = obj.enabled_transitions()
+            [imm, exp] = obj.enabled_transitions();
             if isempty(imm) && isempty(exp)
                 disp("Sink marking reached");
                 return
@@ -195,6 +223,17 @@ function start_execution(obj)
                 robots_involved = obj.check_robots_involved(imm(rn_trans), RobotPlaces);
                 log_firing(logID, obj, 1, imm(rn_trans), RobotPlaces, ExecutionFlags);
                 obj.fire_transition(imm(rn_trans));
+                
+                %Adding transition reward
+                trans_reward = obj.transition_rewards(obj.find_transition_index(imm(rn_trans)));
+                results.reward = results.reward + trans_reward;
+                % Saving results
+                timestamp = datetime('now')-start_time;
+                marking = obj.current_marking;
+                results.markings = cat(1, results.markings, marking);
+                results.transitions = cat(1, results.transitions, imm(rn_trans));
+                results.timestamps = cat(1, results.timestamps, timestamp);
+                
                 wait_state = false;
                 RobotPlaces     = obj.update_robot_places(imm(rn_trans), RobotPlaces, robots_involved);
                 log_firing(logID, obj, 2, imm(rn_trans), RobotPlaces, ExecutionFlags);
@@ -207,12 +246,26 @@ function start_execution(obj)
                 robots_involved = obj.check_robots_involved(transition, RobotPlaces);
                 log_firing(logID, obj, 1, transition, RobotPlaces, ExecutionFlags);
                 obj.fire_transition(transition);
+                
+                %Adding transition reward
+                trans_reward = obj.transition_rewards(obj.find_transition_index(transition));
+                results.reward = results.reward + trans_reward;
+                % Saving results
+                timestamp = datetime('now')-start_time;
+                marking = obj.current_marking;
+                results.markings = cat(1, results.markings, marking);
+                results.transitions = cat(1, results.transitions, transition);
+                results.timestamps = cat(1, results.timestamps, timestamp);
+                
                 wait_state = false;
                 RobotPlaces     = obj.update_robot_places(transition, RobotPlaces, robots_involved);
                 log_firing(logID, obj, 2, transition, RobotPlaces, ExecutionFlags);
             end
         end
-        pause(0.1);
+        %Add place reward
+        marked_places = obj.current_marking~=0;
+        results.reward = (dot(obj.place_rewards,marked_places) * frequency) + results.reward;
+        pause(frequency);
     end
 
 end
@@ -226,6 +279,7 @@ function FinishedAction(~, msg, s, ~)
     fin_action.robot_index = msg.Message.Sequence(2);
     fin_action.place_index = msg.Message.Sequence(1);
     fin_action.transition_index = msg.Message.Sequence(3);
+    fin_action.timer_name = "";
     done = 0;
     while ~done
         if lock == 0
@@ -247,10 +301,12 @@ function FinishedExponentialTransition(obj,~,transition_index)
     global finished_actions_buffer
     global finished_actions_count
     global lock
+    disp("Exponential timer finished");
     fin_action = struct();
     fin_action.action = false;
     fin_action.robot_index = transition_index;
     fin_action.place_index = 0;
+    fin_action.transition_index = 0;
     fin_action.timer_name = obj.Name;
     done = 0;
     while ~done
@@ -271,7 +327,9 @@ end
 
 function CleaningAfterInterrupt()
     global logID;
+    global results;
     fclose(logID);
     disp('Shutting down MATLAB ROS node')
+    save("execution_results.mat", "results");
     rosshutdown;
 end
