@@ -65,11 +65,11 @@ executableModel.initialize(GSPNRModel, yaml_filepath, []);
 %% Preparing ExecutableGSPNR to execute - remove nonrobot places properties, load policy from .mat file
 
 % Set policy
-policy_workspace_filepath = 'solarfarm_inspection_globalcounter_3robots.mat';
-load(policy_workspace_filepath, 'complete_policy');
-
-executableModel.set_policy(complete_policy);
-% executableModel.set_empty_policy();
+% policy_workspace_filepath = 'solarfarm_inspection_globalcounter_3robots.mat';
+% load(policy_workspace_filepath, 'complete_policy');
+% 
+% executableModel.set_policy(complete_policy);
+% % executableModel.set_empty_policy();
 
 %% Preparing executable GSPNR - adding robots, creating interface action servers;
 
@@ -79,5 +79,5 @@ RobotDistribution = executableModel.robot_initial_locations;
 executableModel.create_ros_interface_package(true)
 
 %% Executing the GSPNR
-executableModel.start_execution();
+% executableModel.start_execution();
 

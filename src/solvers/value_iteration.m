@@ -26,6 +26,7 @@ function [values, policy, max_res, timed_out] = value_iteration(MDP, max_min, ga
     end
     
     while (~converged)
+        tic
         step = step + 1;
         for state_index = 1:MDP.nStates
             old_value = values(state_index);
@@ -41,8 +42,10 @@ function [values, policy, max_res, timed_out] = value_iteration(MDP, max_min, ga
                 max_res = new_res;
             end
         end
-        %print = "ITERATED THRU ALL STATES"
-        %print = "Error was - "+string(max_res)
+        msg ="Finished Iteration - number "+string(step);
+        disp(msg);
+        msg = "Error was - "+string(max_res);
+        disp(msg);
         converged = max_res<epsilon;
         if timed_out == true
             converged = true;
@@ -50,7 +53,7 @@ function [values, policy, max_res, timed_out] = value_iteration(MDP, max_min, ga
         if ~converged
             max_res = -Inf;
         end
-        
+        toc
     end
     %debug = "Number of iterations done: "+string(step)
 end

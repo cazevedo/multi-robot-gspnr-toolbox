@@ -1,0 +1,14 @@
+---
+    normal_action:
+      -action_server_name: "MopActionServer"
+      -package_name: "multi_robot_home_clean"
+      -action_name: "MoppingAction"
+      -message_fields: {"duration":10}
+    action_with_feedback:
+      -action_server_name: "VacuumWithResultActionServer"
+      -package_name: "multi_robot_home_clean"
+      -action_name: "VacuumingWithResultAction"
+      -message_fields: {"duration":10}
+      -with_result: true
+      -result_trans : {"first": "first_result", "second": "second_result", "third": "third_result"}
+...
