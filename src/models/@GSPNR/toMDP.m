@@ -15,6 +15,7 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
    %                                             string defining the type
    %                                             of state in the MDP
    
+   current_time = datetime('now');
    
    %Markings are added to the state as soon as they are discovered
    emb_MDP = MDP();
@@ -31,13 +32,24 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
    covered_marking_list = cat(1,covered_marking_list,GSPN.initial_marking);
    covered_state_list = cat(1, covered_state_list, state_name);
    emb_MDP.add_state(state_name);
+   
+   n_iterations = 0;
+   reporting = 1000;
 
    while ~(isempty(markings_to_explore))
       original_marking = markings_to_explore(1,:); %Marking to be explored
+      n_iterations = n_iterations + 1;
+      if rem(n_iterations, reporting) == 0
+        disp(sum(original_marking))
+        disp(size(covered_state_list, 1))
+        last_time = current_time;
+        current_time = datetime('now');
+        disp(seconds(current_time-last_time));
+      end
 %               log = "Exploring marking - "
 %               original_marking
       GSPN.set_marking(original_marking);
-      [exists, original_state_index] = ismember(original_marking, covered_marking_list, 'rows');
+      original_state_index = find(all(bsxfun(@eq,covered_marking_list,original_marking),2));
       original_state = covered_state_list(original_state_index);
 
       [imm_enabled, exp_enabled] = GSPN.enabled_transitions(); %Enabled transitions in this state
@@ -75,8 +87,9 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
           transition = imm_enabled(imm_enabled_index);
           GSPN.fire_transition(transition);
           new_marking = GSPN.current_marking;
-          [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows');
-          if (~explored)
+          
+          target_state_index = find(all(bsxfun(@eq,covered_marking_list,new_marking),2));
+          if (isempty(target_state_index))
               markings_to_explore = cat(1, markings_to_explore, new_marking);
               covered_marking_list = cat(1, covered_marking_list, new_marking);
               target_state_name = "S" + string(state_index);
@@ -134,8 +147,8 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
          transition = exp_enabled(exp_enabled_index);
          GSPN.fire_transition(transition);
          new_marking = GSPN.current_marking;
-         [explored, target_state_index] = ismember(new_marking, covered_marking_list, 'rows');
-         if (~explored)
+         target_state_index = find(all(bsxfun(@eq,covered_marking_list,new_marking),2));
+         if (isempty(target_state_index))
              markings_to_explore = cat(1, markings_to_explore, new_marking);
              covered_marking_list = cat(1, covered_marking_list, new_marking);
              target_state_name = "S" + string(state_index);
