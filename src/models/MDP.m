@@ -271,14 +271,16 @@ classdef MDP < handle
         end
         
         function reward = get_reward(MDP, state_index, action_index)
-            index = find(ismember(MDP.reward_matrix{1}, [state_index action_index], 'rows'));
+            %index = find(ismember(MDP.reward_matrix{1}, [state_index action_index], 'rows'));
+            index = find(all(bsxfun(@eq,MDP.reward_matrix{1},[state_index action_index]),2));
             reward = MDP.reward_matrix{2}(index);
         end
         
         function [end_state_indices, end_state_probs] = action_probs(MDP, state_index, action_index)
             end_state_indices = [];
             end_state_probs = [];
-            pos_in_list = find(ismember(MDP.transition_matrix{1}(:,1:2), [state_index action_index],'rows'));
+            pos_in_list = find(all(bsxfun(@eq,MDP.transition_matrix{1}(:,1:2),[state_index action_index]),2));
+            %pos_in_list = find(ismember(MDP.transition_matrix{1}(:,1:2), [state_index action_index],'rows'));
             nTransitions = size(pos_in_list,1);
             for t_index = 1:nTransitions
                 pos = pos_in_list(t_index);
