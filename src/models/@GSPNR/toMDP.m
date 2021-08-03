@@ -98,6 +98,19 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
               emb_MDP.add_state(target_state_name);
               state_index = state_index + 1;
           else
+              if size(target_state_index,1) ~= 1
+                 %Transitioning to a hybrid marking with two states (one VAN and one
+                 %TAN - Wait state)
+                 nStates = size(target_state_index, 1);
+                 for s_index = 1:nStates
+                     state_type = covered_state_type(target_state_index(s_index));
+                     if state_type == "VAN"
+                         %Choose vanishing marking
+                         target_state_index = target_state_index(s_index);
+                         break;
+                     end
+                 end
+             end
               target_state_name = emb_MDP.states(target_state_index);
           end
           if weight_sum ~= 0
@@ -157,7 +170,20 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
              emb_MDP.add_state(target_state_name);
              state_index = state_index + 1;
          else
-             target_state_name = covered_state_list(target_state_index);
+             if size(target_state_index,1) ~= 1
+                 %Transitioning to a hybrid marking with two states (one VAN and one
+                 %TAN - Wait state)
+                 nStates = size(target_state_index, 1);
+                 for s_index = 1:nStates
+                     state_type = covered_state_type(target_state_index(s_index));
+                     if state_type == "VAN"
+                         %Choose vanishing marking
+                         target_state_index = target_state_index(s_index);
+                         break;
+                     end
+                 end
+             end
+            target_state_name = covered_state_list(target_state_index);
          end
          transition_index = find(GSPN.transitions == transition);
          transition_rate = GSPN.rate_transitions(transition_index);
