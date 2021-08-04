@@ -1,4 +1,4 @@
-function results = evaluate_policy(obj, policy, nTransitions)
+function results = evaluate_policy(obj, policy, nTransitions, n_report)
 %EVALUATE_POLICY Simulate the policy execution with simulated time
 %Input:
 %   policy_struct   [struct] - struct containing the following fields:
@@ -9,6 +9,7 @@ function results = evaluate_policy(obj, policy, nTransitions)
 %                       when the MDP model is in the state of the element's index;
 %                       * mdp - MDP object where policy was computed on;
 %   nTransitions    [int] - number of transitions to fire;
+%   n_report        [int] - function reports to command prompt every "n_report" transitions fired
 %Output:
 %   results         [struct] - containing the following fields:
 %                       * markings - matrix where each row represents a marking;
@@ -39,6 +40,8 @@ function results = evaluate_policy(obj, policy, nTransitions)
     
     %Preparing results array
     start = datetime('now');
+    now = start;
+    reporting_time = start;
     results = struct("markings", [], "transitions", [], "timestamps", [], "reward", 0);
     
     transitions_fired = 0;
@@ -48,17 +51,25 @@ function results = evaluate_policy(obj, policy, nTransitions)
         %Print current marking
         marking_type = obj.check_marking_type();
         marking = obj.current_marking;
-        disp("-----------------------------")
-        disp("Current marked places are the following:");
-        marked_place_indices = find(marking);
-        for p_ii = 1:size(marked_place_indices, 2)
-            place_index = marked_place_indices(p_ii);
-            place_name = obj.places(place_index);
-            ntokens = obj.current_marking(place_index);
-            msg = place_name+":"+string(ntokens);
+        if mod(transitions_fired, n_report) == 0
+            disp("-----------------------------")
+            disp("Current marked places are the following:");
+            marked_place_indices = find(marking);
+            for p_ii = 1:size(marked_place_indices, 2)
+                place_index = marked_place_indices(p_ii);
+                place_name = obj.places(place_index);
+                ntokens = obj.current_marking(place_index);
+                msg = place_name+":"+string(ntokens);
+                disp(msg);
+            end
+            msg = "Percentage of transitions fired - "+string((transitions_fired/nTransitions)*100)+"%";
+            disp(msg)
+            previous_reporting_time = reporting_time;
+            reporting_time = datetime('now');
+            msg = "Time taken to fire "+string(n_report)+" transitions is "+string(seconds(reporting_time-previous_reporting_time))+" seconds";
             disp(msg);
+            disp("-----------------------------")
         end
-        disp("-----------------------------")
         [imm, exp] = obj.enabled_transitions();
         if (marking_type == "DET" || marking_type == "RAN")
             if marking_type == "DET"
@@ -66,8 +77,9 @@ function results = evaluate_policy(obj, policy, nTransitions)
                 [exists, marking_index] = ismember(marking, markings_to_transition.markings, 'rows');
                 if exists
                     transition = markings_to_transition.transitions(marking_index);
-                    msg = "Will fire transition from policy - "+transition;
-                    disp(msg);
+                    
+                    %msg = "Will fire transition from policy - "+transition;
+                    %disp(msg);
                     if ~isempty(find(imm == transition))
                         %Fire transition chosen by policy
                         obj.fire_transition(transition)
@@ -75,13 +87,15 @@ function results = evaluate_policy(obj, policy, nTransitions)
                         trans_reward = obj.transition_rewards(obj.find_transition_index(transition));
                         results.reward = results.reward + trans_reward;
                         % Saving results
-                        timestamp = datetime('now')-start;
+                        timestamp = now-start;
                         marking = obj.current_marking;
                         results.markings = cat(1, results.markings, marking);
                         results.transitions = cat(1, results.transitions, transition);
                         results.timestamps = cat(1, results.timestamps, timestamp);
-                        msg = "Fired transition from policy - "+transition;
-                        disp(msg);
+                        
+                        %msg = "Fired transition from policy - "+transition;
+                        %disp(msg);
+                        
                         transitions_fired = transitions_fired + 1;
                         if transitions_fired == nTransitions
                             done = 1;
@@ -109,14 +123,16 @@ function results = evaluate_policy(obj, policy, nTransitions)
                 norm_constant = sum(weights);
                 weights = weights./norm_constant;
                 transition_chosen = randsample(imm, 1, true, weights);
-                msg = "Fired transition from random switch - "+transition_chosen;
-                disp(msg);
+                
+                %msg = "Fired transition from random switch - "+transition_chosen;
+                %disp(msg);
+                
                 obj.fire_transition(transition_chosen);
                 %Adding transition reward
                 trans_reward = obj.transition_rewards(obj.find_transition_index(transition_chosen));
                 results.reward = results.reward + trans_reward;
                 %Saving results
-                timestamp = datetime('now')-start;
+                timestamp = now-start;
                 marking = obj.current_marking;
                 results.markings = cat(1, results.markings, marking);
                 results.transitions = cat(1, results.transitions, transition);
@@ -141,15 +157,19 @@ function results = evaluate_policy(obj, policy, nTransitions)
             [chosen_delay, chosen_trans_index] = min(delays, [], 2);
             transition_chosen = exp(chosen_trans_index);
             %Fire transition
-            msg = "Will fire transition from race condition - "+transition_chosen+"in "+chosen_delay+"s";
-            disp(msg);
-            pause(chosen_delay);
+            
+            %msg = "Will fire transition from race condition - "+transition_chosen+"in "+chosen_delay+"s";
+            %disp(msg);
+            
+            %pause(chosen_delay);
+            now = now + duration(0,0,chosen_delay);
+            
             obj.fire_transition(transition_chosen);
             %Add place reward
             marked_places = obj.current_marking~=0;
             results.reward = (dot(obj.place_rewards,marked_places) * chosen_delay) + results.reward;
             %Saving results
-            timestamp = datetime('now')-start;
+            timestamp = now-start;
             marking = obj.current_marking;
             results.markings = cat(1, results.markings, marking);
             results.transitions = cat(1, results.transitions, transition_chosen);
@@ -159,7 +179,6 @@ function results = evaluate_policy(obj, policy, nTransitions)
                 done = 1;
             end
         end
-        disp(transitions_fired)
     end
 end
 
