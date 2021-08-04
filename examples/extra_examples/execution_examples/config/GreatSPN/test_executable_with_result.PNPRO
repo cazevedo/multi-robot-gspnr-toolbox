@@ -56,4 +56,27 @@
       <arc head="finish_3" kind="OUTPUT" tail="third_result"/>
     </edges>
   </gspn>
+  <gspn name="cooperation_test" show-color-cmd="false" show-fluid-cmd="false" zoom="125">
+    <nodes>
+      <place label-x="-4.0" label-y="0.0" marking="1" name="UAV_ready" x="8.0" y="3.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="1" name="UGV_ready" x="8.0" y="14.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="joint_decision" type="IMM" x="14.85" y="8.0"/>
+      <place label-x="0.5" label-y="2.5" name="UAV_doing" x="21.0" y="3.0"/>
+      <place name="UGV_doing" x="21.0" y="14.0"/>
+      <transition name="UAV_finished" nservers-x="0.5" type="EXP" x="31.55" y="3.0"/>
+      <transition name="UGV_finished" nservers-x="0.5" type="EXP" x="31.55" y="14.0"/>
+      <place name="UAV_done" x="43.0" y="3.0"/>
+      <place name="UGV_done" x="43.0" y="14.0"/>
+    </nodes>
+    <edges>
+      <arc head="joint_decision" kind="INPUT" tail="UAV_ready"/>
+      <arc head="joint_decision" kind="INPUT" tail="UGV_ready"/>
+      <arc head="UAV_doing" kind="OUTPUT" tail="joint_decision"/>
+      <arc head="UGV_doing" kind="OUTPUT" tail="joint_decision"/>
+      <arc head="UAV_finished" kind="INPUT" tail="UAV_doing"/>
+      <arc head="UGV_finished" kind="INPUT" tail="UGV_doing"/>
+      <arc head="UAV_done" kind="OUTPUT" tail="UAV_finished"/>
+      <arc head="UGV_done" kind="OUTPUT" tail="UGV_finished"/>
+    </edges>
+  </gspn>
 </project>
