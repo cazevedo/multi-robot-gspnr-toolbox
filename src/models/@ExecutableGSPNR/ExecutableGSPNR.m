@@ -20,7 +20,11 @@ classdef ExecutableGSPNR < GSPNR
         robot_initial_locations = [];   %[int array] - each element indicates the place index where each robot starts out
         nRobots = 0;                    %[int] - number of robots
         
-        robot_places = [string.empty];  %[int array] - each element indicates the place index where each token/robot currently is
+        heterogeneous = false;          %[logical] - true if GSPNR model is of a heterogeneous system;
+        type_list = [string.empty];     %[string array] - list of robot types present
+        place_types = [];               %[int array] - each element contains the index of the robot type for each place in the GSPNR. Nonrobot places have 0 values;             
+        
+        robot_places = [string.empty];  %[int array] - each element indicates places where tokens map to robots
         
         interface_action_servers = [string.empty]; %[string array] - each element indicates the name of the interface action server corresponding to each robot
         
@@ -33,9 +37,11 @@ classdef ExecutableGSPNR < GSPNR
         function execGSPNR = ExecutableGSPNR()
             execGSPNR = execGSPNR@GSPNR();
         end
+        
         function set_place_actions(obj, action_map)
             obj.place_actions = action_map;
         end
+        
         function initialize(obj, GSPNR, YAML_filepath, action_map)
             %Initialize instance of object with an already existing GSPNR model;
             %Input:
@@ -284,6 +290,27 @@ classdef ExecutableGSPNR < GSPNR
             %Input:
             %   catkin_ws   [string] - absolute path to catkin workspace where ROS interface package will be created and built
             obj.catkin_ws = catkin_ws;
+        end
+        
+        function set_types(obj, type_list, places, types)
+            if size(places,2) ~= size(types,2)
+                error("Given places array must have the same size as types array");
+            end
+            obj.heterogeneous = true;
+            obj.type_list = type_list;
+            obj.place_types = zeros(1, size(obj.places, 2));
+            nGivenPlaces = size(places, 2);
+            for i_index = 1:nGivenPlaces
+                place_name = places(i_index);
+                place_index = obj.find_place_index(place_name);
+                type = types(i_index);
+                type_index = find(type_list == type);
+                if isempty(type_index)
+                    error("Input 'types' contains robot type not declared in 'type_list'");
+                else
+                    obj.place_types(place_index) = type_index;
+                end
+            end
         end
         
         function delete(obj)

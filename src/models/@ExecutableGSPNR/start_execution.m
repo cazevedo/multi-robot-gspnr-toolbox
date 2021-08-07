@@ -62,10 +62,18 @@ function results = start_execution(obj)
 
     fprintf('----------------------\nAll robot action servers needed are correctly launched\n----------------------\n');
     %----------------------
-%     %Checking that there is no ambiguity in GSPNR regarding tokens/robots
-%     if exec.ambiguity == true
-%         error("Before executing GSPNR, ambiguity must be resolved.")
-%     end
+    
+    %Checking if system is homogeneous, if so, set a "default" type for
+    %every place
+    if obj.heterogeneous == false
+        places = obj.places;
+        nPlaces = size(places, 2);
+        types = repmat("default", 1, nPlaces);
+        type_list = ["default"];
+        obj.set_types(type_list, places, types);
+    end
+    
+    
     %Checking initial robot distribution and initializing variables
     nRobots = obj.nRobots;
     RobotPlaces = obj.robot_initial_locations
@@ -176,8 +184,8 @@ function results = start_execution(obj)
                 if flag == "FIN"
                     robot_name = obj.robot_list(r_index)
                     place_index = RobotPlaces(r_index)
-                    print = "Sent goal of place - "+obj.places(place_index)+"to robot "+robot_name
                     if ~isempty(obj.place_actions(place_index).place_name)
+                        print = "Sent goal of place - "+obj.places(place_index)+"to robot "+robot_name
                         log_goals(logID, obj, 1, place_index, r_index, ExecutionFlags);
                         interface_action_clients(r_index).goalmsg.Order = int32(place_index);
                         ExecutionFlags(r_index) = "EXE";
