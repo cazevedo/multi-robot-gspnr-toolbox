@@ -6,9 +6,9 @@ function launch_name = create_python_interface_scripts(obj, package_dir)
     for s_index = 1:nScripts
         robot_name = obj.robot_list(s_index);
         script_name = "matlab_interface_server_"+robot_name;
-        script_location = script_paths + script_name
+        script_location = "~/"+ script_paths + script_name
         fileID = fopen(script_location, 'w');
-        fprintf(fileID, '#! /usr/bin/env python3\nimport rospy\nimport actionlib\nimport actionlib_tutorials.msg\n');
+        fprintf(fileID, '#! /usr/bin/env python\nimport rospy\nimport actionlib\nimport actionlib_tutorials.msg\n');
         for d_index = 1:obj.nROSDependencies
             package_name = obj.unique_ROS_package_dependencies(d_index);
             package_msg = package_name + ".msg";
@@ -121,7 +121,7 @@ function launch_name = create_python_interface_scripts(obj, package_dir)
     end
     launch_path = package_dir + "/launch/";
     launch_name = "matlab_interface_servers.launch";
-    launch_file_location = launch_path + launch_name;
+    launch_file_location = "~/"+ launch_path + launch_name;
     fileID = fopen(launch_file_location, 'w');
     fprintf(fileID, "<?xml version=""1.0""?>\n<launch>");
     for r_index = 1:obj.nRobots
