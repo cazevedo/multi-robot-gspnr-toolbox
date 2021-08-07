@@ -58,15 +58,17 @@
   </gspn>
   <gspn name="cooperation_test" show-color-cmd="false" show-fluid-cmd="false" zoom="125">
     <nodes>
-      <place label-x="-4.0" label-y="0.0" marking="1" name="UAV_ready" x="8.0" y="3.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="1" name="UGV_ready" x="8.0" y="14.0"/>
-      <transition label-x="-4.5" label-y="0.0" name="joint_decision" type="IMM" x="14.85" y="8.0"/>
-      <place label-x="0.5" label-y="2.5" name="UAV_doing" x="21.0" y="3.0"/>
-      <place name="UGV_doing" x="21.0" y="14.0"/>
-      <transition name="UAV_finished" nservers-x="0.5" type="EXP" x="31.55" y="3.0"/>
-      <transition name="UGV_finished" nservers-x="0.5" type="EXP" x="31.55" y="14.0"/>
-      <place name="UAV_done" x="43.0" y="3.0"/>
-      <place name="UGV_done" x="43.0" y="14.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="1" name="UAV_ready" x="8.0" y="5.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="1" name="UGV_ready" x="8.0" y="16.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="joint_decision" type="IMM" x="14.85" y="10.0"/>
+      <place label-x="0.5" label-y="2.5" name="UAV_doing" x="21.0" y="5.0"/>
+      <place name="UGV_doing" x="21.0" y="16.0"/>
+      <transition name="UAV_finished" nservers-x="0.5" type="EXP" x="31.55" y="5.0"/>
+      <transition name="UGV_finished" nservers-x="0.5" type="EXP" x="31.55" y="16.0"/>
+      <place name="UAV_done" x="43.0" y="5.0"/>
+      <place name="UGV_done" x="43.0" y="16.0"/>
+      <place label-x="-4.5" label-y="0.0" name="r.Finished" x="36.0" y="10.0"/>
+      <place name="r.Counter" x="14.0" y="20.0"/>
     </nodes>
     <edges>
       <arc head="joint_decision" kind="INPUT" tail="UAV_ready"/>
@@ -77,6 +79,9 @@
       <arc head="UGV_finished" kind="INPUT" tail="UGV_doing"/>
       <arc head="UAV_done" kind="OUTPUT" tail="UAV_finished"/>
       <arc head="UGV_done" kind="OUTPUT" tail="UGV_finished"/>
+      <arc head="r.Finished" kind="OUTPUT" tail="UAV_finished"/>
+      <arc head="r.Finished" kind="OUTPUT" tail="UGV_finished"/>
+      <arc head="r.Counter" kind="OUTPUT" tail="joint_decision"/>
     </edges>
   </gspn>
 </project>

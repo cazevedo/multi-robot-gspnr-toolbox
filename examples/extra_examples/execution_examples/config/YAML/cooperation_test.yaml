@@ -3,7 +3,7 @@
       -action_server_name: "MopActionServer"
       -package_name: "multi_robot_home_clean"
       -action_name: "MoppingAction"
-      -message_fields: {"duration":10}
+      -message_fields: {"duration":5}
     UGV_doing:
       -action_server_name: "MopActionServer"
       -package_name: "multi_robot_home_clean"
