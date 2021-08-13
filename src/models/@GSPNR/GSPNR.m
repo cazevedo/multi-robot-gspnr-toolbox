@@ -434,6 +434,19 @@ classdef GSPNR < matlab.mixin.Copyable
             policy_struct.mdp = mdp;
             policy_struct.mdp_policy = policy;
         end
+        
+        function total_memory = measure_memory(GSPN)
+            total_memory = 0;
+            properties_list = string(properties(GSPN));
+            nProperties = size(properties_list, 1);
+            for p_index = 1:nProperties
+                variable = GSPN.(properties_list(p_index));
+                var_info = whos('variable');
+                total_memory = total_memory + var_info.bytes;
+            end
+            %total memory in MB
+            total_memory = total_memory/1024;
+        end
     end
     
 end

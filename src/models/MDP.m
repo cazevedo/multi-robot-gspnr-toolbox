@@ -291,6 +291,19 @@ classdef MDP < handle
                 end_state_probs = cat(1, end_state_probs, prob);
             end 
         end
+        
+        function total_memory = measure_memory(MDP)
+            total_memory = 0;
+            properties_list = string(properties(MDP));
+            nProperties = size(properties_list, 1);
+            for p_index = 1:nProperties
+                variable = MDP.(properties_list(p_index));
+                var_info = whos('variable');
+                total_memory = total_memory + var_info.bytes;
+            end
+            %total memory in MB
+            total_memory = total_memory/1024;
+        end
             
     end
     
