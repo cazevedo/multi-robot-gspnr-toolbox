@@ -1,4 +1,4 @@
-function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = toMDP_without_wait(GSPN)
+function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = continue_toMDP_without_wait(GSPN, workspace)
    %Transforms the GSPNR object into the equivalent MDP without wait states and wait actions
    %Output:
    %    emb_MDP                 [MDP object] - instance of MDP class;
@@ -18,22 +18,17 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
    current_time = datetime('now');
    
    %Markings are added to the state as soon as they are discovered
-   emb_MDP = MDP();
-   covered_marking_list = [];   %The marking represented by row i, is
-   covered_state_list = [];     %is equivalent to state in row i of this vector
-   covered_state_type = [string.empty];
+   emb_MDP = workspace.emb_MDP;
+   covered_marking_list = workspace.covered_marking_list;   %The marking represented by row i, is
+   covered_state_list = workspace.covered_state_list;     %is equivalent to state in row i of this vector
+   covered_state_type = workspace.covered_state_type;
 
    %Initialization with the initial state equivalent to the initial
    %marking of the GSPNR
-   markings_to_explore = [GSPN.initial_marking];
-   state_index = 1;
-   state_name = "S"+string(state_index);
-   state_index = state_index + 1;
-   covered_marking_list = cat(1,covered_marking_list,GSPN.initial_marking);
-   covered_state_list = cat(1, covered_state_list, state_name);
-   emb_MDP.add_state(state_name);
+   markings_to_explore = workspace.markings_to_explore;
+   state_index = workspace.state_index;
    
-   n_iterations = 0;
+   n_iterations = workspace.n_iterations;
    reporting = 1000;
 
    while ~(isempty(markings_to_explore))
