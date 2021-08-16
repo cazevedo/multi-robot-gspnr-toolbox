@@ -30,6 +30,7 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
    
    n_iterations = workspace.n_iterations;
    reporting = 1000;
+   saving = 10000;
 
    while ~(isempty(markings_to_explore))
       original_marking = markings_to_explore(1,:); %Marking to be explored
@@ -40,6 +41,8 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
         last_time = current_time;
         current_time = datetime('now');
         disp(seconds(current_time-last_time));
+      end
+      if rem(n_iteration, saving) == 0
         %Save current workspace
         workspace = struct();
         workspace.covered_marking_list = covered_marking_list;
