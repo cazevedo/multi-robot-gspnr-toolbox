@@ -3,7 +3,7 @@ clear
 
 [nGSPN, GSPN_list] = ImportfromGreatSPN("test_executable_with_result.PNPRO");
 
-model = GSPN_list.cooperation_test;
+model = GSPN_list.second_cooperation_test;
 
 executableModel = ExecutableGSPNR();
 
