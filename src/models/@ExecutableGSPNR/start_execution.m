@@ -76,7 +76,7 @@ function results = start_execution(obj)
     
     %Checking initial robot distribution and initializing variables
     nRobots = obj.nRobots;
-    RobotPlaces = obj.robot_initial_locations
+    RobotPlaces = obj.robot_initial_locations;
     %Initializing flag vector for all robots
     ExecutionFlags = repmat("FIN", [1 nRobots]);
 
@@ -103,7 +103,7 @@ function results = start_execution(obj)
           if fin_action.action == true
               %Processing exponential transition that represents the end of
               %an action
-              place_done = obj.places(fin_action.place_index)
+              place_done = obj.places(fin_action.place_index);
               index_transition_to_fire = fin_action.transition_index;
               if index_transition_to_fire == 0
                   transition_to_fire = obj.find_target_trans(obj.places(fin_action.place_index));
@@ -115,23 +115,56 @@ function results = start_execution(obj)
                   transition_to_fire = obj.transitions(index_transition_to_fire);
               end
               log_firing(logID, obj, 1, transition_to_fire, RobotPlaces, ExecutionFlags);
-              ExecutionFlags(fin_action.robot_index) = "FIN";
-              robots_involved = fin_action.robot_index;
-              obj.fire_transition(transition_to_fire);
+              %-------
+              if index_transition_to_fire == 0
+                 % Action place that is not expecting any result
+                 [fire, robots_involved, ExecutionFlags] = obj.check_transition(fin_action.robot_index, transition_to_fire, RobotPlaces, ExecutionFlags);
+                 if fire == false
+                     %Not ready to fire, not all robots have finished their
+                     %actions
+                     
+                     %continue;
+                 else
+                     %Ready to fire
+                     obj.fire_transition(transition_to_fire);
               
-              %Adding transition reward
-              trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
-              results.reward = results.reward + trans_reward;
-              % Saving results
-              timestamp = datetime('now')-start_time;
-              marking = obj.current_marking;
-              results.markings = cat(1, results.markings, marking);
-              results.transitions = cat(1, results.transitions, transition_to_fire);
-              results.timestamps = cat(1, results.timestamps, timestamp);
+                      %Adding transition reward
+                      trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
+                      results.reward = results.reward + trans_reward;
+                      % Saving results
+                      timestamp = datetime('now')-start_time;
+                      marking = obj.current_marking;
+                      results.markings = cat(1, results.markings, marking);
+                      results.transitions = cat(1, results.transitions, transition_to_fire);
+                      results.timestamps = cat(1, results.timestamps, timestamp);
+
+                      wait_state = false;
+                      RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
+                      log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
+                 end
+              else
+                 % Action place is expecting result and so there is no
+                 % possibility of having to wait for multiple robots
+                ExecutionFlags(fin_action.robot_index) = "FIN";
+                robots_involved = fin_action.robot_index;
+                %-------
+                  obj.fire_transition(transition_to_fire);
+
+                  %Adding transition reward
+                  trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
+                  results.reward = results.reward + trans_reward;
+                  % Saving results
+                  timestamp = datetime('now')-start_time;
+                  marking = obj.current_marking;
+                  results.markings = cat(1, results.markings, marking);
+                  results.transitions = cat(1, results.transitions, transition_to_fire);
+                  results.timestamps = cat(1, results.timestamps, timestamp);
+
+                  wait_state = false;
+                  RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
+                  log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
+              end
               
-              wait_state = false;
-              RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
-              log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
           else
               %Processing exponential transition that is not involved with
               %any robot places, can independently fire
@@ -182,8 +215,8 @@ function results = start_execution(obj)
                 %Check that it is a new action
                 flag = ExecutionFlags(r_index);
                 if flag == "FIN"
-                    robot_name = obj.robot_list(r_index)
-                    place_index = RobotPlaces(r_index)
+                    robot_name = obj.robot_list(r_index);
+                    place_index = RobotPlaces(r_index);
                     if ~isempty(obj.place_actions(place_index).place_name)
                         print = "Sent goal of place - "+obj.places(place_index)+"to robot "+robot_name
                         log_goals(logID, obj, 1, place_index, r_index, ExecutionFlags);
