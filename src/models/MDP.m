@@ -165,7 +165,9 @@ classdef MDP < handle
 %            exp_action_matrix = sparse(MDP.nStates, MDP.nStates);
 %            total_trans_freq = sparse(MDP.nStates, MDP.nStates);
            
-           exp_action_matrix = sparse(MDP.nStates, MDP.nStates);
+           %Create only exp_action_matrix with index and value list;
+           %exp_action_matrix = sparse(MDP.nStates, MDP.nStates);
+           
            total_trans_freq = spalloc(MDP.nStates, MDP.nStates, MDP.nEXPTransitions);
            
            exit_rates = [];
@@ -177,24 +179,30 @@ classdef MDP < handle
            exit_rates = sum(total_trans_freq, 2);
            eta = max(exit_rates) + 1;
            MDP.eta = eta;
-           %Uniformization and Normalization for Exponential Transitions
-           for source_state = 1:MDP.nStates
-               for target_state = 1:MDP.nStates
-                   if source_state == target_state
-                       %In diagonal, transition that begins and ends in
-                       %same state/marking
-                       state_type = state_types(source_state);
-                       if state_type == "TAN"
-                        exp_action_matrix(source_state, target_state) = 1 - (exit_rates(source_state)-total_trans_freq(source_state,target_state))*(1/eta);
-                       end
-                   else
-                       %Nondiagonal, normal expression
-                       if total_trans_freq(source_state, target_state) ~= 0
-                            exp_action_matrix(source_state, target_state) = total_trans_freq(source_state,target_state)/eta;
-                        end
-                   end
+           
+           exp_action_matrix_indices_i = [];
+           exp_action_matrix_indices_j = [];
+           exp_action_matrix_value = [];
+           %Do diagonals because expression is different
+           for state_index = 1:MDP.nStates
+               if state_types(state_index) == "TAN"
+                   exp_action_matrix_indices_i = cat(1, exp_action_matrix_indices_i, state_index);
+                   exp_action_matrix_indices_j = cat(1, exp_action_matrix_indices_j, state_index);
+                   value = 1 - (exit_rates(state_index)-total_trans_freq(state_index,state_index))*(1/eta);
+                   exp_action_matrix_value = cat(1, exp_action_matrix_value, value);
                end
            end
+           [source_state_indices, end_state_indices, rates] = find(total_trans_freq);
+           nNonZero = size(source_state_indices, 1);
+           for element_index = 1:nNonZero
+               exp_action_matrix_indices_i = cat(1, exp_action_matrix_indices_i, source_state_indices(element_index));
+               exp_action_matrix_indices_j = cat(1, exp_action_matrix_indices_j, end_state_indices(element_index));
+               value = (rates(element_index))/eta;
+               exp_action_matrix_value = cat(1, exp_action_matrix_value, value);
+           end
+           
+           exp_action_matrix = sparse( exp_action_matrix_indices_i, exp_action_matrix_indices_j, exp_action_matrix_value);
+           
            exponential_action_index = MDP.add_action("EXP","imm");
            
            [source_state_index, end_state_index, val] = find(exp_action_matrix);

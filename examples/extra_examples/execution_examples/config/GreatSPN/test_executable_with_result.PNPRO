@@ -103,7 +103,9 @@
       <arc head="UAV_doing" kind="OUTPUT" tail="joint_decision"/>
       <arc head="UGV_doing" kind="OUTPUT" tail="joint_decision"/>
       <arc head="r.Counter" kind="OUTPUT" tail="joint_decision"/>
-      <arc head="joint_finished" kind="INPUT" tail="UAV_doing"/>
+      <arc head="joint_finished" kind="INPUT" mult-k="0.9868164062500001" mult-x="-0.500052287225131" mult-y="1.4999651418499091" tail="UAV_doing">
+        <point x="26.52373046875" y="9.0158203125"/>
+      </arc>
       <arc head="joint_finished" kind="INPUT" tail="UGV_doing"/>
       <arc head="UAV_done" kind="OUTPUT" tail="joint_finished"/>
       <arc head="UGV_done" kind="OUTPUT" tail="joint_finished"/>

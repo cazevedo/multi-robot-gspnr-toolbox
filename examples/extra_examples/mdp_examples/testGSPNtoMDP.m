@@ -78,4 +78,4 @@ clear
 [n, GSPN_array] = ImportfromGreatSPN('test_toMDP_without_WAITS.PNPRO');
 test = copy(GSPN_array.GSPN);
 
-[MDP, markings, states, types] = test.toMDP_without_wait();
+[MDP, markings, states, types] = test.toMDP();
