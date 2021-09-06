@@ -42,9 +42,10 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
         current_time = datetime('now');
         disp(seconds(current_time-last_time));
       end
-      if rem(n_iteration, saving) == 0
+      if rem(n_iterations, saving) == 0
         %Save current workspace
         workspace = struct();
+        workspace.gspn = GSPN;
         workspace.covered_marking_list = covered_marking_list;
         workspace.covered_state_list = covered_state_list;
         workspace.covered_state_type = covered_state_type;
