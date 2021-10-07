@@ -231,7 +231,9 @@ classdef ExecutableGSPNR < GSPNR
                 state_name = policy_struct.states(m_index);
                 state_index = policy_struct.mdp.find_state(state_name);
                 action_index = policy_struct.mdp_policy(state_index);
-                obj.policy.transitions(m_index) = policy_struct.mdp.actions(action_index);
+                if action_index ~= 0
+                    obj.policy.transitions(m_index) = policy_struct.mdp.actions(action_index);
+                end
             end
         end
         

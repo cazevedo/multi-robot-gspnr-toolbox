@@ -1,4 +1,4 @@
-function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = continue_toMDP_without_wait(GSPN, workspace)
+function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type] = continue_toMDP_without_wait(workspace)
    %Transforms the GSPNR object into the equivalent MDP without wait states and wait actions
    %Output:
    %    emb_MDP                 [MDP object] - instance of MDP class;
@@ -16,6 +16,8 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
    %                                             of state in the MDP
    
    current_time = datetime('now');
+   
+   GSPN = workspace.gspn;
    
    %Markings are added to the state as soon as they are discovered
    emb_MDP = workspace.emb_MDP;

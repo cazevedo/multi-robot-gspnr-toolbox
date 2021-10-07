@@ -47,18 +47,18 @@ function results = start_execution(obj)
     fprintf('----------------------\nAll interface action servers needed are correctly launched\n----------------------\n');
     %Check that all actions that are supposed to be run are actually available
     nActionPlaces = size(obj.place_actions, 2);
-    for ap_index = 1:nActionPlaces
-        if ~isempty(obj.place_actions(ap_index).place_name)
-            for r_index = 1:obj.nRobots
-                robot_name = obj.robot_list(r_index);
-                action_server_name = "/"+robot_name + "/" + obj.place_actions(ap_index).server_name;
-                if isempty(find(actionlist == action_server_name))
-                    error_string = "Action server for action '"+action_server_name+"' is not running";
-                    error(error_string);
-                end
-            end
-        end
-    end
+%     for ap_index = 1:nActionPlaces
+%         if ~isempty(obj.place_actions(ap_index).place_name)
+%             for r_index = 1:obj.nRobots
+%                 robot_name = obj.robot_list(r_index);
+%                 action_server_name = "/"+robot_name + "/" + obj.place_actions(ap_index).server_name;
+%                 if isempty(find(actionlist == action_server_name))
+%                     error_string = "Action server for action '"+action_server_name+"' is not running";
+%                     error(error_string);
+%                 end
+%             end
+%         end
+%     end
 
     fprintf('----------------------\nAll robot action servers needed are correctly launched\n----------------------\n');
     %----------------------
