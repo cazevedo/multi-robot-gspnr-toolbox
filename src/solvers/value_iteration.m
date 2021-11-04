@@ -62,11 +62,14 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
 
     if max_min
         isbetter = @(x,y)x>y;
+        new_value = -Inf;
     else
         isbetter = @(x,y)x<y;
+        new_value = Inf;
     end
     
     new_policy = -1;
+    
 
     state_name = MDP.states(state_index);
     enabled_actions = MDP.actions_enabled(state_name);
@@ -91,13 +94,12 @@ function [new_value, new_policy] = bellman_update(MDP, state_index, max_min, gam
             Q_val = Q_val + (gamma * end_state_probs(s_index) * values(end_state_indices(s_index)) );
         end
         
-        if isbetter(Q_val, Q_max(state_index))
-            Q_max(state_index) = Q_val;
+        if isbetter(Q_val, new_value)
+            new_value = Q_val;
             new_policy = action_index;
         end
         %debug = "In bellman update, did iteration "+string(a_index)+"out of "+string(nEnabledActions)+"actions possible"
     end
-    new_value = Q_max(state_index);
     
     if nEnabledActions == 0
         new_policy = 0;
