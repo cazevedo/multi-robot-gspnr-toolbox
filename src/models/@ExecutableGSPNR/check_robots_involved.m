@@ -2,8 +2,8 @@ function robots_involved = check_robots_involved(obj, transition, RobotPlaces)
 %CHECKROBOTSINVOLVED Summary of this function goes here
 %   Detailed explanation goes here
     robots_involved = [];
-    transition
-    obj.current_marking
+    transition;
+    obj.current_marking;
     trans_index = obj.find_transition_index(transition);
     [input_place_indices, col, val] = find(obj.input_arcs(:, trans_index));
     nInputPlaces = size(input_place_indices, 1);

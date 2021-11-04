@@ -18,15 +18,19 @@ function [fire, robots_involved, new_RobotFlags] = check_transition(obj, robot_i
             arc_weight = arc_weight - 1;
         end
         done = true;
-        robot_indices_in_input_place = find(RobotPlaces == input_place_index);
-        robot_flags_in_input_place = RobotFlags(robot_indices_in_input_place);
-        robot_indices_waiting_in_input_place = find(robot_flags_in_input_place == "WAIT");
+        robot_indices_in_input_place = RobotPlaces == input_place_index;
+        robot_indices_waiting = RobotFlags == "WAIT";
+        robot_indices_waiting_in_input_place = find(robot_indices_in_input_place & robot_indices_waiting);
         nRobotsWaiting = size(robot_indices_waiting_in_input_place, 2);
         if nRobotsWaiting >= arc_weight
             if ~isempty(robot_indices_waiting_in_input_place)
-                chosen_robots = randsample(robot_indices_waiting_in_input_place, arc_weight);
+                if size(robot_indices_waiting_in_input_place, 2) == 1
+                    chosen_robots = [robot_indices_waiting_in_input_place];
+                else
+                    chosen_robots = randsample(robot_indices_waiting_in_input_place, arc_weight);
+                end
                 if isempty(chosen_robots)
-                    chosen_robots = []
+                    chosen_robots = [];
                 end
             else
                 chosen_robots = [];
