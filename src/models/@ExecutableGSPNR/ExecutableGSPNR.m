@@ -210,8 +210,9 @@ classdef ExecutableGSPNR < GSPNR
             %   markings    [int matrix] - each row is a marking for the GSPNR
             %   transitions [string array] - each i-th element is the transition that should fire when the GSPNR's current marking is the
             %                                marking in the i-th row of the markings input
+            obj.empty_policy = false;
             obj.policy.markings = markings;
-            obj.transitions = transitions;
+            obj.policy.transitions = transitions;
         end
         
         function set_policy(obj, policy_struct)
