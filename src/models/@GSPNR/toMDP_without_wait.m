@@ -41,11 +41,12 @@ function [emb_MDP, covered_marking_list, covered_state_list, covered_state_type]
       original_marking = markings_to_explore(1,:); %Marking to be explored
       n_iterations = n_iterations + 1;
       if rem(n_iterations, reporting) == 0
-        disp(sum(original_marking))
-        disp(size(covered_state_list, 1))
+        disp(["Number of tokens in current marking - ", sum(original_marking)])
+        disp(["Number of markings explored - ", size(covered_state_list, 1)])
+        disp(["Current number of unexplored markings - ", size(markings_to_explore, 1)])
         last_time = current_time;
         current_time = datetime('now');
-        disp(seconds(current_time-last_time));
+        disp(["Time of 1000 iterations - ", seconds(current_time-last_time)]);
       end
       if rem(n_iterations, saving) == 0
         %Save current workspace
