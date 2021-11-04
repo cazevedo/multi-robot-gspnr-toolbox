@@ -99,16 +99,32 @@ function launch_name = create_python_interface_scripts(obj, package_dir)
         fprintf(fileID, '\n\t\tgoal_dict = place_index_to_goal(place_index)');
         fprintf(fileID, '\n\t\tfor key, value in goal_dict.items():');
         fprintf(fileID, '\n\t\t\t setattr(slave_goal, key, value)');
-        fprintf(fileID, '\n\t\tclient.send_goal(slave_goal)\n\t\tclient.wait_for_result()');
-        fprintf(fileID, '\n\t\tif place_index_to_results(place_index)!=False:');
-        fprintf(fileID, '\n\t\t\tslave_result = client.get_result()');
-        fprintf(fileID, '\n\t\t\ttrans_index = place_index_to_results(place_index)[slave_result.result]');
-        fprintf(fileID, '\n\t\t\tresult.sequence.append(place_index)\n\t\t\tresult.sequence.append(robot_index)\n\t\t\tresult.sequence.append(trans_index)');
+        fprintf(fileID, '\n\t\tclient.send_goal(slave_goal)');
+        fprintf(fileID, '\n\t\tpreempted = False');
+        fprintf(fileID, '\n\t\tdone = False');
+        fprintf(fileID, '\n\t\twhile (not done):');
+        fprintf(fileID, '\n\t\t\tpreempted = self._as.is_preempt_requested()');
+        fprintf(fileID, '\n\t\t\tif preempted:');
+        fprintf(fileID, '\n\t\t\t\tclient.cancel_goal()');
+        fprintf(fileID, '\n\t\t\t\tbreak');
+        fprintf(fileID, '\n\t\t\tdone = client.wait_for_result(rospy.Duration(1))');
+        
+        fprintf(fileID, '\n\t\tif (not preempted):');
+        fprintf(fileID, '\n\t\t\tif place_index_to_results(place_index)!=False:');
+        fprintf(fileID, '\n\t\t\t\tslave_result = client.get_result()');
+        fprintf(fileID, '\n\t\t\t\ttrans_index = place_index_to_results(place_index)[slave_result.result]');
+        fprintf(fileID, '\n\t\t\t\tresult.sequence.append(place_index)\n\t\t\t\tresult.sequence.append(robot_index)\n\t\t\t\tresult.sequence.append(trans_index)');
+        fprintf(fileID, '\n\t\t\telse:');
+        fprintf(fileID, '\n\t\t\t\tclient.get_result()\n\t\t\t\tresult.sequence.append(place_index)\n\t\t\t\tresult.sequence.append(robot_index)\n\t\t\t\tresult.sequence.append(0)');
+        fprintf(fileID, '\n\t\t\tself._as.set_succeeded(result)');
+        
         fprintf(fileID, '\n\t\telse:');
-        fprintf(fileID, '\n\t\t\tclient.get_result()\n\t\t\tresult.sequence.append(place_index)\n\t\t\tresult.sequence.append(robot_index)\n\t\t\tresult.sequence.append(0)');
-        fprintf(fileID, '\n\t\tself._as.set_succeeded(result)');
+        fprintf(fileID, '\n\t\t\tresult.sequence.append(0)');
+        fprintf(fileID, '\n\t\t\tresult.sequence.append(0)');
+        fprintf(fileID, '\n\t\t\tresult.sequence.append(0)');
+        fprintf(fileID, '\n\t\t\tself._as.set_preempted(result)');
+        
         fprintf(fileID, '\n\nif __name__ == ''__main__'':');
-
         interface_server_node_name = "rospy.init_node('matlab_interface_server_"+robot_name+"')";
         fprintf(fileID, '\n\t%s', interface_server_node_name);
         fprintf(fileID, '\n\tserver = MatlabInterfaceAction(rospy.get_name())');

@@ -91,8 +91,9 @@ function results = start_execution(obj)
     
     % Save results
     global results;
-    start_time = datetime('now');
-    results = struct("markings", [], "transitions", [], "timestamps", [], "reward", 0);
+    sim_time = rostime('now');
+    start_time = datetime(sim_time.Sec + 10^-9*sim_time.Nsec,'ConvertFrom','posixtime');
+    results = struct("markings", [], "transitions", [], "timestamps", [], "reward", 0, "robot_places", []);
     
     while (~done)
 
@@ -118,7 +119,7 @@ function results = start_execution(obj)
               %-------
               if index_transition_to_fire == 0
                  % Action place that is not expecting any result
-                 [fire, robots_involved, ExecutionFlags] = obj.check_transition(fin_action.robot_index, transition_to_fire, RobotPlaces, ExecutionFlags);
+                 [fire, robots_involved, ExecutionFlags] = obj.check_transition(fin_action.robot_index, transition_to_fire, RobotPlaces, ExecutionFlags)
                  if fire == false
                      %Not ready to fire, not all robots have finished their
                      %actions
@@ -132,14 +133,18 @@ function results = start_execution(obj)
                       trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
                       results.reward = results.reward + trans_reward;
                       % Saving results
-                      timestamp = datetime('now')-start_time;
+                      now_sim_time = rostime('now');
+                      now_matlab = datetime(now_sim_time.Sec + 10^-9*now_sim_time.Nsec,'ConvertFrom','posixtime');
+                      timestamp = now_matlab-start_time;
                       marking = obj.current_marking;
                       results.markings = cat(1, results.markings, marking);
                       results.transitions = cat(1, results.transitions, transition_to_fire);
                       results.timestamps = cat(1, results.timestamps, timestamp);
+                      
 
                       wait_state = false;
                       RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
+                      results.robot_places = cat(1, results.robot_places, RobotPlaces);
                       log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
                  end
               else
@@ -148,21 +153,28 @@ function results = start_execution(obj)
                 ExecutionFlags(fin_action.robot_index) = "FIN";
                 robots_involved = fin_action.robot_index;
                 %-------
-                  obj.fire_transition(transition_to_fire);
+                  [imm_enabled, exp_enabled] = obj.enabled_transitions();
+                  if ismember(transition_to_fire, exp_enabled)
+                    obj.fire_transition(transition_to_fire);
 
-                  %Adding transition reward
-                  trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
-                  results.reward = results.reward + trans_reward;
-                  % Saving results
-                  timestamp = datetime('now')-start_time;
-                  marking = obj.current_marking;
-                  results.markings = cat(1, results.markings, marking);
-                  results.transitions = cat(1, results.transitions, transition_to_fire);
-                  results.timestamps = cat(1, results.timestamps, timestamp);
+                      %Adding transition reward
+                      trans_reward = obj.transition_rewards(obj.find_transition_index(transition_to_fire));
+                      results.reward = results.reward + trans_reward;
+                      % Saving results
+                      now_sim_time = rostime('now');
+                      now_matlab = datetime(now_sim_time.Sec + 10^-9*now_sim_time.Nsec,'ConvertFrom','posixtime');
+                      timestamp = now_matlab-start_time;
+                      
+                      marking = obj.current_marking;
+                      results.markings = cat(1, results.markings, marking);
+                      results.transitions = cat(1, results.transitions, transition_to_fire);
+                      results.timestamps = cat(1, results.timestamps, timestamp);
 
-                  wait_state = false;
-                  RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
-                  log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
+                      wait_state = false;
+                      RobotPlaces = obj.update_robot_places(transition_to_fire, RobotPlaces, robots_involved);
+                      results.robot_places = cat(1, results.robot_places, RobotPlaces);
+                      log_firing(logID, obj, 2, transition_to_fire, RobotPlaces, ExecutionFlags);
+                  end
               end
               
           else
@@ -180,11 +192,15 @@ function results = start_execution(obj)
                   trans_reward = obj.transition_rewards(obj.find_transition_index(transition_name));
                   results.reward = results.reward + trans_reward;
                   % Saving results
-                  timestamp = datetime('now')-start_time;
+                  now_sim_time = rostime('now');
+                  now_matlab = datetime(now_sim_time.Sec + 10^-9*now_sim_time.Nsec,'ConvertFrom','posixtime');
+                  timestamp = now_matlab-start_time;
+                  
                   marking = obj.current_marking;
                   results.markings = cat(1, results.markings, marking);
                   results.transitions = cat(1, results.transitions, transition_name);
                   results.timestamps = cat(1, results.timestamps, timestamp);
+                  results.robot_places = cat(1, results.robot_places, RobotPlaces);
               
                   wait_state = false;
                   in_vector_index = find(simple_transitions == transition_name);
@@ -265,18 +281,25 @@ function results = start_execution(obj)
                 log_firing(logID, obj, 1, imm(rn_trans), RobotPlaces, ExecutionFlags);
                 obj.fire_transition(imm(rn_trans));
                 
+                %Check all robot flags are set to FIN, if not, set them
+                ExecutionFlags(robots_involved) = "FIN";
+                
                 %Adding transition reward
                 trans_reward = obj.transition_rewards(obj.find_transition_index(imm(rn_trans)));
                 results.reward = results.reward + trans_reward;
                 % Saving results
-                timestamp = datetime('now')-start_time;
+                now_sim_time = rostime('now');
+                now_matlab = datetime(now_sim_time.Sec + 10^-9*now_sim_time.Nsec,'ConvertFrom','posixtime');
+                timestamp = now_matlab-start_time;
                 marking = obj.current_marking;
                 results.markings = cat(1, results.markings, marking);
                 results.transitions = cat(1, results.transitions, imm(rn_trans));
                 results.timestamps = cat(1, results.timestamps, timestamp);
                 
+                
                 wait_state = false;
                 RobotPlaces     = obj.update_robot_places(imm(rn_trans), RobotPlaces, robots_involved);
+                results.robot_places = cat(1, results.robot_places, RobotPlaces);
                 log_firing(logID, obj, 2, imm(rn_trans), RobotPlaces, ExecutionFlags);
             elseif transition == "WAIT"
                 fprintf("Policy action was WAIT")
@@ -287,19 +310,25 @@ function results = start_execution(obj)
                 robots_involved = obj.check_robots_involved(transition, RobotPlaces);
                 log_firing(logID, obj, 1, transition, RobotPlaces, ExecutionFlags);
                 obj.fire_transition(transition);
+                %Check all robot flags are set to FIN, if not, set them
+                ExecutionFlags(robots_involved) = "FIN";
                 
                 %Adding transition reward
                 trans_reward = obj.transition_rewards(obj.find_transition_index(transition));
                 results.reward = results.reward + trans_reward;
                 % Saving results
-                timestamp = datetime('now')-start_time;
+                now_sim_time = rostime('now');
+                now_matlab = datetime(now_sim_time.Sec + 10^-9*now_sim_time.Nsec,'ConvertFrom','posixtime');
+                timestamp = now_matlab-start_time;
                 marking = obj.current_marking;
                 results.markings = cat(1, results.markings, marking);
                 results.transitions = cat(1, results.transitions, transition);
                 results.timestamps = cat(1, results.timestamps, timestamp);
                 
+                
                 wait_state = false;
                 RobotPlaces     = obj.update_robot_places(transition, RobotPlaces, robots_involved);
+                results.robot_places = cat(1, results.robot_places, RobotPlaces);
                 log_firing(logID, obj, 2, transition, RobotPlaces, ExecutionFlags);
             end
         end
