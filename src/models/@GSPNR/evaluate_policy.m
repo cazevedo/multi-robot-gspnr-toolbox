@@ -1,4 +1,4 @@
-function results = evaluate_policy(obj, policy, nTransitions, n_report)
+function results = evaluate_policy(obj, policy, max_time, n_report, handcrafted)
 %EVALUATE_POLICY Simulate the policy execution with simulated time
 %Input:
 %   policy_struct   [struct] - struct containing the following fields:
@@ -23,17 +23,32 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
 %                       same position in the "transitions" field)
 %                       transition fired;
 
-    %Build easier policy struct
-    markings_to_transition = struct();
-    markings_to_transition.markings = policy.state_index_to_markings;
-    for m_index = 1:size(policy.state_index_to_markings, 1)
-        state_name = policy.states(m_index);
-        state_index = policy.mdp.find_state(state_name);
-        action_index = policy.mdp_policy(state_index);
-        markings_to_transition.transitions(m_index) = policy.mdp.actions(action_index);
-    end
+    if ~isempty(policy)
+        if handcrafted == 0
+        %Build easier policy struct
+            markings_to_transition = struct();
+            markings_to_transition.markings = policy.state_index_to_markings;
+            for m_index = 1:size(policy.state_index_to_markings, 1)
+                state_name = policy.states(m_index);
+                state_index = policy.mdp.find_state(state_name);
+                action_index = policy.mdp_policy(state_index);
+                markings_to_transition.transitions(m_index) = policy.mdp.actions(action_index);
+            end
+        else
+            markings_to_transition = struct();
+            markings_to_transition.markings = policy.markings;
+            for m_index = 1:size(policy.markings, 1)
+                markings_to_transition.transitions(m_index) = policy.transitions(m_index);
+            end
+        end
+            
     
-    disp("Finished loading policy");
+
+        disp("Finished loading policy");
+    else
+        markings_to_transition.markings = zeros(1, size(obj.places, 2));
+        markings_to_transition.transition = "";
+    end
     
     %Setting initial marking as current marking
     obj.set_marking(obj.initial_marking);
@@ -45,13 +60,15 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
     results = struct("markings", [], "transitions", [], "timestamps", [], "reward", 0);
     
     transitions_fired = 0;
+    policy_decisions = 0;
+    random_decisions = 0;
     done = 0;
     %Start Executing
     while(~done)
         %Print current marking
         marking_type = obj.check_marking_type();
         marking = obj.current_marking;
-        if mod(transitions_fired, n_report) == 0
+        if mod(transitions_fired, n_report) == 0 && transitions_fired ~=0
             disp("-----------------------------")
             disp("Current marked places are the following:");
             marked_place_indices = find(marking);
@@ -62,7 +79,6 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
                 msg = place_name+":"+string(ntokens);
                 disp(msg);
             end
-            msg = "Percentage of transitions fired - "+string((transitions_fired/nTransitions)*100)+"%";
             disp(msg)
             previous_reporting_time = reporting_time;
             reporting_time = datetime('now');
@@ -71,13 +87,19 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
             disp("-----------------------------")
         end
         [imm, exp] = obj.enabled_transitions();
+        if marking_type == "SINK"
+            done = 1;
+        end
         if (marking_type == "DET" || marking_type == "RAN")
             if marking_type == "DET"
                 %Check policy
                 [exists, marking_index] = ismember(marking, markings_to_transition.markings, 'rows');
-                if exists
+                if exists == 0
+                    transition="";
+                else
                     transition = markings_to_transition.transitions(marking_index);
-                    
+                end
+                if exists && transition ~=""
                     %msg = "Will fire transition from policy - "+transition;
                     %disp(msg);
                     if ~isempty(find(imm == transition))
@@ -97,14 +119,25 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
                         %disp(msg);
                         
                         transitions_fired = transitions_fired + 1;
-                        if transitions_fired == nTransitions
-                            done = 1;
-                        end
+                        policy_decisions = policy_decisions + 1;
                     else
                         error("Transition given by policy was not enabled")
                     end
                 else
-                    error("Partial policy");
+                    nImmTransitions = size(imm, 2);
+                    rn_trans = randi(nImmTransitions);
+                    transition = imm(rn_trans);
+                    obj.fire_transition(transition);
+                    trans_reward = obj.transition_rewards(obj.find_transition_index(transition));
+                    results.reward = results.reward + trans_reward;
+                    % Saving results
+                    timestamp = now-start;
+                    marking = obj.current_marking;
+                    results.markings = cat(1, results.markings, marking);
+                    results.transitions = cat(1, results.transitions, transition);
+                    results.timestamps = cat(1, results.timestamps, timestamp);
+                    transitions_fired = transitions_fired + 1;
+                    random_decisions = random_decisions + 1;
                 end
                 continue;
             end
@@ -138,9 +171,6 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
                 results.transitions = cat(1, results.transitions, transition);
                 results.timestamps = cat(1, results.timestamps, timestamp);
                 transitions_fired = transitions_fired + 1;
-                if transitions_fired == nTransitions
-                    done = 1;
-                end
                 continue;
             end
         elseif marking_type == "TAN"
@@ -175,8 +205,15 @@ function results = evaluate_policy(obj, policy, nTransitions, n_report)
             results.transitions = cat(1, results.transitions, transition_chosen);
             results.timestamps = cat(1, results.timestamps, timestamp);
             transitions_fired = transitions_fired + 1;
-            if transitions_fired == nTransitions
+            if seconds(timestamp) > max_time
                 done = 1;
+                disp(["Policy decisions - " policy_decisions]);
+                disp(["Random decisions - " random_decisions]);
+
+            end
+            if mod(transitions_fired, n_report) == 0
+                msg = "Simulated time is "+string(seconds(results.timestamps(end)))+"seconds";
+                disp(msg);
             end
         end
     end
