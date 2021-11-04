@@ -7,6 +7,7 @@ classdef ExecutableGSPNR < GSPNR
         unique_ROS_package_dependencies = [string.empty]; %[string array] - list of names of unique ROS packages used by user-defined ROS action servers
         nROSDependencies = 0;           %[int] - number of unique ROS packages used by user-defined ROS action servers
         launch_cmd = string.empty;      %[string] - command sent to OS to launch interface action servers
+        messages_check = false;
         
         place_actions = struct();       %[struct array] - each index points to the action server and further information needed to send goal corresponding to the execution of the particular place with that index
 
